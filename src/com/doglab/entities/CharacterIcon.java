@@ -14,8 +14,8 @@ public class CharacterIcon extends Entity{
 	public CharacterIcon(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		barrier = Game.spr_entities.getSprite(0, 0, 196, 156);
-		barrierX = (int)(x-32);
-		barrierY = (int)(y-12);
+		barrierX = (int)(x-97);
+		barrierY = (int)(y-77);
 		iconX = (int)(x-65);
 		iconY = (int)(y-65);
 	}
@@ -25,8 +25,9 @@ public class CharacterIcon extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(barrier, barrierX, barrierY, null);
 		g.drawImage(Game.player.icon, iconX, iconY, 130, 130, null);
+		g.drawImage(barrier, barrierX, barrierY, null);
+		
 	}
 
 }

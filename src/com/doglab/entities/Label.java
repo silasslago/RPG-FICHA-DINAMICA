@@ -16,7 +16,7 @@ public class Label extends Entity{
 	public Label(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		labels = new ArrayList<Entity>();
-		edit = new EditButton(getX()+getWidth()-10, 10, 25, 25, 0, Game.spr_entities.getSprite(76, 156, 25, 25));
+		edit = new EditButton(getX()+getWidth()-25-10, getY()+10, 25, 25, 0, Game.spr_entities.getSprite(76, 156, 25, 25));
 	}
 	
 	public void tick() {
