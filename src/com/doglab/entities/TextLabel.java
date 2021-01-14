@@ -13,6 +13,7 @@ public class TextLabel extends Entity{
 	public String text;
 	public boolean writing = false;
 	public int typeText;
+	private int barType;
 	
 	private int timer = 0;
 	private int maxTimer = 30;
@@ -28,7 +29,7 @@ public class TextLabel extends Entity{
 		this.typeText = typeText;
 		if(font.getSize() == 51) {
 			this.y = 580;
-		}else if(font.getSize() == 31) {
+		}else if(font.getSize() == 31) { // Barras
 			if(y == 533) {
 				this.y = 510;
 			}else if(y == 423) {
