@@ -92,6 +92,7 @@ public class mouseController extends Entity{
 			this.y = (int)yTarget;
 			changeIcon();
 			changeLabel();
+			
 		}
 		
 	}
@@ -122,8 +123,8 @@ public class mouseController extends Entity{
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof TextLabel) {
+				
 				if(isColliding(this, e)) {
-					
 					for(int ii = 0; ii < Game.entities.size(); ii++) {
 						Entity ee = Game.entities.get(ii);
 						if(ee instanceof TextLabel) {

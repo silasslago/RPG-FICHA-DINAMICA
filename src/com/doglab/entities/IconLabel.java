@@ -17,6 +17,10 @@ public class IconLabel extends Label{
 		labels.add(dice);
 		labels.add(characterIcon);
 	}
+	
+	public void tick() {
+		
+	}
 
 	public void render(Graphics g) {
 		super.render(g);

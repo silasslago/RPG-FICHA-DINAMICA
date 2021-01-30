@@ -22,6 +22,9 @@ public class Label extends Entity{
 	public void tick() {
 		if(this.isColliding(edit, Game.mouseController)) {
 			isEditing = !isEditing;
+			Game.mouseController.x = -1;
+			Game.mouseController.y = -1;
+			System.out.println("edição");
 		}
 		for(int i = 0; i < labels.size(); i++) {
 			Entity e = labels.get(i);
