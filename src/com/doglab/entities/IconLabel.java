@@ -2,8 +2,14 @@ package com.doglab.entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.doglab.main.Game;
+import com.doglab.world.World;
 
 public class IconLabel extends Label{
 
@@ -19,26 +25,33 @@ public class IconLabel extends Label{
 	}
 	
 	public void tick() {
-		
+		super.tick();
+		if(edit.isEditing) {
+			changeIcon();
+		}
 	}
 
 	public void render(Graphics g) {
 		super.render(g);
-		int textY = 165;
-		textY+=30;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
+	}
+	
+	private void changeIcon() {
+		double z = World.calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
+				characterIcon.getX(), characterIcon.getY());
+		if(z < 65) {
+			Game.mouseController.resetPosition();
+			Game.fileChooser.setDialogTitle("avatar");
+			Game.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "png", "jpg");
+			Game.fileChooser.setFileFilter(filter);
+			int fileSelected = Game.fileChooser.showOpenDialog(Game.game);
+			if(fileSelected == JFileChooser.APPROVE_OPTION) {
+				File file = Game.fileChooser.getSelectedFile();
+				String path = file.getPath();
+				ImageIcon icon = new ImageIcon(path);
+				Game.player.icon = icon.getImage();
+			}
+		}
 	}
 	
 }

@@ -49,8 +49,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static BufferedImage image;
 	public static String gameState = "MENU";
 	public static World world;
-	public static int mouseX = 0;
-	public static int mouseY = 0;
 	public static Menu menu;
 	public static Player player;
 	public static mouseController mouseController;
@@ -62,7 +60,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static int portugues = 0, english = 1;
 	public static int language = portugues;
 	public static int maxLanguage = english;
-	
+
 	public Game() {
 		addKeyListener(this);
 		addMouseListener(this);
@@ -163,8 +161,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 			if(frame.getMousePosition() != null) {
 				try{
-					Game.mouseX = getMousePosition().x;
-					Game.mouseY = getMousePosition().y;
+					mouseController.currentX = getMousePosition().x;
+					mouseController.currentY = getMousePosition().y;
 				}catch(NullPointerException e ){
 				      e.printStackTrace();
 				}
@@ -185,8 +183,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}else if(gameState == "MENU") {
 			if(frame.getMousePosition() != null) {
 				try{
-					Game.mouseX = getMousePosition().x;
-					Game.mouseY = getMousePosition().y;
+					mouseController.currentX = getMousePosition().x;
+					mouseController.currentY = getMousePosition().y;
 				}catch(NullPointerException e ){
 				      e.printStackTrace();
 				}
@@ -274,12 +272,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(mouseController.throwPhrase) {
+		if(mouseController.currentTextLabel.throwPhrase) {
 			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-				mouseController.resetPhrase();
+				mouseController.currentTextLabel.resetPhrase();
 				return;
 			}
-			mouseController.buildPhrase(e.getKeyChar());	
+			mouseController.currentTextLabel.buildPhrase(e.getKeyChar());	
 		}
 	}
 

@@ -2,9 +2,8 @@ package com.doglab.entities;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import com.doglab.main.Game;
 
 public class DetailsLabel extends Label{
 
@@ -41,20 +40,43 @@ public class DetailsLabel extends Label{
 				new Color(0xFFE8EDEB), "bornPlace", 0);
 		detalhes = new TextLabel(65, 130, 200, 31, 0, null, new Font("sitka banner", Font.BOLD, 21), 
 				new Color(0xFFE8EDEB), "DETALHES PESSOAIS", 1);
-		Game.entities.add(detalhes);
-		Game.entities.add(ldR);
-		Game.entities.add(ldM);
-		Game.entities.add(sex);
-		Game.entities.add(idade);
-		Game.entities.add(ocupation);
-		Game.entities.add(player);
-		Game.entities.add(nome);
-		Game.entities.add(namePlayer);
-		Game.entities.add(playerPlayer);
-		Game.entities.add(ocupationPlayer);
-		Game.entities.add(agePlayer);
-		Game.entities.add(genderPlayer);
-		Game.entities.add(bornPlayer);
+		labels.add(detalhes);
+		labels.add(ldR);
+		labels.add(ldM);
+		labels.add(sex);
+		labels.add(idade);
+		labels.add(ocupation);
+		labels.add(player);
+		labels.add(nome);
+		labels.add(namePlayer);
+		labels.add(playerPlayer);
+		labels.add(ocupationPlayer);
+		labels.add(agePlayer);
+		labels.add(genderPlayer);
+		labels.add(bornPlayer);
 	}
 
+	public void tick() {
+		super.tick();
+	}
+	
+	public void render(Graphics g) {
+		super.render(g);
+		int textY = 165;
+		textY+=30;
+		g.drawLine(30, textY, 280, textY);
+		textY+=55;
+		g.drawLine(30, textY, 280, textY);
+		textY+=55;
+		g.drawLine(30, textY, 280, textY);
+		textY+=55;
+		g.drawLine(30, textY, 280, textY);
+		textY+=55;
+		g.drawLine(30, textY, 280, textY);
+		textY+=55;
+		g.drawLine(30, textY, 280, textY);
+		textY+=55;
+		g.drawLine(30, textY, 280, textY);
+	}
+	
 }

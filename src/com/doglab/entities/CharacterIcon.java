@@ -27,7 +27,6 @@ public class CharacterIcon extends Entity{
 	public void render(Graphics g) {
 		g.drawImage(Game.player.icon, iconX, iconY, 130, 130, null);
 		g.drawImage(barrier, barrierX, barrierY, null);
-		
 	}
 
 }
