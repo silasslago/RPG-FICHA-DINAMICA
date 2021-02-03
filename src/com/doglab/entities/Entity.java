@@ -23,6 +23,7 @@ public class Entity {
 	protected double gravity = 0.3;
 	
 	protected List<Node> path;
+	protected int order = 0;
 	
 	protected int maskx, masky, maskw, maskh;
 	

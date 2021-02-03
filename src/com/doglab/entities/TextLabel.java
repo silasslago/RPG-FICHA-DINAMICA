@@ -27,6 +27,7 @@ public class TextLabel extends Label{
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText) {
 		super(x, y-font.getSize(), width, height, speed, sprite);
+		size = 0;
 		this.font = font;
 		this.color = color;
 		this.text = text;
@@ -46,6 +47,30 @@ public class TextLabel extends Label{
 	}
 
 	public void tick() {
+		
+		if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()) &&
+				(Game.mouseController.currentX < this.getX()+this.getWidth() && 
+						Game.mouseController.currentY < this.getY()+this.getHeight())) {
+			if(!current) {
+				size = font.getSize();
+				this.x-=size/10;
+				this.y-=size/2;
+				this.width+=size;
+				this.height+=size;
+				current = true;
+			}
+		}else {
+			if(current) {
+				this.x+=size/10;
+				this.y+=size/2;
+				this.width-=size;
+				this.height-=size;
+				current = false;
+				size = 0;
+			}
+		}
+		
+		super.tick();
 		if(edit.isEditing()) {
 			changeLabel();
 		}
@@ -60,7 +85,7 @@ public class TextLabel extends Label{
 	
 	public void render(Graphics g) {
 		g.setColor(color);
-		g.setFont(font);
+		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/4));
 		g.drawString(text, getX(), imaginaryY);
 		if(writing && show) {
 			g.setColor(Color.white);

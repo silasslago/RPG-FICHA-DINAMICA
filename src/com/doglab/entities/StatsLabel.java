@@ -9,7 +9,7 @@ import com.doglab.main.Game;
 
 public class StatsLabel extends Label{
 
-	private TextLabel life, sani, ocul, extrada, corpo, expPar, livePlayer, lifePlayer, maxLie, sanityPlayer,
+	private TextLabel life, sani, ocul, extrada, corpo, expPar, lifePlayer, maxLie, sanityPlayer,
 	maxSanityPlayer, ocultismoPlayer, maxOcultismoPlayer, body, extraDamage,paranormalExp;
 	private Dice dice;
 	private Color lifeColor = new Color(0xFF500101),
@@ -30,8 +30,6 @@ public class StatsLabel extends Label{
 				new Color(0xFFE8EDEB), "Corpo", 1);
 		expPar = new TextLabel(540, 560, 60, 20, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Exp. Par.", 1);
-		livePlayer = new TextLabel(30, 520, 55, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
-				new Color(0xFFE8EDEB), "livingPlace", 0);
 		lifePlayer = new TextLabel(450, 313, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2);
 		maxLie = new TextLabel(485, 313, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
@@ -60,7 +58,6 @@ public class StatsLabel extends Label{
 		labels.add(body);
 		labels.add(paranormalExp);
 		labels.add(extraDamage);
-		labels.add(livePlayer);
 		labels.add(life);
 		labels.add(sani);
 		labels.add(ocul);

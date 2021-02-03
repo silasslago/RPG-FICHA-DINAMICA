@@ -12,6 +12,11 @@ public class EditButton extends Button{
 		super(x, y, width, height, speed, sprite);
 	}
 	
+	public void tick() {
+		super.tick();
+		
+	}
+	
 	public void actionPerformed() {
 		isEditing = !isEditing;
 	}

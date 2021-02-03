@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class DetailsLabel extends Label{
 
-	private TextLabel nome, player, ocupation, idade, sex, ldM, ldR, namePlayer, playerPlayer, ocupationPlayer,
-	agePlayer, genderPlayer, bornPlayer, detalhes;
+	private TextLabel nome, player, ocupation, idade, sex, ldM, livePlayer, ldR, namePlayer, playerPlayer, 
+	ocupationPlayer, agePlayer, genderPlayer, bornPlayer, detalhes;
 	
 	public DetailsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -40,6 +40,8 @@ public class DetailsLabel extends Label{
 				new Color(0xFFE8EDEB), "bornPlace", 0);
 		detalhes = new TextLabel(65, 130, 200, 31, 0, null, new Font("sitka banner", Font.BOLD, 21), 
 				new Color(0xFFE8EDEB), "DETALHES PESSOAIS", 1);
+		livePlayer = new TextLabel(30, 520, 55, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+				new Color(0xFFE8EDEB), "livingPlace", 0);
 		labels.add(detalhes);
 		labels.add(ldR);
 		labels.add(ldM);
@@ -54,6 +56,7 @@ public class DetailsLabel extends Label{
 		labels.add(agePlayer);
 		labels.add(genderPlayer);
 		labels.add(bornPlayer);
+		labels.add(livePlayer);
 	}
 
 	public void tick() {
