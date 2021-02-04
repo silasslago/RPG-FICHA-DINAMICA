@@ -13,6 +13,7 @@ public class Label extends Entity{
 
 	protected ArrayList<Entity> labels; 
 	protected EditButton edit;
+	private BufferedImage lightImage;
 	protected int size = 30;
 	private boolean light = false;
 	protected boolean current = false;
@@ -38,6 +39,7 @@ public class Label extends Entity{
 		super(x, y, width, height, speed, sprite);
 		labels = new ArrayList<Entity>();
 		edit = new EditButton(getX()+getWidth()-35, getY()+10, 25, 25, 0, Game.spr_entities.getSprite(76, 156, 25, 25));
+		lightImage = Game.spr_entities.getSprite(101, 156, 35, 36);
 	}
 	
 	public void tick() {
@@ -60,6 +62,7 @@ public class Label extends Entity{
 				Collections.sort(Game.entities, labelSorter);
 			}
 		}else {
+			light = false;
 			if(current) {
 				this.order = 0;
 				Collections.sort(Game.entities, labelSorter);
@@ -101,11 +104,11 @@ public class Label extends Entity{
 	}
 	
 	public void render(Graphics g) {
+		if(light) {
+			g.drawImage(lightImage, getX()-5, getY()-5, getWidth()+10, getHeight()+10, null);
+		}
 		g.setColor(new Color(0xFF000000));
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
-		if(light) {
-			
-		}
 		if(!edit.isEditing) {
 			g.setColor(new Color(0xFF424242));
 		}else {

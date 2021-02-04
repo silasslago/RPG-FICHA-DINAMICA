@@ -186,7 +186,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 					mouseController.currentX = getMousePosition().x;
 					mouseController.currentY = getMousePosition().y;
 				}catch(NullPointerException e ){
-				      e.printStackTrace();
+					e.printStackTrace();
 				}
 			}
 			for(int i = 0; i < entities.size(); i++) {

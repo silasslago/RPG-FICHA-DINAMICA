@@ -67,12 +67,17 @@ public class StatsLabel extends Label{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(lifeColor);
-		g.fillRect(325, 290, (275*Game.player.currentLife)/Game.player.maxLife, 30);
-		g.setColor(sanityColor);
-		g.fillRect(325, 400, (200*Game.player.currentLife)/Game.player.maxLife, 30);
-		g.setColor(oculColor);
-		g.fillRect(325, 510, (275*Game.player.currentLife)/Game.player.maxLife, 30);	
+		super.render(g);
+		try{
+			g.setColor(lifeColor);
+			g.fillRect(325, 290, (275*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 30);
+			g.setColor(sanityColor);
+			g.fillRect(325, 400, (200*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 30);
+			g.setColor(oculColor);
+			g.fillRect(325, 510, (275*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 30);
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
 		g.setColor(new Color(0xFF424242));
 		g.drawRect(325, 290, 275, 30);
 		g.drawRect(325, 400, 200, 30);
@@ -85,7 +90,19 @@ public class StatsLabel extends Label{
 		g.drawLine(330, 630, 400, 630);
 		g.drawLine(430, 630, 510, 630);
 		g.drawLine(530, 630, 600, 630);
-		super.render(g);
+		
+		if(!edit.isEditing) {
+			g.setColor(new Color(0xFF424242));
+		}else {
+			g.setColor(Color.WHITE);
+		}
+		g.drawRect(getX(), getY(), getWidth(), getHeight());
+		g.drawImage(edit.getSprite(), edit.getX(), edit.getY(), edit.getWidth(), edit.getHeight(), null);
+		for(int i = 0; i < labels.size(); i++) {
+			Entity e = labels.get(i);
+			e.render(g);
+		}
+		
 	}
 	
 }
