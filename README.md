@@ -7,12 +7,16 @@ Sobre o projeto:
 	
 Sistemas que calculam automaticamente o sucesso do jogador em qualquer tipo de teste, os classificando em:
 
-| Tipos de resultado | Número do dado |
-|---|---|
-| Desastre | 1 |
-| Normal | ? |
-| Bom | ? |
-| Extremo | 20 ou 100 |
+| Tipos de resultado | relativo | Número do dado |
+|---|---|---|
+| Desastre | == | 1 |
+| Normal | >= | péricia |
+| Bom | >= | 1/2 da perícia |
+| Extremo | >= | 1/5 da perícia |
+
+Logicamente quanto maior o número do dado, melhores serão os tipos de resultados.
+
+Mais informações [aqui](https://www.youtube.com/watch?v=3L3dY1zBO3c)
 
 Bases para criação dos Icons do personagem do usuário nos formatos .psd .mdp e .png
 

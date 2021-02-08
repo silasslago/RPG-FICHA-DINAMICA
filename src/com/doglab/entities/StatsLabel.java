@@ -17,7 +17,6 @@ public class StatsLabel extends Label{
 	
 	public StatsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
-		dice = new Dice(545, 390, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71));
 		life = new TextLabel(330, 280, 30, 20, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Vida", 0);
 		sani = new TextLabel(330, 390, 60, 20, 0, null, new Font("sitka banner", Font.BOLD, 15), 
@@ -48,6 +47,8 @@ public class StatsLabel extends Label{
 				new Color(0xFFE8EDEB), "1", 1);
 		paranormalExp = new TextLabel(560, 605, 20, 30, 0, null, new Font("sitka banner", Font.BOLD, 51), 
 				new Color(0xFFE8EDEB), "1", 1);
+		dice = new Dice(545, 390, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 10, 
+				Integer.parseInt(sanityPlayer.text));
 		labels.add(dice);
 		labels.add(maxLie);
 		labels.add(lifePlayer);
