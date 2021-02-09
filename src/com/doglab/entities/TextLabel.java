@@ -69,8 +69,6 @@ public class TextLabel extends Label{
 				size = 0;
 			}
 		}
-		
-		super.tick();
 		if(edit.isEditing()) {
 			changeLabel();
 		}

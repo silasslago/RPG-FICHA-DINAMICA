@@ -1,5 +1,6 @@
 package com.doglab.entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -25,7 +26,7 @@ public class mouseController extends Entity{
 	}
 	
 	public void tick() {
-		
+		order = 3;
 		if(isPressed) {
 			isPressed = false;
 			this.x = (int)xTarget;
@@ -35,8 +36,11 @@ public class mouseController extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		//g.setColor(Color.blue);
-		//g.fillRect(getX(), getY(), width, height);
+		/*
+		g.setColor(Color.blue);
+		g.fillRect(getX(), getY(), width, height);
+		g.fillRect((int)currentX, (int)currentY, width, height);
+		*/
 	}
 
 	public void resetPosition() {

@@ -72,8 +72,16 @@ public class StatsLabel extends Label{
 		try{
 			g.setColor(lifeColor);
 			g.fillRect(325, 290, (275*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 30);
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		try{
 			g.setColor(sanityColor);
 			g.fillRect(325, 400, (200*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 30);
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		try{
 			g.setColor(oculColor);
 			g.fillRect(325, 510, (275*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 30);
 		}catch(NumberFormatException e) {

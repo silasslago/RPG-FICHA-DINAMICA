@@ -86,7 +86,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 	
 	public void initFrame() {
-		frame = new JFrame("Ficha RPG");
+		frame = new JFrame("Role Play Game");
 		frame.add(this);
 		fileChooser = new JFileChooser();
 		//frame.setUndecorated(true);
@@ -95,10 +95,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		/*
+		
 		Image icon = null;
 		try {
-			icon = ImageIO.read(getClass().getResource("/cursor.png"));
+			icon = ImageIO.read(getClass().getResource("/icon.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -109,7 +109,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		Cursor c = tool.createCustomCursor(icon, new Point(0,0), "img");
 		
 		frame.setCursor(c);
-		*/
+		
 		frame.setVisible(true);
 		
 	}
