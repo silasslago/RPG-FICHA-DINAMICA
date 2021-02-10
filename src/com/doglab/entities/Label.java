@@ -96,6 +96,8 @@ public class Label extends Entity{
 					Entity e = labels.get(i);
 					if(e instanceof TextLabel) {
 						((TextLabel) e).edit.actionPerformed();
+					}else if(e instanceof Dice) {
+						((Dice) e).edit.actionPerformed();
 					}
 				}
 			}
@@ -104,6 +106,16 @@ public class Label extends Entity{
 				e.tick();
 			}
 		}
+	}
+	
+	public void changeTickers() {
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof Label) {
+				((Label) e).tick = !((Label) e).tick;
+			}
+		}
+		this.tick = true;
 	}
 	
 	public void render(Graphics g) {

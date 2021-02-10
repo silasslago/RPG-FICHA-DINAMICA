@@ -42,16 +42,6 @@ public class DiceLabel extends Label{
 		changeTickers();
 	}
 	
-	public void changeTickers() {
-		for(int i = 0; i < Game.entities.size(); i++) {
-			Entity e = Game.entities.get(i);
-			if(e instanceof Label) {
-				((Label) e).tick = !((Label) e).tick;
-			}
-		}
-		this.tick = true;
-	}
-	
 	public void tick() {
 		this.order = 2;
 		if(animation) {
@@ -85,8 +75,12 @@ public class DiceLabel extends Label{
 			g.drawString(Integer.toString(roll), diceX+20, diceY+30);
 			g.setFont(new Font("sitka banner", Font.BOLD, 20));
 			g.drawString(state, diceX, diceY+60);
-			close.render(g2D);
+			
 		}
+		g.setFont(new Font("sitka banner", Font.BOLD, 20));
+		g.drawString("Roll", getX()+160, getY()+20);
+		g.drawLine(getX(), getY()+30, getX()+getWidth(), getY()+30);
+		close.render(g2D);
 	}
 
 }

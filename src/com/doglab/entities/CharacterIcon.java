@@ -10,6 +10,7 @@ public class CharacterIcon extends Entity{
 	private BufferedImage barrier;
 	private int barrierX, barrierY;
 	private int iconX, iconY;
+	private BufferedImage camera;
 	
 	public CharacterIcon(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -18,6 +19,7 @@ public class CharacterIcon extends Entity{
 		barrierY = (int)(y-77);
 		iconX = (int)(x-65);
 		iconY = (int)(y-65);
+		camera = Game.spr_entities.getSprite(101, 192, 43, 31);
 	}
 	
 	public void tick() {
@@ -25,6 +27,7 @@ public class CharacterIcon extends Entity{
 	}
 	
 	public void render(Graphics g) {
+		g.drawImage(camera, this.getX()-20, this.getY()-15, null);
 		g.drawImage(Game.player.icon, iconX, iconY, 130, 130, null);
 		g.drawImage(barrier, barrierX, barrierY, null);
 	}
