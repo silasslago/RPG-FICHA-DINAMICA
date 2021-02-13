@@ -87,12 +87,12 @@ public class Label extends Entity{
 	
 	public void render(Graphics g) {
 		if(light) {
-			g.drawImage(lightImage, getX()-5, getY()-5, getWidth()+10, getHeight()+10, null);
+			g.drawImage(lightImage, getX()-5, getY()-5-Game.roller.getY()*Game.roller.step, getWidth()+10, getHeight()+10, null);
 		}
 		g.setColor(new Color(0xFF000000));
-		g.fillRect(getX(), getY(), getWidth(), getHeight());
+		g.fillRect(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight());
 		g.setColor(new Color(0xFF424242));
-		g.drawRect(getX(), getY(), getWidth(), getHeight());
+		g.drawRect(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight());
 		for(int i = 0; i < labels.size(); i++) {
 			Entity e = labels.get(i);
 			e.render(g);

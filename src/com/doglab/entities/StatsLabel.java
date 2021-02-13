@@ -84,44 +84,34 @@ public class StatsLabel extends Label{
 		}
 		try{
 			g.setColor(lifeColor);
-			g.fillRect(340, 270, (320*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 25);
+			g.fillRect(340, 270-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 25);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try{
 			g.setColor(sanityColor);
-			g.fillRect(340, 350, (260*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 25);
+			g.fillRect(340, 350-Game.roller.getY()*Game.roller.step, (260*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 25);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try{
 			g.setColor(oculColor);
-			g.fillRect(340, 430, (320*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 25);
+			g.fillRect(340, 430-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 25);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		g.setColor(new Color(0xFF424242));
-		g.drawRect(340, 270, 320, 25);
-		g.drawRect(340, 350, 260, 25);
-		g.drawRect(340, 430, 320, 25);
+		g.drawRect(340, 270-Game.roller.getY()*Game.roller.step, 320, 25);
+		g.drawRect(340, 350-Game.roller.getY()*Game.roller.step, 260, 25);
+		g.drawRect(340, 430-Game.roller.getY()*Game.roller.step, 320, 25);
 		g.setColor(new Color(0xFFE8EDEB));
 		g.setFont(new Font("sitka banner", Font.BOLD, 23));
-		g.drawString("/", 490, 288);
-		g.drawString("/", 490, 448);
-		g.drawString("/", 465, 368);	
-		g.drawLine(370, 530, 440, 530);
-		g.drawLine(470, 530, 540, 530);
-		g.drawLine(570, 530, 640, 530);
-		/*
-		if(!edit.isEditing) {
-			g.setColor(new Color(0xFF424242));
-		}else {
-			g.setColor(Color.WHITE);
-		}
-		
-		g.drawImage(edit.getSprite(), edit.getX(), edit.getY(), edit.getWidth(), edit.getHeight(), null);
-		*/
-		//g.drawRect(getX(), getY(), getWidth(), getHeight());
+		g.drawString("/", 490, 288-Game.roller.getY()*Game.roller.step);
+		g.drawString("/", 490, 448-Game.roller.getY()*Game.roller.step);
+		g.drawString("/", 465, 368-Game.roller.getY()*Game.roller.step);	
+		g.drawLine(370, 530-Game.roller.getY()*Game.roller.step, 440, 530-Game.roller.getY()*Game.roller.step);
+		g.drawLine(470, 530-Game.roller.getY()*Game.roller.step, 540, 530-Game.roller.getY()*Game.roller.step);
+		g.drawLine(570, 530-Game.roller.getY()*Game.roller.step, 640, 530-Game.roller.getY()*Game.roller.step);
 		for(int i = 0; i < labels.size(); i++) {
 			Entity e = labels.get(i);
 			e.render(g);

@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.doglab.main.Game;
+
 public class DetailsLabel extends Label{
 
 	private TextLabel nome, player, ocupation, idade, sex, ldM, livePlayer, ldR, namePlayer, playerPlayer, 
@@ -78,19 +80,19 @@ public class DetailsLabel extends Label{
 		int textY = 165;
 		textY+=20;
 		g.setColor(new Color(0xFF424242));
-		g.drawLine(50, textY, 300, textY);
+		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY, 300, textY);
+		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY, 300, textY);
+		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY, 300, textY);
+		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY, 300, textY);
+		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY, 300, textY);
+		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY, 300, textY);
+		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
 	}
 	
 }

@@ -27,9 +27,9 @@ public class CharacterIcon extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(camera, this.getX(), this.getY()-15, null);
-		g.drawImage(Game.player.icon, iconX, iconY, 130, 130, null);
-		g.drawImage(barrier, barrierX, barrierY, 196, 156, null);
+		g.drawImage(camera, this.getX(), this.getY()-15-Game.roller.getY()*Game.roller.step, null);
+		g.drawImage(Game.player.icon, iconX, iconY-Game.roller.getY()*Game.roller.step, 130, 130, null);
+		g.drawImage(barrier, barrierX, barrierY-Game.roller.getY()*Game.roller.step, 196, 156, null);
 	}
 
 }

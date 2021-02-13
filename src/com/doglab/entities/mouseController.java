@@ -2,16 +2,8 @@ package com.doglab.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import com.doglab.main.Game;
-import com.doglab.world.World;
 
 public class mouseController extends Entity{
 
@@ -28,19 +20,18 @@ public class mouseController extends Entity{
 	public void tick() {
 		order = 3;
 		if(isPressed) {
-			isPressed = false;
 			this.x = (int)xTarget;
 			this.y = (int)yTarget;
+			System.out.println("isPressed: "+isPressed);
 		}
-		
 	}
 	
 	public void render(Graphics g) {
-		/*
+		
 		g.setColor(Color.blue);
 		g.fillRect(getX(), getY(), width, height);
 		g.fillRect((int)currentX, (int)currentY, width, height);
-		*/
+		
 	}
 
 	public void resetPosition() {

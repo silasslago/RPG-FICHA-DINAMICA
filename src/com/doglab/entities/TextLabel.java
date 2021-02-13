@@ -81,14 +81,14 @@ public class TextLabel extends Label{
 	public void render(Graphics g) {
 		g.setColor(color);
 		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/3));
-		g.drawString(text, getX(), imaginaryY);
+		g.drawString(text, getX(), imaginaryY-Game.roller.getY()*Game.roller.step);
 		if(writing && show) {
 			g.setColor(Color.white);
-			g.drawLine(getX()+width, getY(), getX()+width, getY()+height);
+			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height);
 		}
 		if(this.text == "") {
 			g.setColor(Color.red);
-			g.drawRect(getX(), getY(), width, height);
+			g.drawRect(getX(), getY()-Game.roller.getY()*Game.roller.step, width, height);
 		}
 	}
 	

@@ -44,7 +44,7 @@ public class IconLabel extends Label{
 				characterIcon.getX(), characterIcon.getY());
 		if(z < 65) {
 			Game.mouseController.resetPosition();
-			Game.fileChooser.setDialogTitle("avatar");
+			Game.fileChooser.setDialogTitle("");
 			Game.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "png", "jpg");
 			Game.fileChooser.setFileFilter(filter);

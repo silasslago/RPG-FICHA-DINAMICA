@@ -8,7 +8,7 @@ public class Dice extends Entity{
 
 	private boolean current = false;
 	private int size = 10;
-	private String state1 = "DESASTRE", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
+	private String state1 = "SE FUDEU", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
 			state5 = "EXTREMO";
 	private String currentState = state1;
 	public int d = 0;

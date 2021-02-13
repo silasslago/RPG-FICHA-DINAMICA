@@ -118,7 +118,7 @@ public class Entity {
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(this.getSprite(), this.getX() - Camera.x, this.getY() - Camera.y, width, height, null);
+		g.drawImage(this.getSprite(), this.getX() - Camera.x, this.getY() -Game.roller.getY()*Game.roller.step, width, height, null);
 	}
 	
 	public void setX(int x) {

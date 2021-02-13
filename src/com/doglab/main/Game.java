@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -30,7 +32,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-public class Game extends Canvas implements Runnable, KeyListener, MouseListener {
+public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseWheelListener {
 
 	private static final long serialVersionUID = 1L;
 	public static Spritesheet spr_entities, spr_tiles;
@@ -53,6 +55,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Player player;
 	public static mouseController mouseController;
 	public static Game game;
+	public static Roller roller;
 
 	private boolean setF = false;
 	private boolean fullscreen = true;
@@ -64,6 +67,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public Game() {
 		addKeyListener(this);
 		addMouseListener(this);
+		addMouseWheelListener(this);
 		setPreferredSize(new Dimension(getThisWidth()*getScale(), getThisHeight()*getScale()));
 		initFrame();
 		image = new BufferedImage(getThisWidth(), getThisHeight(), BufferedImage.TYPE_INT_RGB);
@@ -79,6 +83,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu();
 		mouseController = new mouseController(0,0,12,12,0, null);
+		int width = 10;
+		roller = new Roller(Game.WIDTH-width, 0, width, 70, 0, null);
+		entities.add(roller);
 		entities.add(player);
 		entities.add(mouseController);
 	}
@@ -334,9 +341,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent m) {
-		mouseController.xTarget = m.getX();
-		mouseController.yTarget = m.getY();
-		mouseController.isPressed = true;
+		
 	}
 
 	@Override
@@ -351,12 +356,19 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mousePressed(MouseEvent m) {
-		
+		mouseController.xTarget = m.getX();
+		mouseController.yTarget = m.getY();
+		mouseController.isPressed = true;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent m) {
-		
+		mouseController.isPressed = false;
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		roller.setY(roller.getY()+e.getWheelRotation()*6);
 	}
 
 }
