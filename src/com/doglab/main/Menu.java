@@ -27,13 +27,16 @@ public class Menu {
 	
 	public Menu() {
 		
-		DetailsLabel detailsLabel = new DetailsLabel(10, 100, Game.WIDTH/2-10, 470, 0, null);
+		DetailsLabel detailsLabel = new DetailsLabel(30, 100, Game.WIDTH/2-50, 370, 0, null);
 		Game.entities.add(detailsLabel);
-		IconLabel iconLabel = new IconLabel(316, 80, 285, 160, 0, null);
+		
+		IconLabel iconLabel = new IconLabel(346, 80, 285, 160, 0, null);
 		Game.entities.add(iconLabel);
-		StatsLabel statsLabel = new StatsLabel(320, 250,(int)(Game.WIDTH/2.18), 440, 0, null);
+		
+		StatsLabel statsLabel = new StatsLabel(340, 250,(int)(Game.WIDTH/2.18), 440, 0, null);
 		Game.entities.add(statsLabel);
-		TextLabel title = new TextLabel(210, 60, 200, 31, 0, null, new Font("sitka banner", Font.PLAIN, 31), 
+		
+		TextLabel title = new TextLabel(240, 60, 200, 31, 0, null, new Font("sitka banner", Font.PLAIN, 31), 
 				new Color(0xFFE8EDEB), "Perfil do Jogador", 1);
 		Game.entities.add(title);
 	}

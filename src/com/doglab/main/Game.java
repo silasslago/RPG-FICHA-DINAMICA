@@ -39,8 +39,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private Pause pause;
 	private Credits end;
 	public static List<Entity> entities;
-	public static int WIDTH = 1;
-	public static int HEIGHT = 1;
+	public static int WIDTH = 680;
+	public static int HEIGHT = 698;
 	private JFrame frame;
 	public static JFileChooser fileChooser;
 	private boolean isRunning;
@@ -64,8 +64,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public Game() {
 		addKeyListener(this);
 		addMouseListener(this);
-		WIDTH = (int)(Toolkit.getDefaultToolkit().getScreenSize().width/2.2);
-		HEIGHT = (int)(Toolkit.getDefaultToolkit().getScreenSize().height/1.1);
 		setPreferredSize(new Dimension(getThisWidth()*getScale(), getThisHeight()*getScale()));
 		initFrame();
 		image = new BufferedImage(getThisWidth(), getThisHeight(), BufferedImage.TYPE_INT_RGB);
@@ -105,10 +103,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 		frame.setIconImage(icon);
 		
-		Toolkit tool = Toolkit.getDefaultToolkit();
-		Cursor c = tool.createCustomCursor(icon, new Point(0,0), "img");
+		//Toolkit tool = Toolkit.getDefaultToolkit();
+		//Cursor c = tool.createCustomCursor(icon, new Point(0,0), "img");
 		
-		frame.setCursor(c);
+		//frame.setCursor(c);
 		
 		frame.setVisible(true);
 		
@@ -339,7 +337,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		mouseController.xTarget = m.getX();
 		mouseController.yTarget = m.getY();
 		mouseController.isPressed = true;
-		
 	}
 
 	@Override

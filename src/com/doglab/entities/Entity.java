@@ -56,8 +56,8 @@ public class Entity {
 		this.speed = speed;
 		this.maskx = 0;
 		this.masky = 0;
-		this.maskw = width;
-		this.maskh = height;
+		this.maskw = maskw;
+		this.maskh = maskh;
 	}
 	
 	public void setMask(int maskx, int masky, int maskw, int maskh) {

@@ -1,5 +1,6 @@
 package com.doglab.entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,8 +20,8 @@ public class IconLabel extends Label{
 	
 	public IconLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
-		characterIcon = new CharacterIcon(415, 160, 1, 1, 0, null);
-		dice = new Dice(510, 125, 76, 71 ,0, Game.spr_entities.getSprite(0, 156, 76, 71), 100, 50);
+		characterIcon = new CharacterIcon(getX()+70, getY()+80, 1, 1, 0, null);
+		dice = new Dice(getX()+220, getY()+getY()/2, 76, 71 ,0, Game.spr_entities.getSprite(0, 156, 76, 71), 100, 50);
 		labels.add(dice);
 		labels.add(characterIcon);
 		
@@ -28,14 +29,14 @@ public class IconLabel extends Label{
 	
 	public void tick() {
 		super.tick();
-		if(edit.isEditing) {
-			changeIcon();
-		}
+		changeIcon();
 	}
 
 	public void render(Graphics g) {
-		super.render(g);
-		
+		for(int i = 0; i < labels.size(); i++) {
+			Entity e = labels.get(i);
+			e.render(g);
+		}
 	}
 	
 	private void changeIcon() {

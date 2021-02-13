@@ -12,36 +12,46 @@ public class DetailsLabel extends Label{
 	
 	public DetailsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
-		nome = new TextLabel(30, 165, 32, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		
+		nome = new TextLabel(50, 165, 32, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Nome", 0);
-		player = new TextLabel(30, 220, 40, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
-				new Color(0xFFE8EDEB), "Jogador", 0);
-		ocupation = new TextLabel(30, 275, 50, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
-				new Color(0xFFE8EDEB), "Ocupação", 0);
-		idade = new TextLabel(30, 330, 30, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
-				new Color(0xFFE8EDEB), "Idade", 0);
-		sex = new TextLabel(30, 385, 25, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
-				new Color(0xFFE8EDEB), "Sexo", 0);
-		ldM = new TextLabel(30, 440, 105, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
-				new Color(0xFFE8EDEB), "Local de Nascimento", 0);
-		ldR = new TextLabel(30, 495, 95, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
-				new Color(0xFFE8EDEB), "Local de residencia", 0);
-		namePlayer = new TextLabel(30, 190, 30, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		namePlayer = new TextLabel(60, 180, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "nome", 0);
-		playerPlayer = new TextLabel(30, 245, 30, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		
+		player = new TextLabel(50, 205, 40, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+				new Color(0xFFE8EDEB), "Jogador", 0);
+		playerPlayer = new TextLabel(60, 220, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "player", 0);
-		ocupationPlayer = new TextLabel(30, 300, 50, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		
+		ocupation = new TextLabel(50, 245, 50, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+				new Color(0xFFE8EDEB), "Ocupação", 0);
+		ocupationPlayer = new TextLabel(60, 260, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "ocupation", 0);
-		agePlayer = new TextLabel(30, 355, 18, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		
+		idade = new TextLabel(50, 285, 30, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+				new Color(0xFFE8EDEB), "Idade", 0);
+		agePlayer = new TextLabel(60, 300, 18, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "age", 0);
-		genderPlayer = new TextLabel(30, 410, 35, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		
+		sex = new TextLabel(50, 325, 25, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+				new Color(0xFFE8EDEB), "Sexo", 0);
+		genderPlayer = new TextLabel(60, 340, 35, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "gender", 0);
-		bornPlayer = new TextLabel(30, 465, 50, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		
+		ldM = new TextLabel(50, 365, 105, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+				new Color(0xFFE8EDEB), "Local de Nascimento", 0);
+		bornPlayer = new TextLabel(60, 380, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "bornPlace", 0);
-		detalhes = new TextLabel(65, 130, 200, 31, 0, null, new Font("sitka banner", Font.BOLD, 21), 
-				new Color(0xFFE8EDEB), "DETALHES PESSOAIS", 1);
-		livePlayer = new TextLabel(30, 520, 55, 20, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		
+		ldR = new TextLabel(50, 405, 95, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+				new Color(0xFFE8EDEB), "Local de residencia", 0);
+		livePlayer = new TextLabel(60, 420, 55, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "livingPlace", 0);
+
+		detalhes = new TextLabel(85, 130, 200, 26, 0, null, new Font("sitka banner", Font.BOLD, 21), 
+				new Color(0xFFE8EDEB), "DETALHES PESSOAIS", 1);
+		
+		
 		labels.add(detalhes);
 		labels.add(ldR);
 		labels.add(ldM);
@@ -66,20 +76,21 @@ public class DetailsLabel extends Label{
 	public void render(Graphics g) {
 		super.render(g);
 		int textY = 165;
-		textY+=30;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
-		textY+=55;
-		g.drawLine(30, textY, 280, textY);
+		textY+=20;
+		g.setColor(new Color(0xFF424242));
+		g.drawLine(50, textY, 300, textY);
+		textY+=40;
+		g.drawLine(50, textY, 300, textY);
+		textY+=40;
+		g.drawLine(50, textY, 300, textY);
+		textY+=40;
+		g.drawLine(50, textY, 300, textY);
+		textY+=40;
+		g.drawLine(50, textY, 300, textY);
+		textY+=40;
+		g.drawLine(50, textY, 300, textY);
+		textY+=40;
+		g.drawLine(50, textY, 300, textY);
 	}
 	
 }

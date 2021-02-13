@@ -29,6 +29,7 @@ public class MouseEditorLabel extends Label{
 	
 	public void tick() {
 		order = 2;
+		/*
 		for(int i = 0; i < labels.size(); i++) {
 			Entity l = labels.get(i);
 			if(l instanceof TextLabel){
@@ -37,7 +38,7 @@ public class MouseEditorLabel extends Label{
 					d = Integer.parseInt(((TextLabel) l).text);
 				}
 			}
-		}
+		}*/
 		for(int i = 0; i < labels.size(); i++) {
 			Entity l = labels.get(i);
 			l.tick();

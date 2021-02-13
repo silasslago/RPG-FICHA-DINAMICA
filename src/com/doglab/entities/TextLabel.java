@@ -24,10 +24,13 @@ public class TextLabel extends Label{
 	public String phrase = "";
 	public boolean throwPhrase = false;
 	
+	private double initX;
+	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText) {
 		super(x, y-font.getSize(), width, height, speed, sprite);
 		size = 0;
+		initX = x;
 		this.font = font;
 		this.color = color;
 		this.text = text;
@@ -47,49 +50,43 @@ public class TextLabel extends Label{
 	}
 
 	public void tick() {
-		
-		if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()) &&
-				(Game.mouseController.currentX < this.getX()+this.getWidth() && 
-						Game.mouseController.currentY < this.getY()+this.getHeight())) {
-			if(!current) {
-				size = font.getSize();
-				this.x-=size/10;
-				this.y-=size/2;
-				this.width+=size;
-				this.height+=size;
-				current = true;
-			}
-		}else {
-			if(current) {
-				this.x+=size/10;
-				this.y+=size/2;
-				this.width-=size;
-				this.height-=size;
-				current = false;
-				size = 0;
-			}
+		if(Game.mouseController.isPressed) {
+			this.resetPhrase();
 		}
-		if(edit.isEditing()) {
+		if(tick) {
+			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()) &&
+					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
+							Game.mouseController.currentY < this.getY()+this.getHeight())) {
+				if(!current) {
+					size = font.getSize();
+					current = true;
+				}
+			}else {
+				if(current) {
+					current = false;
+					size = 0;
+				}
+			}
 			changeLabel();
-		}
-		if(writing) {
-			timer++;
-			if(timer > this.maxTimer) {
-				timer = 0;
-				show = !show;
+			if(writing) {
+				timer++;
+				if(timer > this.maxTimer) {
+					timer = 0;
+					show = !show;
+				}
 			}
 		}
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(color);
-		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/4));
+		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/3));
 		g.drawString(text, getX(), imaginaryY);
 		if(writing && show) {
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY(), getX()+width, getY()+height);
 		}
-		if(text.equals("")) {
+		if(this.text == "") {
 			g.setColor(Color.red);
 			g.drawRect(getX(), getY(), width, height);
 		}
@@ -106,6 +103,7 @@ public class TextLabel extends Label{
 			Game.mouseController.currentTextLabel = this;
 			Game.mouseController.resetPosition();
 			phrase = "";
+			setX((int)initX);
 			this.beginToWrite();
 			throwPhrase = true;
 		}
@@ -154,14 +152,17 @@ public class TextLabel extends Label{
 	}
 	
 	public void delete(String newString) {
+		if(phrase == "") {
+			return;
+		}
 		phrase = newString;
 		this.text = newString;
 		int jump = (int)(this.font.getSize()/4);
 		this.setWidth(this.getWidth()-(int)(jump*1.9));
 		if(this.typeText == 1) {
-			this.setX(this.getX()+jump);
+			this.setX((int)(this.getX()+jump));
 		}else if(this.typeText == 2) {
-			this.setX((int)(this.getX()+jump*1.7));
+			this.setX((int)(this.getX()+jump*1.28));
 		}
 	}
 	
@@ -171,7 +172,7 @@ public class TextLabel extends Label{
 		if(this.typeText == 1) {
 			this.setX(this.getX()-jump);
 		}else if(this.typeText == 2) {
-			this.setX((int)(this.getX()-jump*1.5));
+			this.setX((int)(this.getX()-jump*1.05));
 		}
 		this.setWidth(this.getWidth()+(int)(jump*1.9));
 	}
