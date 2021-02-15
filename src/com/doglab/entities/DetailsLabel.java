@@ -11,46 +11,48 @@ public class DetailsLabel extends Label{
 
 	private TextLabel nome, player, ocupation, idade, sex, ldM, livePlayer, ldR, namePlayer, playerPlayer, 
 	ocupationPlayer, agePlayer, genderPlayer, bornPlayer, detalhes;
+	private int inLocal = 0;
 	
+	//30, 100
 	public DetailsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		
-		nome = new TextLabel(50, 165, 32, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		nome = new TextLabel(getX()+20, getY()+65, 32, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Nome", 0);
-		namePlayer = new TextLabel(60, 180, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		namePlayer = new TextLabel(getX()+30, getY()+80, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "nome", 0);
 		
-		player = new TextLabel(50, 205, 40, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		player = new TextLabel(getX()+20, getY()+105, 40, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Jogador", 0);
-		playerPlayer = new TextLabel(60, 220, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		playerPlayer = new TextLabel(getX()+30,getY()+120, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "player", 0);
 		
-		ocupation = new TextLabel(50, 245, 50, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		ocupation = new TextLabel(getX()+20, getY()+145, 50, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Ocupação", 0);
-		ocupationPlayer = new TextLabel(60, 260, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		ocupationPlayer = new TextLabel(getX()+30, getY()+160, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "ocupation", 0);
 		
-		idade = new TextLabel(50, 285, 30, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		idade = new TextLabel(getX()+20, getY()+185, 30, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Idade", 0);
-		agePlayer = new TextLabel(60, 300, 18, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		agePlayer = new TextLabel(getX()+30, getY()+200, 18, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "age", 0);
 		
-		sex = new TextLabel(50, 325, 25, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		sex = new TextLabel(getX()+20, getY()+225, 25, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Sexo", 0);
-		genderPlayer = new TextLabel(60, 340, 35, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		genderPlayer = new TextLabel(getX()+30, getY()+240, 35, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "gender", 0);
 		
-		ldM = new TextLabel(50, 365, 105, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		ldM = new TextLabel(getX()+20, getY()+265, 105, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Local de Nascimento", 0);
-		bornPlayer = new TextLabel(60, 380, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		bornPlayer = new TextLabel(getX()+30, getY()+280, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "bornPlace", 0);
 		
-		ldR = new TextLabel(50, 405, 95, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		ldR = new TextLabel(getX()+20, getY()+305, 95, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Local de residencia", 0);
-		livePlayer = new TextLabel(60, 420, 55, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		livePlayer = new TextLabel(getX()+30, getY()+320, 55, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "livingPlace", 0);
 
-		detalhes = new TextLabel(85, 130, 200, 26, 0, null, new Font("sitka banner", Font.BOLD, 21), 
+		detalhes = new TextLabel(getX()+55, getY()+30, 200, 26, 0, null, new Font("sitka banner", Font.BOLD, 21), 
 				new Color(0xFFE8EDEB), "DETALHES PESSOAIS", 1);
 		
 		
@@ -73,26 +75,31 @@ public class DetailsLabel extends Label{
 
 	public void tick() {
 		super.tick();
+		if(current) {
+			inLocal = this.size;
+		}else {
+			inLocal = 0;
+		}
 	}
 	
 	public void render(Graphics g) {
 		super.render(g);
-		int textY = 165;
+		int textY = getY()+65;
 		textY+=20;
 		g.setColor(new Color(0xFF424242));
-		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+20+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step, getX()+270+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+20+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step, getX()+270+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+20+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step, getX()+270+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+20+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step, getX()+270+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+20+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step, getX()+270+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+20+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step, getX()+270+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step);
 		textY+=40;
-		g.drawLine(50, textY-Game.roller.getY()*Game.roller.step, 300, textY-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+20+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step, getX()+270+inLocal, textY+inLocal-Game.roller.getY()*Game.roller.step);
 	}
 	
 }

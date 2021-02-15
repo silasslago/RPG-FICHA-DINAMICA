@@ -17,6 +17,7 @@ public class CloseButton extends Button{
 	public void actionPerformed() {
 		diceLabel.changeTickers();
 		Game.entities.remove(diceLabel);
+		Game.mouseController.resetPosition();
 	}
 	
 	public void render(Graphics g) {
