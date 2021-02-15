@@ -53,8 +53,7 @@ public class StatsLabel extends Label{
 		paranormalExp = new TextLabel(600, 520, 20, 40, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1);
 		
-		dice = new Dice(610, 340, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 10, 
-				Integer.parseInt(sanityPlayer.text));
+		dice = new Dice(610, 340, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 20, sanityPlayer);
 		labels.add(dice);
 		labels.add(maxLie);
 		labels.add(lifePlayer);

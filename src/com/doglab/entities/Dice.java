@@ -1,6 +1,7 @@
 package com.doglab.entities;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import com.doglab.main.Game;
 
@@ -15,20 +16,27 @@ public class Dice extends Entity{
 	private int stat;
 	public EditButton edit;
 	private MouseEditorLabel mEditor;
+	private ArrayList<Label> labels;
 	
-	public Dice(double x, double y, int width, int height, double speed, BufferedImage sprite, int dValue, int stat) {
+	public Dice(double x, double y, int width, int height, double speed, BufferedImage sprite, int dValue, TextLabel stat) {
 		super(x, y, width, height, speed, sprite);
 		this.d = dValue;
-		this.stat = stat;
+		labels = new ArrayList<Label>();
+		this.stat = Integer.parseInt(stat.text);
+		labels.add(stat);
 		edit = new EditButton(0, 0, 0, 0, 0, null);
 	}
 	
 	public void tick() {
 	
+		if(((TextLabel)labels.get(0)).text != "") {
+			this.stat = Integer.parseInt(((TextLabel)labels.get(0)).text);
+		}
+		
 		double sizeDice = 2;
-		if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()) &&
+		if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
 				(Game.mouseController.currentX < this.getX()+this.getWidth() && 
-						Game.mouseController.currentY < this.getY()+this.getHeight())) {
+						Game.mouseController.currentY < this.getY()-Game.roller.getY()*Game.roller.step+this.getHeight())) {
 			if(!current) {
 				this.x-=size;
 				this.y-=size;
@@ -51,8 +59,8 @@ public class Dice extends Entity{
 				this.d = mEditor.returnD();
 			}
 		}
-		
-		if(this.isColliding(this, Game.mouseController)) {
+		Entity e = new Entity(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight(), speed, getSprite());
+		if(this.isColliding(e, Game.mouseController)) {
 			Game.mouseController.resetPosition();
 			int wLabel = 350;
 			int hLabel = 150;

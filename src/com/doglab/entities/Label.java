@@ -43,9 +43,9 @@ public class Label extends Entity{
 	
 	public void tick() {
 		if(tick) {
-			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()) &&
+			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
 					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
-							Game.mouseController.currentY < this.getY()+this.getHeight())) {
+							Game.mouseController.currentY < this.getY()-Game.roller.getY()*Game.roller.step+this.getHeight())) {
 				light = true;
 				if(!current) {
 					this.x-=size;

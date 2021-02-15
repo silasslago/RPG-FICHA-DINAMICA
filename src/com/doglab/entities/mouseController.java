@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.doglab.main.Game;
+
 
 public class mouseController extends Entity{
 
@@ -22,21 +24,23 @@ public class mouseController extends Entity{
 		if(isPressed) {
 			this.x = (int)xTarget;
 			this.y = (int)yTarget;
-			System.out.println("isPressed: "+isPressed);
 		}
 	}
 	
 	public void render(Graphics g) {
-		
+		/*
 		g.setColor(Color.blue);
 		g.fillRect(getX(), getY(), width, height);
 		g.fillRect((int)currentX, (int)currentY, width, height);
-		
+		*/
 	}
 
 	public void resetPosition() {
 		this.x = 0-width;
 		this.y = 0-height;
+		this.xTarget = x;
+		this.yTarget = y;
+		isPressed = false;
 	}
 	
 }

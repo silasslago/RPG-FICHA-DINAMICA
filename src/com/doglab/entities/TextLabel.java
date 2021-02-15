@@ -54,9 +54,9 @@ public class TextLabel extends Label{
 			this.resetPhrase();
 		}
 		if(tick) {
-			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()) &&
+			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
 					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
-							Game.mouseController.currentY < this.getY()+this.getHeight())) {
+							Game.mouseController.currentY < this.getY()-Game.roller.getY()*Game.roller.step+this.getHeight())) {
 				if(!current) {
 					size = font.getSize();
 					current = true;
@@ -84,7 +84,7 @@ public class TextLabel extends Label{
 		g.drawString(text, getX(), imaginaryY-Game.roller.getY()*Game.roller.step);
 		if(writing && show) {
 			g.setColor(Color.white);
-			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height);
+			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
 		}
 		if(this.text == "") {
 			g.setColor(Color.red);
@@ -93,7 +93,8 @@ public class TextLabel extends Label{
 	}
 	
 	private void changeLabel() {
-		if(this.isColliding(this, Game.mouseController)) {
+		Entity tL = new Entity(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight(), speed, getSprite());
+		if(this.isColliding(tL, Game.mouseController)) {
 			for(int ii = 0; ii < Game.entities.size(); ii++) {
 				Entity ee = Game.entities.get(ii);
 				if(ee instanceof TextLabel) {

@@ -1,6 +1,6 @@
 package com.doglab.entities;
 
-import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,7 +21,8 @@ public class IconLabel extends Label{
 	public IconLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		characterIcon = new CharacterIcon(getX()+70, getY()+80, 1, 1, 0, null);
-		dice = new Dice(getX()+220, getY()+getY()/2, 76, 71 ,0, Game.spr_entities.getSprite(0, 156, 76, 71), 100, 50);
+		TextLabel tL = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "50", 0);
+		dice = new Dice(getX()+220, getY()+getY()/2, 76, 71 ,0, Game.spr_entities.getSprite(0, 156, 76, 71), 100, tL);
 		labels.add(dice);
 		labels.add(characterIcon);
 		
@@ -41,7 +42,7 @@ public class IconLabel extends Label{
 	
 	private void changeIcon() {
 		double z = World.calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
-				characterIcon.getX(), characterIcon.getY());
+				characterIcon.getX(), characterIcon.getY()-Game.roller.getY()*Game.roller.step);
 		if(z < 65) {
 			Game.mouseController.resetPosition();
 			Game.fileChooser.setDialogTitle("");

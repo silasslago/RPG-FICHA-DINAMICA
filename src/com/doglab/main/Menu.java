@@ -33,7 +33,7 @@ public class Menu {
 				new Color(0xFFE8EDEB), "Perfil do Jogador", 1);
 		Game.entities.add(title);
 		
-		AtributosLabel atrLabel = new AtributosLabel(30, 550, 290, 300, 0, null);
+		AtributosLabel atrLabel = new AtributosLabel(25, 550, 300, 480, 0, null);
 		Game.entities.add(atrLabel);
 	}
 	
