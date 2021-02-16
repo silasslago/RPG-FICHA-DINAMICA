@@ -3,16 +3,12 @@ package com.doglab.main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 import com.doglab.entities.AtributosLabel;
-import com.doglab.entities.CharacterIcon;
 import com.doglab.entities.CombatLabel;
 import com.doglab.entities.DetailsLabel;
-import com.doglab.entities.EditButton;
 import com.doglab.entities.FastSkillsLabel;
 import com.doglab.entities.IconLabel;
-import com.doglab.entities.Roller;
 import com.doglab.entities.StatsLabel;
 import com.doglab.entities.TextLabel;
 
@@ -41,7 +37,7 @@ public class Menu {
 		FastSkillsLabel fastSLabel = new FastSkillsLabel(340, 550, 320, 100, 0, null);
 		Game.entities.add(fastSLabel);
 		
-		CombatLabel combatLabel = new CombatLabel(30, 1050, Game.WIDTH*Game.SCALE-60, 200, 0, null);
+		CombatLabel combatLabel = new CombatLabel(10, 1050, Game.WIDTH*Game.SCALE-30, 200, 0, null);
 		Game.entities.add(combatLabel);
 	}
 	

@@ -14,6 +14,14 @@ public class CloseButton extends Button{
 		diceLabel = l;
 	}
 	
+	public void tick() {
+		Entity e = new Entity(getX(), getY(), getWidth(), getHeight(), speed, getSprite());
+		if(this.isColliding(e, Game.mouseController)) {
+			Game.mouseController.resetPosition();
+			actionPerformed();
+		}
+	}
+	
 	public void actionPerformed() {
 		diceLabel.changeTickers();
 		Game.entities.remove(diceLabel);

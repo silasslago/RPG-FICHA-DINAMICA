@@ -2,7 +2,6 @@ package com.doglab.entities;
 
 import java.awt.image.BufferedImage;
 
-import com.doglab.main.Game;
 
 public class EditButton extends Button{
 

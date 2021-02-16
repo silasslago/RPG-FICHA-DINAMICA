@@ -123,6 +123,10 @@ public class TextLabel extends Label{
 		width = 10;
 	}
 	
+	public void setImaginaryY(int realY) {
+		this.imaginaryY = realY;
+	}
+	
 	public void buildPhrase(char e) {
 		String letter = "";
 		if(e == KeyEvent.VK_BACK_SPACE) {

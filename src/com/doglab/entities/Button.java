@@ -11,8 +11,9 @@ public class Button extends Entity{
 	}
 	
 	public void tick() {
-		Entity e = new Entity(getX(), getY(), getWidth(), getHeight(), speed, getSprite());
+		Entity e = new Entity(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight(), speed, getSprite());
 		if(this.isColliding(e, Game.mouseController)) {
+			Game.mouseController.resetPosition();
 			actionPerformed();
 		}
 	}
