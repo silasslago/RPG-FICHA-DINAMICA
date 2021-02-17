@@ -38,7 +38,6 @@ public class Roller extends Entity{
 					this.setY(dif);
 				}
 			}
-			
 		}
 		if(this.getY() < barY) {
 			this.setY(barY);

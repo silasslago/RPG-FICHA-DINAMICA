@@ -19,42 +19,45 @@ public class StatsLabel extends Label{
 
 	public StatsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
-		life = new TextLabel(getX(), getY()+15, 30, 15, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		life = new TextLabel(getX(), getY()+15, 30, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Vida", 0);
-		lifePlayer = new TextLabel(getX()+135, getY()+40, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		lifePlayer = new TextLabel(getX()+135, getY()+40, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2);
-		maxLie = new TextLabel(getX()+160, getY()+40, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		maxLie = new TextLabel(getX()+160, getY()+40, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0);
 		
-		sani = new TextLabel(getX(), getY()+95, 60, 15, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		sani = new TextLabel(getX(), getY()+95, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Sanidade", 0);
-		sanityPlayer = new TextLabel(getX()+110, getY()+120, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		sanityPlayer = new TextLabel(getX()+110, getY()+120, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2);
-		maxSanityPlayer = new TextLabel(getX()+135, getY()+120, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		maxSanityPlayer = new TextLabel(getX()+135, getY()+120, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0);
 		
-		ocul = new TextLabel(getX(), getY()+175, 70, 15, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		ocul = new TextLabel(getX(), getY()+175, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Ocultismo", 0);
-		ocultismoPlayer = new TextLabel(getX()+135, getY()+200, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		ocultismoPlayer = new TextLabel(getX()+135, getY()+200, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2);
-		maxOcultismoPlayer = new TextLabel(getX()+160, getY()+200, 15, 30, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		maxOcultismoPlayer = new TextLabel(getX()+160, getY()+200, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0);
 		
-		extrada = new TextLabel(getX()+30, getY()+225, 70, 15, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		extrada = new TextLabel(getX()+30, getY()+225, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Dano Extra", 1);
-		corpo = new TextLabel(getX()+150, getY()+225, 40, 15, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		corpo = new TextLabel(getX()+150, getY()+225, 40, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Corpo", 1);
-		expPar = new TextLabel(getX()+240, getY()+225, 60, 15, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		expPar = new TextLabel(getX()+240, getY()+225, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Exp. Par.", 1);
 
-		extraDamage = new TextLabel(getX()+60, getY()+270, 20, 40, 0, null, new Font("sitka banner", Font.BOLD, 41), 
+		extraDamage = new TextLabel(getX()+60, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1);
-		body = new TextLabel(getX()+160, getY()+270, 20, 40, 0, null, new Font("sitka banner", Font.BOLD, 41), 
+		body = new TextLabel(getX()+160, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1);
-		paranormalExp = new TextLabel(getX()+260, getY()+270, 20, 40, 0, null, new Font("sitka banner", Font.BOLD, 41), 
+		paranormalExp = new TextLabel(getX()+260, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1);
 		
-		dice = new Dice(getX()+270, getY()+90, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 20, sanityPlayer);
+		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0);
+		dice = new Dice(getX()+270, getY()+90, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
+				maxSanityPlayer, sanityPlayer, dAmount);
+		
 		labels.add(dice);
 		labels.add(maxLie);
 		labels.add(lifePlayer);

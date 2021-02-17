@@ -17,42 +17,42 @@ public class DetailsLabel extends Label{
 	public DetailsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		
-		nome = new TextLabel(getX()+20, getY()+65, 32, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		nome = new TextLabel(getX()+20, getY()+65, 32, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Nome", 0);
-		namePlayer = new TextLabel(getX()+30, getY()+80, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		namePlayer = new TextLabel(getX()+30, getY()+80, 30, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "nome", 0);
 		
-		player = new TextLabel(getX()+20, getY()+105, 40, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		player = new TextLabel(getX()+20, getY()+105, 40, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Jogador", 0);
-		playerPlayer = new TextLabel(getX()+30,getY()+120, 30, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		playerPlayer = new TextLabel(getX()+30,getY()+120, 30, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "player", 0);
 		
-		ocupation = new TextLabel(getX()+20, getY()+145, 50, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		ocupation = new TextLabel(getX()+20, getY()+145, 50, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Ocupação", 0);
-		ocupationPlayer = new TextLabel(getX()+30, getY()+160, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		ocupationPlayer = new TextLabel(getX()+30, getY()+160, 50, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "ocupation", 0);
 		
-		idade = new TextLabel(getX()+20, getY()+185, 30, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		idade = new TextLabel(getX()+20, getY()+185, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Idade", 0);
-		agePlayer = new TextLabel(getX()+30, getY()+200, 18, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		agePlayer = new TextLabel(getX()+30, getY()+200, 18, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "age", 0);
 		
-		sex = new TextLabel(getX()+20, getY()+225, 25, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		sex = new TextLabel(getX()+20, getY()+225, 25, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Sexo", 0);
-		genderPlayer = new TextLabel(getX()+30, getY()+240, 35, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		genderPlayer = new TextLabel(getX()+30, getY()+240, 35, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "gender", 0);
 		
-		ldM = new TextLabel(getX()+20, getY()+265, 105, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		ldM = new TextLabel(getX()+20, getY()+265, 105, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Local de Nascimento", 0);
-		bornPlayer = new TextLabel(getX()+30, getY()+280, 50, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		bornPlayer = new TextLabel(getX()+30, getY()+280, 50, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "bornPlace", 0);
 		
-		ldR = new TextLabel(getX()+20, getY()+305, 95, 14, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		ldR = new TextLabel(getX()+20, getY()+305, 95, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Local de residencia", 0);
-		livePlayer = new TextLabel(getX()+30, getY()+320, 55, 14, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		livePlayer = new TextLabel(getX()+30, getY()+320, 55, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "livingPlace", 0);
 
-		detalhes = new TextLabel(getX()+55, getY()+30, 200, 26, 0, null, new Font("sitka banner", Font.BOLD, 21), 
+		detalhes = new TextLabel(getX()+55, getY()+30, 200, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
 				new Color(0xFFE8EDEB), "DETALHES PESSOAIS", 1);
 		
 		

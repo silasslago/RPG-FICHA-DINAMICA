@@ -1,6 +1,7 @@
 package com.doglab.entities;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -13,10 +14,11 @@ public class Label extends Entity{
 
 	protected ArrayList<Entity> labels; 
 	private BufferedImage lightImage;
-	protected int size = 30;
+	protected int size = 0;
 	private boolean light = false;
 	protected boolean current = false;
 	public boolean tick = true;
+	public int inLocal;
 	
 	protected static Comparator<Entity> labelSorter = new Comparator<Entity>() {
 
@@ -43,11 +45,12 @@ public class Label extends Entity{
 	
 	public void tick() {
 		if(tick) {
-			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
-					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
-							Game.mouseController.currentY < this.getY()-Game.roller.getY()*Game.roller.step+this.getHeight())) {
+			if((Game.mouseController.currentX > this.getX()+size && Game.mouseController.currentY > this.getY()+size-Game.roller.getY()*Game.roller.step) &&
+					(Game.mouseController.currentX < this.getX()-size+this.getWidth() && 
+							Game.mouseController.currentY < this.getY()-size-Game.roller.getY()*Game.roller.step+this.getHeight())) {
 				light = true;
 				if(!current) {
+					size = 30;
 					this.x-=size;
 					this.y-=size;
 					this.width+=size*2;
@@ -66,6 +69,7 @@ public class Label extends Entity{
 					this.width-=size*2;
 					this.height-=size*2;
 					current = false;
+					size = 0;
 				}
 			}
 			for(int i = 0; i < labels.size(); i++) {

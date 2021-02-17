@@ -21,12 +21,12 @@ public class DiceLabel extends Label{
 	private int diceW = 0;
 	private int diceH = 0;
 	
-	private int roll = 0;
+	private int roll[];
 	private String state = null;
 	
 	private CloseButton close;
 	
-	public DiceLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, int random,
+	public DiceLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, int[] random,
 			String state) {
 		super(x, y, width, height, speed, sprite);
 		diceH = sprite.getHeight();
@@ -71,10 +71,29 @@ public class DiceLabel extends Label{
 			g2D.setTransform(old);
 		}else {
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("sitka banner", Font.BOLD, 50));
-			g.drawString(Integer.toString(roll), diceX+20, diceY+30);
-			g.setFont(new Font("sitka banner", Font.BOLD, 20));
-			g.drawString(state, diceX, diceY+60);
+			
+			int r = 70;
+			int a = (diceX+20)-(r/2)*(roll.length-1);
+			int plusA = a+(r/2)+15;
+			for(int i = 0; i < roll.length; i++) {
+				g.setFont(new Font("sitka banner", Font.BOLD, 50));
+				g.drawString(Integer.toString(roll[i]), a+(r*i), diceY+30);
+				if(roll.length>1 && i<roll.length-1) {
+					g.setFont(new Font("sitka banner", Font.BOLD, 25));
+					g.drawString("+", plusA+(r*i), diceY+25);
+				}
+			}
+			if(roll.length==1) {
+				g.setFont(new Font("sitka banner", Font.BOLD, 20));
+				g.drawString(state, diceX, diceY+60);
+			}else {
+				int result = 0;
+				for(int i = 0; i < roll.length; i++) {
+					result+=roll[i];
+				}
+				g.setFont(new Font("sitka banner", Font.BOLD, 20));
+				g.drawString("= "+result, diceX+20, diceY+60);
+			}
 			
 		}
 		g.setFont(new Font("sitka banner", Font.BOLD, 20));

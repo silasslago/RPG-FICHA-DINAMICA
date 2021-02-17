@@ -28,7 +28,7 @@ public class TextLabel extends Label{
 	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText) {
-		super(x, y-font.getSize(), width, height, speed, sprite);
+		super(x, y-font.getSize()/1.5, width, height, speed, sprite);
 		size = 0;
 		initX = x;
 		this.font = font;
@@ -36,17 +36,6 @@ public class TextLabel extends Label{
 		this.text = text;
 		this.imaginaryY = (int)y;
 		this.typeText = typeText;
-		if(font.getSize() == 51) {
-			this.y = 580;
-		}else if(font.getSize() == 31) { // Barras
-			if(y == 533) {
-				this.y = 510;
-			}else if(y == 423) {
-				this.y= 400;
-			}else if(y == 313){
-				this.y= 290;
-			}
-		}
 	}
 
 	public void tick() {

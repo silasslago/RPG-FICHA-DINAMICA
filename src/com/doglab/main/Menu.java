@@ -9,6 +9,7 @@ import com.doglab.entities.CombatLabel;
 import com.doglab.entities.DetailsLabel;
 import com.doglab.entities.FastSkillsLabel;
 import com.doglab.entities.IconLabel;
+import com.doglab.entities.Skills;
 import com.doglab.entities.StatsLabel;
 import com.doglab.entities.TextLabel;
 
@@ -27,7 +28,7 @@ public class Menu {
 		StatsLabel statsLabel = new StatsLabel(340, 250,(int)(Game.WIDTH/2.18), 440, 0, null);
 		Game.entities.add(statsLabel);
 		
-		TextLabel title = new TextLabel(240, 60, 200, 31, 0, null, new Font("sitka banner", Font.PLAIN, 31), 
+		TextLabel title = new TextLabel(240, 60, 200, 29, 0, null, new Font("sitka banner", Font.PLAIN, 31), 
 				new Color(0xFFE8EDEB), "Perfil do Jogador", 1);
 		Game.entities.add(title);
 		
@@ -39,6 +40,9 @@ public class Menu {
 		
 		CombatLabel combatLabel = new CombatLabel(10, 1050, Game.WIDTH*Game.SCALE-30, 200, 0, null);
 		Game.entities.add(combatLabel);
+		
+		Skills skills = new Skills(10, 1270, Game.WIDTH*Game.SCALE-30, 600, 0, null);
+		Game.entities.add(skills);
 	}
 	
 	public void render(Graphics g) {

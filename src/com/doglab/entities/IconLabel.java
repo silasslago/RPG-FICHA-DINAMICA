@@ -22,7 +22,11 @@ public class IconLabel extends Label{
 		super(x, y, width, height, speed, sprite);
 		characterIcon = new CharacterIcon(getX()+70, getY()+80, 1, 1, 0, null);
 		TextLabel tL = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "50", 0);
-		dice = new Dice(getX()+220, getY()+getY()/2, 76, 71 ,0, Game.spr_entities.getSprite(0, 156, 76, 71), 100, tL);
+		TextLabel dValue = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "100", 0);
+		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0);
+		
+		dice = new Dice(getX()+220, getY()+getY()/2, 76, 71 ,0, Game.spr_entities.getSprite(0, 156, 76, 71), 
+				dValue, tL, dAmount);
 		labels.add(dice);
 		labels.add(characterIcon);
 		

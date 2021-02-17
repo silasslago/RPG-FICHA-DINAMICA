@@ -14,7 +14,7 @@ public class DeleteButton extends Button{
 		this.minY = minY;
 	}
 	
-	private void labelSorter(ArrayList<Label> list, int beginning) {
+	private void labelSorter(ArrayList<GunLabel> list, int beginning) {
 		for(int i = beginning; i < list.size(); i++) {
 			Label l = list.get(i);
 			if(l.getY() > minY) {
@@ -35,7 +35,7 @@ public class DeleteButton extends Button{
 						id = ((CombatLabel)e).addB.labels.indexOf(l);
 						((CombatLabel)e).addB.labels.remove(l);
 						((CombatLabel)e).addB.labelsAmount--;
-						labelSorter(((CombatLabel)e).addB.labels, id);
+						this.labelSorter(((CombatLabel)e).addB.labels, id);
 					}
 				}
 				return;
