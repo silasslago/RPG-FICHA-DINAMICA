@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import com.doglab.main.Game;
 
@@ -16,6 +17,7 @@ public class CombatLabel extends Label{
 	public Roller roller;
 	private int firstYRoller;
 	private ArrayList<GunLabel> gunLabels;
+	private int initY;
 	
 	public CombatLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -44,6 +46,8 @@ public class CombatLabel extends Label{
 		addB = new AddButton(getX()+getWidth()-35, getY()+10, 25, 25, 0, 
 				Game.spr_entities.getSprite(76, 206, 25, 25), getX()+5, getY()+50, getWidth()-10, 20);
 		
+		initY = getY()+50;
+		
 		roller = new Roller(getX()+getWidth()-5, getY(), 5, 15, 10, null, true, getX()+getWidth()-5, getY(), 5, getHeight());
 		firstYRoller = roller.getY();
 		labels.add(roller);
@@ -58,22 +62,37 @@ public class CombatLabel extends Label{
 		labels.add(alcance);
 		labels.add(defeito);
 		labels.add(area);
+		
 	}
 
 	public void tick() {
 		super.tick();
 		if(current) {
 			inLocal = this.size;
-			Collections.sort(this.gunLabels, labelSorter);
 		}else {
 			inLocal = 0;
 		}
 
 		for(int i = 0; i < gunLabels.size(); i++) {
 			GunLabel l = gunLabels.get(i);
-			if(l.getY()+l.getHeight() < getY()+getHeight()) {
-				l.tick();
+			if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+74+inLocal*2) {
+				if(i>0) {
+					GunLabel l2 = gunLabels.get(i-1);
+					if(l2.inLocal == 0) {
+						l.tick();
+					}
+				}else {
+					l.tick();
+				}
 			}
+		}
+		
+		for(int i = 0; i < gunLabels.size(); i++) {
+			GunLabel l = gunLabels.get(i);
+			int times = i+1;
+			int height = l.getHeight()+5-l.inLocal*2;
+			int calc = initY-l.inLocal+height*times;
+			l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
 		}
 		
 	}
@@ -83,14 +102,19 @@ public class CombatLabel extends Label{
 		g.setColor(new Color(0xFF424242));
 		g.drawLine(getX()+inLocal+15, getY()+inLocal-Game.roller.getY()*Game.roller.step+50, getX()+getWidth()-inLocal-15, getY()+inLocal+50-Game.roller.getY()*Game.roller.step);
 		g.drawLine(getX()+inLocal+15, getY()+inLocal-Game.roller.getY()*Game.roller.step+75, getX()+getWidth()-inLocal-15, getY()+inLocal+75-Game.roller.getY()*Game.roller.step);
-	
 		for(int i = 0; i < gunLabels.size(); i++) {
 			GunLabel l = gunLabels.get(i);
-			if(l.getY()+l.getHeight() < getY()+getHeight()) {
-				l.render(g);
+			if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+74+inLocal*2) {
+				if(i>0) {
+					GunLabel l2 = gunLabels.get(i-1);
+					if(l2.inLocal == 0) {
+						l.render(g);
+					}
+				}else {
+					l.render(g);
+				}
 			}
 		}
-		
 	}
 
 	public ArrayList<GunLabel> getGunArrayList() {
