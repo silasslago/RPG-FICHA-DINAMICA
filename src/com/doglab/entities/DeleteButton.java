@@ -7,7 +7,7 @@ import com.doglab.main.Game;
 
 public class DeleteButton extends Button{
 	
-	private int minY;
+	public int minY;
 	
 	public DeleteButton(double x, double y, int width, int height, double speed, BufferedImage sprite, int minY) {
 		super(x, y, width, height, speed, sprite);

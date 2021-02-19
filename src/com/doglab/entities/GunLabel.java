@@ -78,12 +78,12 @@ public class GunLabel extends Label{
 					((TextLabel) l).setImaginaryY(plusY);
 				}
 			}else if(l instanceof Button) {
-				int plusY = getY()+3;
+				int plusY = getY()+3+inLocal;
 				if(plusY != l.getY()-inLocal) {
 					l.setY(plusY);
 				}
 			}else if(l instanceof Dice) {
-				int plusY = getY();
+				int plusY = getY()+inLocal;
 				if(plusY != l.getY()-inLocal) {
 					l.setY(plusY);
 				}

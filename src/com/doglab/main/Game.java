@@ -72,8 +72,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		initFrame();
 		image = new BufferedImage(getThisWidth(), getThisHeight(), BufferedImage.TYPE_INT_RGB);
 		// Objetos
-		spr_entities = new Spritesheet("/spritesheet_entities.png");
-		spr_tiles = new Spritesheet("/spritesheet_tiles.png");
+		spr_entities = new Spritesheet("/sheet_interface.png");
+		spr_tiles = new Spritesheet("/texture.jpg");
 		entities = new ArrayList<Entity>();
 		world = new World();
 		ui = new UI();
@@ -212,6 +212,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		// Background
 		g.setColor(new Color(0xFF000000));
 		g.fillRect(0, 0, getThisWidth(), getThisHeight());
+		
 
 		// Renderização do jogo
 		if(gameState == "NORMAL" || gameState == "PAUSE" || gameState == "TUTORIAL") {

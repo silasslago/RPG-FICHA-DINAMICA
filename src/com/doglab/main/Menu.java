@@ -9,6 +9,7 @@ import com.doglab.entities.CombatLabel;
 import com.doglab.entities.DetailsLabel;
 import com.doglab.entities.FastSkillsLabel;
 import com.doglab.entities.IconLabel;
+import com.doglab.entities.InventoryLabel;
 import com.doglab.entities.Skills;
 import com.doglab.entities.StatsLabel;
 import com.doglab.entities.TextLabel;
@@ -43,12 +44,15 @@ public class Menu {
 		
 		Skills skills = new Skills(10, 1270, Game.WIDTH*Game.SCALE-30, 600, 0, null);
 		Game.entities.add(skills);
+		
+		InventoryLabel inventory = new InventoryLabel(10, 1890, Game.WIDTH*Game.SCALE-30, 300, 0, null);
+		Game.entities.add(inventory);
 	}
 	
 	public void render(Graphics g) {
 		// Fundo
 		g.setColor(bg);
-		g.fillRect(0, 0, Game.WIDTH, Game.WIDTH);
+		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
 	
 	public void tick() {

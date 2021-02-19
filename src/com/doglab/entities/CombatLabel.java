@@ -5,15 +5,32 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import com.doglab.main.Game;
 
 public class CombatLabel extends Label{
 
 	private int inLocal = 0;
-	public AddButton addB;
+	
+	public AddButton addB = new AddButton(0, 0, 0, 0, 0, null, 0, 0, 0, 0) {
+			
+			public void actionPerformed(){
+				for(int i = 0; i < Game.entities.size(); i++) {
+					Entity e = Game.entities.get(i);
+					if(e instanceof CombatLabel) {
+						labels = ((CombatLabel) e).getGunArrayList();
+						labelsAmount++;
+						GunLabel gunLabel = new GunLabel(labelX, labelY+((this.labelH+5)*labelsAmount), 
+								this.labelW, this.labelH, 0, null, this.labelY+this.labelH+5);
+						labels.add(gunLabel);
+						((CombatLabel) e).setGunArrayList(labels);
+						return;
+					}
+				}
+			}
+			
+	};
+	
 	public Roller roller;
 	private int firstYRoller;
 	private ArrayList<GunLabel> gunLabels;
@@ -43,10 +60,17 @@ public class CombatLabel extends Label{
 		TextLabel area = new TextLabel(getX()+610, getY()+65, 28, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Area", 0);
 		
-		addB = new AddButton(getX()+getWidth()-35, getY()+10, 25, 25, 0, 
-				Game.spr_entities.getSprite(76, 206, 25, 25), getX()+5, getY()+50, getWidth()-10, 20);
-		
 		initY = getY()+50;
+		addB.setX(getX()+getWidth()-35);
+		addB.setY(getY()+10);
+		addB.setWidth(25);
+		addB.setHeight(25);
+		addB.setSprite(Game.spr_entities.getSprite(76, 206, 25, 25));
+		addB.labelX = getX()+5;
+		addB.labelY = initY;
+		addB.labelW = getWidth()-10;
+		addB.labelH = 20;
+		addB.speed = 0;
 		
 		roller = new Roller(getX()+getWidth()-5, getY(), 5, 15, 10, null, true, getX()+getWidth()-5, getY(), 5, getHeight());
 		firstYRoller = roller.getY();

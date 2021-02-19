@@ -93,7 +93,6 @@ public class TextLabel extends Label{
 			Game.mouseController.currentTextLabel = this;
 			Game.mouseController.resetPosition();
 			phrase = "";
-			setX((int)initX);
 			this.beginToWrite();
 			throwPhrase = true;
 		}
@@ -105,9 +104,13 @@ public class TextLabel extends Label{
 			return;
 		}
 		text = "";
-		if(typeText == 1) {
+		if(typeText == 0) {
+			setX((int)initX);
+		}else if(typeText == 1) {
 			int newX = this.getX() + this.getWidth()/2;
 			setX(newX);
+		}else if(typeText == 2) {
+			setX((int)initX+width-this.font.getSize());
 		}
 		width = 10;
 	}
