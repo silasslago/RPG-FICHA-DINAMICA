@@ -118,10 +118,12 @@ public class AtributosLabel extends Label{
 	
 	public void tick() {
 		super.tick();
-		if(current) {
-			inLocal = this.size;
-		}else {
-			inLocal = 0;
+		if(tick) {
+			if(current) {
+				inLocal = this.size;
+			}else {
+				inLocal = 0;
+			}	
 		}
 	}
 	

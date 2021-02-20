@@ -34,7 +34,9 @@ public class IconLabel extends Label{
 	
 	public void tick() {
 		super.tick();
-		changeIcon();
+		if(tick) {
+			changeIcon();
+		}
 	}
 
 	public void render(Graphics g) {

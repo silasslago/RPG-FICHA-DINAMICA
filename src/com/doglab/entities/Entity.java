@@ -29,6 +29,7 @@ public class Entity {
 	
 	private int aStarDir;
 	protected int depth;
+	public int inLocal;
 	
 	public static Random rand = new Random();
 	

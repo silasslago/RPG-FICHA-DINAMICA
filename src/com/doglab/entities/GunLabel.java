@@ -64,28 +64,30 @@ public class GunLabel extends Label{
 	
 	public void tick() {
 		super.tick();
-		if(current) {
-			inLocal = this.size;
-		}else {
-			inLocal = 0;
-		}
-		for(int i = 0; i < labels.size(); i++) {
-			Entity l = labels.get(i);
-			if(l instanceof TextLabel) {
-				int plusY = getY()+this.plusY+inLocal;
-				if(plusY != l.getY()-inLocal) {
-					l.setY(plusY-this.plusY+2);
-					((TextLabel) l).setImaginaryY(plusY);
-				}
-			}else if(l instanceof Button) {
-				int plusY = getY()+3+inLocal;
-				if(plusY != l.getY()-inLocal) {
-					l.setY(plusY);
-				}
-			}else if(l instanceof Dice) {
-				int plusY = getY()+inLocal;
-				if(plusY != l.getY()-inLocal) {
-					l.setY(plusY);
+		if(tick) {
+			if(current) {
+				inLocal = this.size;
+			}else {
+				inLocal = 0;
+			}
+			for(int i = 0; i < labels.size(); i++) {
+				Entity l = labels.get(i);
+				if(l instanceof TextLabel) {
+					int plusY = getY()+this.plusY+inLocal;
+					if(plusY != l.getY()-inLocal) {
+						l.setY(plusY-this.plusY+2);
+						((TextLabel) l).setImaginaryY(plusY);
+					}
+				}else if(l instanceof Button) {
+					int plusY = getY()+3+inLocal;
+					if(plusY != l.getY()-inLocal) {
+						l.setY(plusY);
+					}
+				}else if(l instanceof Dice) {
+					int plusY = getY()+inLocal;
+					if(plusY != l.getY()-inLocal) {
+						l.setY(plusY);
+					}
 				}
 			}
 		}

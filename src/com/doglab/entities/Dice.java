@@ -9,7 +9,7 @@ public class Dice extends Entity{
 
 	private boolean current = false;
 	private int size = 10;
-	private String state1 = "SE FUDEU", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
+	private String state1 = "DESASTRE", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
 			state5 = "EXTREMO";
 	private String currentState = state1;
 	public int d = 0;
@@ -178,15 +178,15 @@ public class Dice extends Entity{
 				}
 				
 				if(timesRoll == 1) {
-					if(value[0] >= d-(stat/5)) {
+					if(value[0] > d-(stat/5)) {
 						currentState = state5;
-					}else if(value[0] >= d-(stat/2)) {
+					}else if(value[0] > d-(stat/2)) {
 						currentState = state4;
-					}else if(value[0] >= stat) {
+					}else if(value[0] > d-stat) {
 						currentState = state3;
 					}else if(value[0] == 1) {
 						currentState = state1;
-					}else if(value[0] <= stat) {
+					}else if(value[0] <= d-stat) {
 						currentState = state2;
 					}
 				}

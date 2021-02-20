@@ -72,7 +72,7 @@ public class InventoryLabel extends Label{
 		labels.add(patrimonio);
 		labels.add(patrimonioAmount);
 		
-		roller = new Roller(getX()+getWidth()-5, getY(), 5, 25, 20, null, true, getX()+getWidth()-5, 
+		roller = new Roller(getX()+getWidth()-5, getY(), 5, 25, 10, null, true, getX()+getWidth()-5, 
 				getY(), 5, getHeight());
 		
 		firstYRoller = roller.getY();
@@ -96,52 +96,53 @@ public class InventoryLabel extends Label{
 	
 	public void tick() {
 		super.tick();
-		if(current) {
-			inLocal = this.size;
-		}else {
-			inLocal = 0;
-		}
-		
-		for(int i = 0; i < itemLabels.size(); i++) {
-			ItemLabel l = itemLabels.get(i);
-			if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+99+inLocal*2) {
-				if(i>0) {
-					ItemLabel l2 = itemLabels.get(i-1);
-					if(l2.inLocal == 0) {
-						l.tick();
-					}
-				}else {
-					l.tick();
-				}
-			}
-		}
-		
-		int pesoAmount = 0;
-		for(int i = 0; i < itemLabels.size(); i++) {
-			ItemLabel l = itemLabels.get(i);
-			pesoAmount += l.getPeso();
-		}
-		this.pesoAmount.text = Integer.toString(pesoAmount);
-		
-		int timesP = 0;
-		int timesI = 0;
-		for(int i = 0; i < itemLabels.size(); i++) {
-			ItemLabel l = itemLabels.get(i);
-			int times = i+1;
-			if(times%2 != 0) {
-				timesI++;
-				int height = l.getHeight()+5-l.inLocal*2;
-				int calc = initY-l.inLocal+height*timesI;
-				l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
+		if(tick) {
+			if(current) {
+				inLocal = this.size;
 			}else {
-				timesP++;
-				int height = l.getHeight()+5-l.inLocal*2;
-				int calc = initY-l.inLocal+height*timesP;
-				l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
+				inLocal = 0;
 			}
 			
+			for(int i = 0; i < itemLabels.size(); i++) {
+				ItemLabel l = itemLabels.get(i);
+				if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+99+inLocal*2) {
+					if(i>0) {
+						ItemLabel l2 = itemLabels.get(i-1);
+						if(l2.inLocal == 0) {
+							l.tick();
+						}
+					}else {
+						l.tick();
+					}
+				}
+			}
+			
+			int pesoAmount = 0;
+			for(int i = 0; i < itemLabels.size(); i++) {
+				ItemLabel l = itemLabels.get(i);
+				pesoAmount += l.getPeso();
+			}
+			this.pesoAmount.text = Integer.toString(pesoAmount);
+			
+			int timesP = 0;
+			int timesI = 0;
+			for(int i = 0; i < itemLabels.size(); i++) {
+				ItemLabel l = itemLabels.get(i);
+				int times = i+1;
+				if(times%2 != 0) {
+					timesI++;
+					int height = l.getHeight()+5-l.inLocal*2;
+					int calc = initY-l.inLocal+height*timesI;
+					l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
+				}else {
+					timesP++;
+					int height = l.getHeight()+5-l.inLocal*2;
+					int calc = initY-l.inLocal+height*timesP;
+					l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
+				}
+				
+			}
 		}
-		
 	}
 	
 	public void render(Graphics g){

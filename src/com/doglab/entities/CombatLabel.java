@@ -91,34 +91,35 @@ public class CombatLabel extends Label{
 
 	public void tick() {
 		super.tick();
-		if(current) {
-			inLocal = this.size;
-		}else {
-			inLocal = 0;
-		}
+		if(tick) {
+			if(current) {
+				inLocal = this.size;
+			}else {
+				inLocal = 0;
+			}
 
-		for(int i = 0; i < gunLabels.size(); i++) {
-			GunLabel l = gunLabels.get(i);
-			if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+74+inLocal*2) {
-				if(i>0) {
-					GunLabel l2 = gunLabels.get(i-1);
-					if(l2.inLocal == 0) {
+			for(int i = 0; i < gunLabels.size(); i++) {
+				GunLabel l = gunLabels.get(i);
+				if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+74+inLocal*2) {
+					if(i>0) {
+						GunLabel l2 = gunLabels.get(i-1);
+						if(l2.inLocal == 0) {
+							l.tick();
+						}
+					}else {
 						l.tick();
 					}
-				}else {
-					l.tick();
 				}
 			}
+			
+			for(int i = 0; i < gunLabels.size(); i++) {
+				GunLabel l = gunLabels.get(i);
+				int times = i+1;
+				int height = l.getHeight()+5-l.inLocal*2;
+				int calc = initY-l.inLocal+height*times;
+				l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
+			}
 		}
-		
-		for(int i = 0; i < gunLabels.size(); i++) {
-			GunLabel l = gunLabels.get(i);
-			int times = i+1;
-			int height = l.getHeight()+5-l.inLocal*2;
-			int calc = initY-l.inLocal+height*times;
-			l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
-		}
-		
 	}
 	
 	public void render(Graphics g) {

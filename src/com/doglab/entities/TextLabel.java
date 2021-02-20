@@ -180,4 +180,8 @@ public class TextLabel extends Label{
 		phrase = "";
 	}
 	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
 }

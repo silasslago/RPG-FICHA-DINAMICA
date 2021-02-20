@@ -80,39 +80,39 @@ public class ItemLabel extends Label{
 	
 	public void tick() {
 		super.tick();
-		
-		if(current) {
-			inLocal = this.size;
-		}else {
-			inLocal = 0;
-		}
-		
-		for(int i = 0; i < labels.size(); i++) {
-			Entity l = labels.get(i);
-			if(l instanceof TextLabel) {
-				int plusY = getY()+this.plusY+inLocal;
-				int plusX = 0;
-				if(i == 1) {
-					plusX = 45;
-				}else if(i == 2) {
-					plusX = getWidth() - inLocal*2 - 75;
-				}else if(i == 3) {
-					plusX = getWidth()- inLocal*2 - 35;
-				}
-				if(plusY != l.getY()-inLocal) {
-					l.setY(plusY-this.plusY+2);
-					((TextLabel) l).setImaginaryY(plusY);
-					l.setX(getX()+plusX+inLocal);
-				}
-			}else if(l instanceof Button) {
-				int plusY = getY()+5+inLocal;
-				if(plusY != l.getY()-inLocal) {
-					l.setY(plusY);
-					l.setX(getX()+10+inLocal);
+		if(tick) {
+			if(current) {
+				inLocal = this.size;
+			}else {
+				inLocal = 0;
+			}
+			
+			for(int i = 0; i < labels.size(); i++) {
+				Entity l = labels.get(i);
+				if(l instanceof TextLabel) {
+					int plusY = getY()+this.plusY+inLocal;
+					int plusX = 0;
+					if(i == 1) {
+						plusX = 45;
+					}else if(i == 2) {
+						plusX = getWidth() - inLocal*2 - 75;
+					}else if(i == 3) {
+						plusX = getWidth()- inLocal*2 - 35;
+					}
+					if(plusY != l.getY()-inLocal) {
+						l.setY(plusY-this.plusY+2);
+						((TextLabel) l).setImaginaryY(plusY);
+						l.setX(getX()+plusX+inLocal);
+					}
+				}else if(l instanceof Button) {
+					int plusY = getY()+5+inLocal;
+					if(plusY != l.getY()-inLocal) {
+						l.setY(plusY);
+						l.setX(getX()+10+inLocal);
+					}
 				}
 			}
 		}
-		
 	}
 	
 	public void render(Graphics g) {
