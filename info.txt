@@ -1,0 +1,109 @@
+0;Antropologia;1
+1;Armas de Fogo(P);1
+2;Armas de Fogo(R|E);1
+3;Armas de Fogo(A|B);1
+4;Arqueologia;1
+5;Arremessar;1
+6;Arte|Ofício;20
+7;Avaliação;1
+8;Charme;20
+9;Chaveiro;1
+10;Ciência Forense;1
+11;Conserto Eletrônico;1
+12;Conserto Mecânico;1
+13;Contabilidade;1
+14;Direito;1
+15;Dirigir;1
+16;Disfarce;1
+17;Encontrar;1
+18;Escutar;1
+19;Escalar;1
+20;Esquivar;1
+21;Lábia;1
+22;Intimidação;1
+23;História;1
+24;Furtividade;1
+25;Lutar(Brigar);1
+26;Medicina;1
+27;Exposição Paranormal;1
+28;Mundo Natural;1
+29;Natação;1
+30;Navegação;1
+31;Nível de Crédito;1
+32;Ocultismo;1
+33;Operar Máquinario;1
+34;Persuasão;1
+35;Pilotar;1
+36;Prestidigitação;1
+37;Primeiros Socorros;1
+38;Psicanálise;1
+39;Psicologia;1
+40;Saltar;1
+41;Rastrear;1
+42;Sobrevivência;1
+43;Usar Biblioteca;1
+44;Usar Computador;1
+45;Língua Outra;1
+46;Ciência Química;1
+47;Ciência Farmácia;1
+0;DETALHES PESSOAIS
+1;Local de residencia
+2;Local de Nascimento
+3;Sexo
+4;Idade
+5;Ocupação
+6;Jogador
+7;Nome
+8;Berry
+9;Silas Juan Santos Lago
+10;Confeiteira
+11;17
+12;Furry
+13;Sao paulo
+14;Sao paulo
+99999999;null
+1;13
+2;9
+3;96
+4;100
+5;18
+6;25
+7;1
+8;5
+9;3
+10;Vida
+11;Sanidade
+12;Ocultismo
+13;Dano Extra
+14;Corpo
+15;Exp. Par.
+0;Atributos
+99999999;null
+2;Aparencia
+3;15
+99999999;null
+5;Constituição
+6;1
+99999999;null
+8;Destreza
+9;1
+99999999;null
+11;Educação
+12;20
+99999999;null
+14;Força
+15;5
+99999999;null
+17;Inteligência
+18;2
+99999999;null
+20;Poder
+21;3
+99999999;null
+23;Sorte
+24;20
+25;Movimento
+26;3
+27;Tamanho
+28;2
+0;D:\Users\Usuário\Documents\Diversos Silas\Draw's\Finalizados\emote.png

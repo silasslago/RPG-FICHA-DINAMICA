@@ -16,7 +16,7 @@ public class IconLabel extends Label{
 
 	private CharacterIcon characterIcon;
 	private Dice dice;
-	
+	public String path;
 	
 	public IconLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -46,6 +46,11 @@ public class IconLabel extends Label{
 		}
 	}
 	
+	public void setIcon(String path) {
+		ImageIcon icon = new ImageIcon(path);
+		Game.player.icon = icon.getImage();
+	}
+	
 	private void changeIcon() {
 		double z = World.calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
 				characterIcon.getX(), characterIcon.getY()-Game.roller.getY()*Game.roller.step);
@@ -58,9 +63,8 @@ public class IconLabel extends Label{
 			int fileSelected = Game.fileChooser.showOpenDialog(Game.game);
 			if(fileSelected == JFileChooser.APPROVE_OPTION) {
 				File file = Game.fileChooser.getSelectedFile();
-				String path = file.getPath();
-				ImageIcon icon = new ImageIcon(path);
-				Game.player.icon = icon.getImage();
+				this.path = file.getPath();
+				setIcon(this.path);
 			}
 		}
 	}

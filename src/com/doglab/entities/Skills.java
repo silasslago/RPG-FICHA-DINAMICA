@@ -12,7 +12,7 @@ public class Skills extends Label{
 
 	private Roller roller;
 	private int initY, firstYRoller;
-	private ArrayList<SquareTextLabel> squares;
+	public ArrayList<SquareTextLabel> squares;
 	
 	public Skills(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -33,10 +33,10 @@ public class Skills extends Label{
 		SquareTextLabel fireGuns = new SquareTextLabel(getX()+170, getY()+60, 110, 95, 0, null, 1, "Armas de Fogo(P)");
 		squares.add(fireGuns);
 		
-		SquareTextLabel fireGunsRE = new SquareTextLabel(getX()+340, getY()+60,110, 95, 0, null, 1, "Armas de Fogo(R/E)");
+		SquareTextLabel fireGunsRE = new SquareTextLabel(getX()+340, getY()+60,110, 95, 0, null, 1, "Armas de Fogo(R|E)");
 		squares.add(fireGunsRE);
 		
-		SquareTextLabel fireGunsAB = new SquareTextLabel(getX()+510, getY()+60, 110, 95, 0, null, 1, "Armas de Fogo(A/B)");
+		SquareTextLabel fireGunsAB = new SquareTextLabel(getX()+510, getY()+60, 110, 95, 0, null, 1, "Armas de Fogo(A|B)");
 		squares.add(fireGunsAB);
 		
 		SquareTextLabel arque = new SquareTextLabel(getX()+20, getY()+170, 110, 95, 0, null, 1, "Arqueologia");
@@ -45,7 +45,7 @@ public class Skills extends Label{
 		SquareTextLabel arrem = new SquareTextLabel(getX()+170, getY()+170, 110, 95, 0, null, 1, "Arremessar");
 		squares.add(arrem);
 		
-		SquareTextLabel artO = new SquareTextLabel(getX()+340, getY()+170, 110, 95, 0, null, 1, "Arte/Ofício");
+		SquareTextLabel artO = new SquareTextLabel(getX()+340, getY()+170, 110, 95, 0, null, 1, "Arte|Ofício");
 		squares.add(artO);
 		
 		SquareTextLabel aval = new SquareTextLabel(getX()+510, getY()+170, 110, 95, 0, null, 1, "Avaliação");

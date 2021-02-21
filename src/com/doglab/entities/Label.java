@@ -12,7 +12,7 @@ import com.doglab.main.Game;
 
 public class Label extends Entity{
 
-	protected ArrayList<Entity> labels; 
+	public ArrayList<Entity> labels; 
 	private BufferedImage lightImage;
 	protected int size = 0;
 	private boolean light = false;
