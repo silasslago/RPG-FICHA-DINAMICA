@@ -36,6 +36,8 @@ public class CombatLabel extends Label{
 	private ArrayList<GunLabel> gunLabels;
 	private int initY;
 	
+	public int labelX, labelY, labelW, labelH;
+	
 	public CombatLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		gunLabels = new ArrayList<GunLabel>();
@@ -66,10 +68,14 @@ public class CombatLabel extends Label{
 		addB.setWidth(25);
 		addB.setHeight(25);
 		addB.setSprite(Game.spr_entities.getSprite(76, 206, 25, 25));
-		addB.labelX = getX()+5;
-		addB.labelY = initY;
-		addB.labelW = getWidth()-10;
-		addB.labelH = 20;
+		this.labelX = getX()+5;
+		this.labelY = initY;
+		this.labelW = getWidth()-10;
+		this.labelH = 20;
+		addB.labelX = this.labelX;
+		addB.labelY = this.labelY;
+		addB.labelW = this.labelW;
+		addB.labelH = this.labelH;
 		addB.speed = 0;
 		
 		roller = new Roller(getX()+getWidth()-5, getY(), 5, 15, 10, null, true, getX()+getWidth()-5, getY(), 5, getHeight());

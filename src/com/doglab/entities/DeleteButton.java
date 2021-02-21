@@ -1,5 +1,6 @@
 package com.doglab.entities;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -41,6 +42,12 @@ public class DeleteButton extends Button{
 				return;
 			}
 		}
+	}
+	
+	public void render(Graphics g) {
+		super.render(g);
+		//g.setColor(Color.red);
+		//g.drawRect(getX(), getY() - Game.roller.getY()*Game.roller.step, getWidth(), getHeight());
 	}
 	
 }

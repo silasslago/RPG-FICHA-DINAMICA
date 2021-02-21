@@ -1,5 +1,6 @@
 package com.doglab.entities;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -191,12 +192,17 @@ public class Dice extends Entity{
 					}
 				}
 				
-				
 				DiceLabel diceLabel = new DiceLabel(xLabel, yLabel, wLabel, hLabel, 0, this.getSprite(), 
 						value, currentState);
 				Game.entities.add(diceLabel);	
 			}
 		}
+	}
+	
+	public void render(Graphics g) {
+		super.render(g);
+		//g.setColor(Color.red);
+		//g.drawRect(maskx, masky - Game.roller.getY()*Game.roller.step, maskw, maskh);
 	}
 	
 }

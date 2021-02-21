@@ -10,14 +10,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.doglab.entities.AtributosLabel;
 import com.doglab.entities.CombatLabel;
 import com.doglab.entities.DetailsLabel;
 import com.doglab.entities.Entity;
 import com.doglab.entities.FastSkillsLabel;
+import com.doglab.entities.GunLabel;
 import com.doglab.entities.IconLabel;
 import com.doglab.entities.InventoryLabel;
+import com.doglab.entities.ItemLabel;
 import com.doglab.entities.SaveButton;
 import com.doglab.entities.Skills;
 import com.doglab.entities.SquareTextLabel;
@@ -111,9 +114,57 @@ public class Menu {
 	public static void aplySave(String spr) {
 		String[] str = spr.split("/");
 		int str2Times = 0;
+		int labelsCAmount = 0;
+		int labelsIAmount = 0;
 		for(int i = 0; i < str.length; i++) {
 			String[] str2 = str[i].split(";");
-			if(str2.length == 3) {
+			if(str2.length == 11) {
+				int index = 0;
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity e = Game.entities.get(ii);
+					if(e instanceof CombatLabel) {
+						ArrayList<GunLabel> gLL = new ArrayList<GunLabel>();
+					
+						gLL = ((CombatLabel)e).getGunArrayList();
+						
+						GunLabel gL = new GunLabel(((CombatLabel) e).labelX, 
+								((CombatLabel) e).labelY+(((CombatLabel) e).labelY*labelsCAmount), 
+								((CombatLabel) e).labelW, ((CombatLabel) e).labelH, 
+								0, null, ((CombatLabel) e).labelY+((CombatLabel) e).labelH+5);
+						
+						labelsCAmount++;
+						for(int iii = 0; iii < gL.labels.size(); iii++) {
+							Entity ee = gL.labels.get(iii);
+							if(ee instanceof TextLabel) {
+								((TextLabel) ee).text = str2[index+1];
+								index++;
+							}
+						}
+						gLL.add(gL);
+						((CombatLabel) e).setGunArrayList(gLL);
+						((CombatLabel) e).addB.labels = ((CombatLabel)e).getGunArrayList();
+					}
+				}
+			}else if(str2.length == 4) { 
+				int index = 0;
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity e = Game.entities.get(ii);
+					if(e instanceof InventoryLabel) {
+						ArrayList<ItemLabel> iLL = new ArrayList<ItemLabel>();
+						((InventoryLabel) e).addB.actionPerformed();
+						iLL = ((InventoryLabel)e).getItemArrayList();
+						for(int iii = 0; iii < iLL.get(labelsIAmount).labels.size(); iii++) {
+							Entity ee = iLL.get(labelsIAmount).labels.get(iii);
+							if(ee instanceof TextLabel) {
+								((TextLabel) ee).text = str2[index+1];
+								index++;
+							}
+						}
+						labelsIAmount++;
+						((InventoryLabel) e).setItemArrayList(iLL);
+					}
+				}
+			}else if(str2.length == 3) {
 				for(int index = 0; index < 47; index++) {
 					String indexX = Integer.toString(index);
 					if(indexX.equals(str2[0])) {
@@ -195,11 +246,51 @@ public class Menu {
 							Entity e = Game.entities.get(ii);
 							if(e instanceof IconLabel) {
 								((IconLabel) e).setIcon(str2[1]);
+								((IconLabel) e).path = str2[1];
+							}
+						}
+					}
+				}
+			}else if(str2.length == 2 && str2Times < 73) {
+				str2Times++;
+				for(int index = 0; index < 12; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof CombatLabel) {
+								for(int iii = 0; iii < ((CombatLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((CombatLabel) e).labels.get(iii) instanceof TextLabel) {
+											((TextLabel)((CombatLabel) e).labels.get(iii)).text = str2[1];
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == 2 && str2Times < 81) {
+				str2Times++;
+				for(int index = 0; index < 8; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof InventoryLabel) {
+								for(int iii = 0; iii < ((InventoryLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((InventoryLabel) e).labels.get(iii) instanceof TextLabel) {
+											((TextLabel)((InventoryLabel) e).labels.get(iii)).text = str2[1];
+										}
+									}
+								}
 							}
 						}
 					}
 				}
 			}
+			
 		}
 	}
 	

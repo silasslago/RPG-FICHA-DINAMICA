@@ -34,7 +34,7 @@ public class SquareTextLabel extends Label{
 		
 		TextLabel rollTimes = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "1", 0);
 		TextLabel dValue = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "20", 0);
-		dice = new Dice(getX()-40, getY(), getWidth()*2+35, getHeight()*2-20, 0, 
+		dice = new Dice(getX()-20, getY(), getWidth()+35, getHeight()-20, 0, 
 				Game.spr_entities.getSprite(0, 156, 76, 71), dValue, valueL, rollTimes);
 	}
 
@@ -65,24 +65,26 @@ public class SquareTextLabel extends Label{
 					if(i == 0) {
 						plusY = getY()+this.plusY+inLocal;
 						if(plusY != l.getY()-inLocal) {
-							l.setY(plusY-this.plusY/2+2);
+							l.setY(plusY-this.plusY/2+2+10);
 							((TextLabel) l).setImaginaryY(plusY);
 						}
 					}else {
 						plusY = getY()+this.plusY+inLocal+25;
 						if(plusY != l.getY()-inLocal) {
-							l.setY(plusY-this.plusY/2+12);
+							l.setY(plusY-this.plusY/2+12+12);
 							((TextLabel) l).setImaginaryY(plusY);
 						}
 					}
 					
-				}else if(l instanceof Dice) {
-					int plusY = getY()+inLocal;
-					if(plusY != l.getY()-inLocal) {
-						l.setY(plusY);
-					}
 				}
 			}
+			
+			int plusY = getY()+inLocal;
+			if(plusY != dice.getY()-inLocal) {
+				dice.setY(plusY+13);
+				dice.masky = plusY+13;
+			}
+			
 		}
 	}
 	

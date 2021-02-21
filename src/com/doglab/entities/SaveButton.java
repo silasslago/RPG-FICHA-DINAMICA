@@ -98,10 +98,86 @@ public class SaveButton extends Button{
 			}
 		}
 		
+		String[] combate = new String[1];
+		int[] id6 = new int[1];
+		String[] gunLabels = new String[1];
+		int[] id7 = new int[1];
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof CombatLabel) {
+				combate = new String[((CombatLabel)e).labels.size()];
+				id6 = new int[((CombatLabel)e).labels.size()];
+				for(int ii = 0; ii < ((CombatLabel)e).labels.size(); ii++) {
+					if(((CombatLabel)e).labels.get(ii) instanceof TextLabel) {
+						combate[ii] = ((TextLabel)((CombatLabel)e).labels.get(ii)).text;
+						id6[ii] = ii;
+					}else {
+						id6[ii] = 99999999;
+					}
+				}
+				id7 = new int[((CombatLabel)e).getGunArrayList().size()];
+				gunLabels = new String[((CombatLabel)e).getGunArrayList().size()];
+				for(int ii = 0; ii < ((CombatLabel)e).getGunArrayList().size(); ii++) {
+					id7[ii] = ii;
+					for(int iii = 0; iii < ((CombatLabel)e).getGunArrayList().get(ii).labels.size()-1; iii++) {
+						if(((CombatLabel)e).getGunArrayList().get(ii).labels.get(iii+1) instanceof TextLabel){
+							String s = ((TextLabel)((CombatLabel)e).getGunArrayList().get(ii).labels.get(iii+1)).text;
+							if(iii == 0) {
+								gunLabels[ii]=s;
+								gunLabels[ii]+=";";
+							}else {
+								gunLabels[ii]+=s;
+								gunLabels[ii]+=";";
+							}
+						}
+					}
+				}
+			}
+		}
 		
+		String[] inventory = new String[1];
+		int[] id8 = new int[1];
+		String[] itemLabels = new String[1];
+		int[] id9 = new int[1];
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof InventoryLabel) {
+				inventory = new String[((InventoryLabel)e).labels.size()];
+				id8 = new int[((InventoryLabel)e).labels.size()];
+				for(int ii = 0; ii < ((InventoryLabel)e).labels.size(); ii++) {
+					if(((InventoryLabel)e).labels.get(ii) instanceof TextLabel) {
+						inventory[ii] = ((TextLabel)((InventoryLabel)e).labels.get(ii)).text;
+						id8[ii] = ii;
+					}else {
+						id8[ii] = 99999999;
+					}
+				}
+				
+				id9 = new int[((InventoryLabel)e).getItemArrayList().size()];
+				itemLabels = new String[((InventoryLabel)e).getItemArrayList().size()];
+				for(int ii = 0; ii < ((InventoryLabel)e).getItemArrayList().size(); ii++) {
+					id9[ii] = ii;
+					for(int iii = 0; iii < ((InventoryLabel)e).getItemArrayList().get(ii).labels.size()-1; iii++) {
+						if(((InventoryLabel)e).getItemArrayList().get(ii).labels.get(iii+1) instanceof TextLabel){
+							String s = ((TextLabel)((InventoryLabel)e).getItemArrayList().get(ii).labels.get(iii+1)).text;
+							if(iii == 0) {
+								itemLabels[ii]=s;
+								itemLabels[ii]+=";";
+							}else {
+								itemLabels[ii]+=s;
+								itemLabels[ii]+=";";
+							}
+						}
+					}
+				}
+			}
+		}
 		
-		String[] labels = new String[details.length + skills.length + stats.length + atributos.length + image.length];
-		int[] ids = new int[id.length + id2.length + id3.length + id4.length + id5.length];
+		String[] labels = new String[details.length + skills.length + stats.length + atributos.length + 
+		                             image.length + combate.length + gunLabels.length + inventory.length 
+		                             + itemLabels.length];
+		int[] ids = new int[id.length + id2.length + id3.length + id4.length + id5.length + id6.length + 
+		                    id7.length + id8.length + id9.length];
 		int[] valuesLabels = new int[values.length];
 		for(int i = 0; i < labels.length; i++) {
 			if(i < skills.length) {
@@ -120,6 +196,18 @@ public class SaveButton extends Button{
 			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length){
 				labels[i] = image[i-skills.length-details.length-stats.length-atributos.length];
 				ids[i] = id5[i-skills.length-details.length-stats.length-atributos.length];
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length) {
+				labels[i] = combate[i-skills.length-details.length-stats.length-atributos.length-image.length];
+				ids[i] = id6[i-skills.length-details.length-stats.length-atributos.length-image.length];
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length) {
+				labels[i] = gunLabels[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length];
+				ids[i] = id7[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length];
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length) {
+				labels[i] = inventory[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length];
+				ids[i] = id8[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length];
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length + itemLabels.length) {
+				labels[i] = itemLabels[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length];
+				ids[i] = id9[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length];
 			}
 		}
 		Menu.saveGame(labels, valuesLabels, ids);

@@ -87,6 +87,10 @@ public class GunLabel extends Label{
 					int plusY = getY()+inLocal;
 					if(plusY != l.getY()-inLocal) {
 						l.setY(plusY);
+						l.masky = plusY;
+						l.maskw = 20;
+						l.maskh = 20;
+						l.maskx = getX()+227-5 + inLocal;
 					}
 				}
 			}
