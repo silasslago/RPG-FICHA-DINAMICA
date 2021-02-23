@@ -30,6 +30,8 @@ import com.doglab.world.World;
 
 public class Menu {
 
+	private static String version = "v4.1";
+	
 	private final Color BLACK = new Color(0xFF000000);
 	private Color bg = BLACK;
 	
@@ -61,12 +63,18 @@ public class Menu {
 		}
 	}
 
-	public static void saveGame(String[] val1, int[] val2, int[] val3) {
+	public static void saveGame(String[] val1, int[] val2, int[] val3, int[] val4) {
 		BufferedWriter write = null;
 		try {
 			write = new BufferedWriter(new FileWriter("info.txt"));
 		}catch(IOException e) {
 			e.printStackTrace();
+		}
+		try {
+			write.write(version);
+			write.newLine();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		for(int i = 0; i < val1.length; i++) {
 			String current = Integer.toString(val3[i]);
@@ -76,6 +84,8 @@ public class Menu {
 				current+=";";
 				current+=val2[i];
 			}
+			current+=";";
+			current+=val4[i];
 			try {
 				write.write(current);
 				if(i < val1.length - 1) {
@@ -290,7 +300,6 @@ public class Menu {
 					}
 				}
 			}
-			
 		}
 	}
 	

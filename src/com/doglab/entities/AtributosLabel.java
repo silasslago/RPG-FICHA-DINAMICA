@@ -10,6 +10,7 @@ import com.doglab.main.Game;
 public class AtributosLabel extends Label{
 
 	private int inLocal = 0;
+	public TextLabel tama, cons; 
 	
 	public AtributosLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -26,17 +27,17 @@ public class AtributosLabel extends Label{
 		TextLabel apar = new TextLabel(getX()+55, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice aparDice = new Dice(getX()+33, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, apar, dAmount);
+				dValue, apar, dAmount, true);
 		labels.add(aparDice);
 		labels.add(aparencia);
 		labels.add(apar); 
 		
 		TextLabel constituicao = new TextLabel(getX()+120, getY()+100, 75, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Constituição", 1);
-		TextLabel cons = new TextLabel(getX()+149, getY()+125, 13, 29, 0, null, 
+		cons = new TextLabel(getX()+149, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice consDice = new Dice(getX()+128, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, cons, dAmount);
+				dValue, cons, dAmount, true);
 		labels.add(consDice);
 		labels.add(constituicao);
 		labels.add(cons); 
@@ -46,7 +47,7 @@ public class AtributosLabel extends Label{
 		TextLabel dest = new TextLabel(getX()+243, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice destDice = new Dice(getX()+221, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, dest, dAmount);
+				dValue, dest, dAmount, true);
 		labels.add(destDice);
 		labels.add(destreza);
 		labels.add(dest); 
@@ -56,7 +57,7 @@ public class AtributosLabel extends Label{
 		TextLabel educ = new TextLabel(getX()+55, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice educDice = new Dice(getX()+33, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, educ, dAmount);
+				dValue, educ, dAmount, true);
 		labels.add(educDice);
 		labels.add(educacao);
 		labels.add(educ); 
@@ -66,7 +67,7 @@ public class AtributosLabel extends Label{
 		TextLabel forc = new TextLabel(getX()+149, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice forcDice = new Dice(getX()+128, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, forc, dAmount);
+				dValue, forc, dAmount, true);
 		labels.add(forcDice);
 		labels.add(forca);
 		labels.add(forc); 
@@ -76,7 +77,7 @@ public class AtributosLabel extends Label{
 		TextLabel inte = new TextLabel(getX()+243, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice inteDice = new Dice(getX()+221, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, inte, dAmount);
+				dValue, inte, dAmount, true);
 		labels.add(inteDice);
 		labels.add(inteligencia);
 		labels.add(inte); 
@@ -86,7 +87,7 @@ public class AtributosLabel extends Label{
 		TextLabel pode = new TextLabel(getX()+55, getY()+325, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice podeDice = new Dice(getX()+33, getY()+240, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, pode, dAmount);
+				dValue, pode, dAmount, true);
 		labels.add(podeDice);
 		labels.add(poder);
 		labels.add(pode); 
@@ -96,7 +97,7 @@ public class AtributosLabel extends Label{
 		TextLabel sort = new TextLabel(getX()+149, getY()+325, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice sortDice = new Dice(getX()+128, getY()+240, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, sort, dAmount);
+				dValue, sort, dAmount, true);
 		labels.add(sortDice);
 		labels.add(sorte);
 		labels.add(sort); 
@@ -110,7 +111,7 @@ public class AtributosLabel extends Label{
 		
 		TextLabel tamanho = new TextLabel(getX()+32, getY()+400, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Tamanho", 1);
-		TextLabel tama = new TextLabel(getX()+55, getY()+425, 13, 29, 0, null, 
+		tama = new TextLabel(getX()+55, getY()+425, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		labels.add(tamanho);
 		labels.add(tama);

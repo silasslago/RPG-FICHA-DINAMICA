@@ -25,10 +25,12 @@ public class DiceLabel extends Label{
 	private String state = null;
 	
 	private CloseButton close;
+	private String[] plus;
 	
 	public DiceLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, int[] random,
-			String state) {
+			String state, String[] plus) {
 		super(x, y, width, height, speed, sprite);
+		this.plus = plus;
 		diceH = sprite.getHeight();
 		diceW = sprite.getWidth();
 		diceX = (int)(x+width/2-diceW/2);
@@ -77,7 +79,12 @@ public class DiceLabel extends Label{
 			int plusA = a+(r/2)+15;
 			for(int i = 0; i < roll.length; i++) {
 				g.setFont(new Font("sitka banner", Font.BOLD, 50));
-				g.drawString(Integer.toString(roll[i]), a+(r*i), diceY+30);
+				String rollPlus = Integer.toString(roll[i]);
+				for(int ii = 1; ii < this.plus.length; ii++) {
+					rollPlus+="+";
+					rollPlus+="("+this.plus[ii]+")";
+				}
+				g.drawString(rollPlus, a+(r*i), diceY+30);
 				if(roll.length>1 && i<roll.length-1) {
 					g.setFont(new Font("sitka banner", Font.BOLD, 25));
 					g.drawString("+", plusA+(r*i), diceY+25);
@@ -92,7 +99,12 @@ public class DiceLabel extends Label{
 					result+=roll[i];
 				}
 				g.setFont(new Font("sitka banner", Font.BOLD, 20));
-				g.drawString("= "+result, diceX+20, diceY+60);
+				String resultPlus = "= "+result;
+				for(int i = 1; i < this.plus.length; i++) {
+					resultPlus+="+";
+					resultPlus+="("+this.plus[i]+")";
+				}
+				g.drawString(resultPlus, diceX+20, diceY+60);
 			}
 			
 		}

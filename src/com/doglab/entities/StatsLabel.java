@@ -56,7 +56,7 @@ public class StatsLabel extends Label{
 		
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0);
 		dice = new Dice(getX()+270, getY()+90, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				maxSanityPlayer, sanityPlayer, dAmount);
+				maxSanityPlayer, sanityPlayer, dAmount, true);
 		
 		labels.add(dice);
 		labels.add(maxLie);
@@ -83,6 +83,49 @@ public class StatsLabel extends Label{
 				inLocal = this.size;
 			}else {
 				inLocal = 0;
+			}
+			for(int i = 0; i < Game.entities.size(); i++) {
+				Entity e = Game.entities.get(i);
+				if(e instanceof AtributosLabel) {
+					if(((AtributosLabel) e).cons != null) {
+						String c = ((AtributosLabel) e).cons.text;
+						String t = ((AtributosLabel) e).tama.text;
+						String newS = "";
+						String newS2 = "";
+						for(int ii = 0; ii < (c).length(); ii++) {
+							if(String.valueOf((c).charAt(ii)).equals("1") || 
+									String.valueOf((c).charAt(ii)).equals("2") || 
+									String.valueOf((c).charAt(ii)).equals("3") ||
+									String.valueOf((c).charAt(ii)).equals("4") || 
+									String.valueOf((c).charAt(ii)).equals("5") || 
+									String.valueOf((c).charAt(ii)).equals("6") ||
+									String.valueOf((c).charAt(ii)).equals("7") || 
+									String.valueOf((c).charAt(ii)).equals("8") || 
+									String.valueOf((c).charAt(ii)).equals("9") ||
+									String.valueOf((c).charAt(ii)).equals("0")) {
+								newS+=c.charAt(ii);
+							}
+						}
+						for(int ii = 0; ii < (t).length(); ii++) {
+							if(String.valueOf((t).charAt(ii)).equals("1") || 
+									String.valueOf((t).charAt(ii)).equals("2") || 
+									String.valueOf((t).charAt(ii)).equals("3") ||
+									String.valueOf((t).charAt(ii)).equals("4") || 
+									String.valueOf((t).charAt(ii)).equals("5") || 
+									String.valueOf((t).charAt(ii)).equals("6") ||
+									String.valueOf((t).charAt(ii)).equals("7") || 
+									String.valueOf((t).charAt(ii)).equals("8") || 
+									String.valueOf((t).charAt(ii)).equals("9") ||
+									String.valueOf((t).charAt(ii)).equals("0")) {
+								newS2+=t.charAt(ii);
+							}
+						}
+						if(newS != "" && newS2 != "") {
+							int maxLife = (Integer.parseInt(newS)+Integer.parseInt(newS2))/2;
+							this.maxLie.text = Integer.toString(maxLife);
+						}
+					}
+				}
 			}
 		}
 	}

@@ -26,7 +26,7 @@ public class IconLabel extends Label{
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0);
 		
 		dice = new Dice(getX()+220, getY()+getY()/2, 76, 71 ,0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, tL, dAmount);
+				dValue, tL, dAmount, true);
 		labels.add(dice);
 		labels.add(characterIcon);
 		

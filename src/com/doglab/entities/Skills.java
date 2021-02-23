@@ -132,7 +132,7 @@ public class Skills extends Label{
 		SquareTextLabel per = new SquareTextLabel(getX()+340, getY()+940, 110, 95, 0, null, 1, "Persuasão");
 		squares.add(per);
 		
-		SquareTextLabel pil = new SquareTextLabel(getX()+340, getY()+940, 110, 95, 0, null, 1, "Pilotar");
+		SquareTextLabel pil = new SquareTextLabel(getX()+510, getY()+940, 110, 95, 0, null, 1, "Pilotar");
 		squares.add(pil);
 		
 		SquareTextLabel pres = new SquareTextLabel(getX()+20, getY()+1050, 110, 95, 0, null, 1, "Prestidigitação");

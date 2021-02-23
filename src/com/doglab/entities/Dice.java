@@ -10,7 +10,7 @@ public class Dice extends Entity{
 
 	private boolean current = false;
 	private int size = 10;
-	private String state1 = "DESASTRE", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
+	private String state1 = "SE FUDEU", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
 			state5 = "EXTREMO";
 	private String currentState = state1;
 	public int d = 0;
@@ -19,12 +19,14 @@ public class Dice extends Entity{
 	private MouseEditorLabel mEditor;
 	private ArrayList<Label> labels;
 	private int timesRoll = 0;
+	private String newD = "";
+	private boolean show;
 
 	public Dice(double x, double y, int width, int height, double speed, BufferedImage sprite, 
-			TextLabel dValue, TextLabel stat, TextLabel timesRoll) {
+			TextLabel dValue, TextLabel stat, TextLabel timesRoll, boolean show) {
 		super(x, y, width, height, speed, sprite);
 		labels = new ArrayList<Label>();
-		
+		this.show = show;
 		String t = timesRoll.text;
 		String newT = "";
 		for(int i = 0; i < (t).length(); i++) {
@@ -46,7 +48,6 @@ public class Dice extends Entity{
 		}else {
 			this.timesRoll = 1;
 		}
-		
 		String s = stat.text;
 		String newS = "";
 		for(int i = 0; i < (s).length(); i++) {
@@ -68,9 +69,9 @@ public class Dice extends Entity{
 		}else {
 			this.stat = 1;
 		}
-		
 		String d = dValue.text;
 		String newD = "";
+		boolean isPlus = false;
 		for(int i = 0; i < (d).length(); i++) {
 			if(String.valueOf((d).charAt(i)).equals("1") || 
 					String.valueOf((d).charAt(i)).equals("2") || 
@@ -81,8 +82,30 @@ public class Dice extends Entity{
 					String.valueOf((d).charAt(i)).equals("7") || 
 					String.valueOf((d).charAt(i)).equals("8") || 
 					String.valueOf((d).charAt(i)).equals("9") ||
-					String.valueOf((d).charAt(i)).equals("0")) {
-				newD+=d.charAt(i);
+					String.valueOf((d).charAt(i)).equals("0") ||
+					String.valueOf((d).charAt(i)).equals("+")) {
+				if(String.valueOf((d).charAt(i)).equals("+")) {
+					if(i-1 >= 0) {
+						if(String.valueOf((d).charAt(i-1)).equals("1") || 
+								String.valueOf((d).charAt(i-1)).equals("2") || 
+								String.valueOf((d).charAt(i-1)).equals("3") ||
+								String.valueOf((d).charAt(i-1)).equals("4") || 
+								String.valueOf((d).charAt(i-1)).equals("5") || 
+								String.valueOf((d).charAt(i-1)).equals("6") ||
+								String.valueOf((d).charAt(i-1)).equals("7") || 
+								String.valueOf((d).charAt(i-1)).equals("8") || 
+								String.valueOf((d).charAt(i-1)).equals("9") ||
+								String.valueOf((d).charAt(i-1)).equals("0")) {
+							this.newD+=d.charAt(i);
+							isPlus = true;
+						}
+					}
+				}else {
+					if(!isPlus) {
+						newD+=d.charAt(i);
+					}
+					this.newD+=d.charAt(i);
+				}
 			}
 		}
 		if(newD != "") {
@@ -122,12 +145,54 @@ public class Dice extends Entity{
 		return var;
 	}
 	
+	private String updateArrayListD(int index) {
+		String var = "";
+		if(((TextLabel)labels.get(index)).text != "") {
+			String numbers = "";
+			for(int i = 0; i < ((TextLabel)labels.get(index)).text.length(); i++) {
+				if(String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("1") || 
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("2") || 
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("3") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("4") || 
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("5") || 
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("6") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("7") || 
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("8") || 
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("9") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("0") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("+")) {
+					numbers+=((TextLabel)labels.get(index)).text.charAt(i);
+				}
+			}
+			if(numbers != "") {
+				var = numbers;
+			}
+		}
+		return var;
+	}
+	
 	public void tick() {
 		if(((TextLabel)labels.get(0)).width > 0) {
 			this.stat = updateArrayList(0);
 		}
+		boolean hasPlus = false;
 		if(((TextLabel)labels.get(1)).width > 0) {
-			this.d = updateArrayList(1);
+			String ss = updateArrayListD(1);
+			for(int i = 0; i < ss.length(); i++) {
+				if(String.valueOf(((TextLabel)labels.get(1)).text.charAt(i)).equals("+")) {
+					hasPlus = true;
+					if(ss.length() > 2) {
+						String[] s = ss.split("\\+");
+						this.d = Integer.parseInt(s[0]);
+					}
+				}
+			}
+			if(!hasPlus) {
+				if(ss != "") {
+					this.d = Integer.parseInt(ss);
+				}
+			}
+			this.newD = ss;
 		}
 		if(((TextLabel)labels.get(2)).width > 0) {
 			this.timesRoll = updateArrayList(2);
@@ -170,15 +235,20 @@ public class Dice extends Entity{
 				Game.entities.add(mEditor);
 			}else {
 				int value[] = new int[timesRoll];
+				String plus[] = new String[1];
+				if(this.newD.length() > 2) {
+					plus = this.newD.split("\\+");
+				}else {
+					plus[0] = this.newD;
+				}
 				for(int i = 0; i < timesRoll; i++) {
-					if(d > 0) {
-						value[i] = rand.nextInt(d)+1;
+					if(Integer.parseInt(plus[0]) > 0) {
+						value[i] = rand.nextInt(Integer.parseInt(plus[0]))+1;
 					}else {
 						return;
 					}
 				}
-				
-				if(timesRoll == 1) {
+				if(this.show) {
 					if(value[0] > d-(stat/5)) {
 						currentState = state5;
 					}else if(value[0] > d-(stat/2)) {
@@ -190,10 +260,12 @@ public class Dice extends Entity{
 					}else if(value[0] <= d-stat) {
 						currentState = state2;
 					}
+				}else {
+					currentState = null;
 				}
 				
 				DiceLabel diceLabel = new DiceLabel(xLabel, yLabel, wLabel, hLabel, 0, this.getSprite(), 
-						value, currentState);
+						value, currentState, plus);
 				Game.entities.add(diceLabel);	
 			}
 		}

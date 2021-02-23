@@ -35,7 +35,7 @@ import javax.swing.JFrame;
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseWheelListener {
 
 	private static final long serialVersionUID = 1L;
-	public static Spritesheet spr_entities, spr_tiles;
+	public static Spritesheet spr_entities;
 	public static UI ui;
 	private Bootsplash bootsplash;
 	private Pause pause;
@@ -73,7 +73,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		image = new BufferedImage(getThisWidth(), getThisHeight(), BufferedImage.TYPE_INT_RGB);
 		// Objetos
 		spr_entities = new Spritesheet("/sheet_interface.png");
-		spr_tiles = new Spritesheet("/texture.jpg");
 		entities = new ArrayList<Entity>();
 		world = new World();
 		ui = new UI();

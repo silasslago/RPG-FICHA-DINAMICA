@@ -142,7 +142,8 @@ public class TextLabel extends Label{
 				letter.equals("y") || letter.equals("z") || letter.equals("ç") || letter.equals(" ") ||
 				letter.equals("0") || letter.equals("1") || letter.equals("2") || letter.equals("3") ||
 				letter.equals("4") || letter.equals("5") ||letter.equals("6") || letter.equals("7") ||
-				letter.equals("8") || letter.equals("9")){
+				letter.equals("8") || letter.equals("9") || letter.equals("(") || letter.equals(")") ||
+				letter.equals("+")){
 			phrase+=e;
 			throwText();
 		}
