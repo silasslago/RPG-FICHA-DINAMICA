@@ -5,12 +5,12 @@ import java.awt.image.BufferedImage;
 
 import com.doglab.main.Game;
 
-public class EditButton extends Button{
+public class ShowButton extends Button{
 
-	public EditButton(double x, double y, int width, int height, double speed, BufferedImage sprite) {
+	public ShowButton(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 	}
-
+	
 	public void tick() {
 		Entity e = new Entity(getX(), getY(), getWidth(), getHeight(), speed, getSprite());
 		if(this.isColliding(e, Game.mouseController)) {
@@ -20,7 +20,7 @@ public class EditButton extends Button{
 	}
 	
 	public void actionPerformed() {
-		TextLabel.editionTime = !TextLabel.editionTime;
+		TextLabel.showSpace = !TextLabel.showSpace;
 	}
 	
 	public void render(Graphics g) {

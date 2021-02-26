@@ -54,7 +54,7 @@ public class InventoryLabel extends Label{
 		TextLabel peso = new TextLabel(getX()+275, getY()+49, 57, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Peso Total: ", 1);
 		pesoAmount = new TextLabel(getX()+340, getY()+49, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "0", 0);
+				new Color(0xFFE8EDEB), "0.0", 0);
 		labels.add(peso);
 		labels.add(pesoAmount);
 		
@@ -117,12 +117,13 @@ public class InventoryLabel extends Label{
 				}
 			}
 			
-			int pesoAmount = 0;
+			float pesoAmount = 0.0f;
 			for(int i = 0; i < itemLabels.size(); i++) {
 				ItemLabel l = itemLabels.get(i);
 				pesoAmount += l.getPeso();
+				System.out.println(l.getPeso());
 			}
-			this.pesoAmount.text = Integer.toString(pesoAmount);
+			this.pesoAmount.text = Float.toString(pesoAmount);
 			
 			int timesP = 0;
 			int timesI = 0;

@@ -10,7 +10,7 @@ import com.doglab.main.Game;
 public class AtributosLabel extends Label{
 
 	private int inLocal = 0;
-	public TextLabel tama, cons; 
+	public TextLabel tama, cons, forc, dest, movi; 
 	
 	public AtributosLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -27,7 +27,7 @@ public class AtributosLabel extends Label{
 		TextLabel apar = new TextLabel(getX()+55, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice aparDice = new Dice(getX()+33, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, apar, dAmount, true);
+				dValue, apar, dAmount, true, true);
 		labels.add(aparDice);
 		labels.add(aparencia);
 		labels.add(apar); 
@@ -37,17 +37,17 @@ public class AtributosLabel extends Label{
 		cons = new TextLabel(getX()+149, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice consDice = new Dice(getX()+128, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, cons, dAmount, true);
+				dValue, cons, dAmount, true, true);
 		labels.add(consDice);
 		labels.add(constituicao);
 		labels.add(cons); 
 		
 		TextLabel destreza = new TextLabel(getX()+220, getY()+100, 55, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Destreza", 1);
-		TextLabel dest = new TextLabel(getX()+243, getY()+125, 13, 29, 0, null, 
+		dest = new TextLabel(getX()+243, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice destDice = new Dice(getX()+221, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, dest, dAmount, true);
+				dValue, dest, dAmount, true, true);
 		labels.add(destDice);
 		labels.add(destreza);
 		labels.add(dest); 
@@ -57,17 +57,17 @@ public class AtributosLabel extends Label{
 		TextLabel educ = new TextLabel(getX()+55, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice educDice = new Dice(getX()+33, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, educ, dAmount, true);
+				dValue, educ, dAmount, true, true);
 		labels.add(educDice);
 		labels.add(educacao);
 		labels.add(educ); 
 		
 		TextLabel forca = new TextLabel(getX()+137, getY()+200, 35, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Força", 1);
-		TextLabel forc = new TextLabel(getX()+149, getY()+225, 13, 29, 0, null, 
+		forc = new TextLabel(getX()+149, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice forcDice = new Dice(getX()+128, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, forc, dAmount, true);
+				dValue, forc, dAmount, true, true);
 		labels.add(forcDice);
 		labels.add(forca);
 		labels.add(forc); 
@@ -77,7 +77,7 @@ public class AtributosLabel extends Label{
 		TextLabel inte = new TextLabel(getX()+243, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice inteDice = new Dice(getX()+221, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, inte, dAmount, true);
+				dValue, inte, dAmount, true, true);
 		labels.add(inteDice);
 		labels.add(inteligencia);
 		labels.add(inte); 
@@ -87,7 +87,7 @@ public class AtributosLabel extends Label{
 		TextLabel pode = new TextLabel(getX()+55, getY()+325, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice podeDice = new Dice(getX()+33, getY()+240, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, pode, dAmount, true);
+				dValue, pode, dAmount, true, true);
 		labels.add(podeDice);
 		labels.add(poder);
 		labels.add(pode); 
@@ -97,14 +97,14 @@ public class AtributosLabel extends Label{
 		TextLabel sort = new TextLabel(getX()+149, getY()+325, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		Dice sortDice = new Dice(getX()+128, getY()+240, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, sort, dAmount, true);
+				dValue, sort, dAmount, true, true);
 		labels.add(sortDice);
 		labels.add(sorte);
 		labels.add(sort); 
 		
 		TextLabel movimento = new TextLabel(getX()+212, getY()+300, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Movimento", 1);
-		TextLabel movi = new TextLabel(getX()+243, getY()+325, 13, 29, 0, null, 
+		movi = new TextLabel(getX()+243, getY()+325, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1);
 		labels.add(movimento);
 		labels.add(movi);
@@ -125,6 +125,73 @@ public class AtributosLabel extends Label{
 			}else {
 				inLocal = 0;
 			}	
+			
+			for(int i = 0; i < Game.entities.size(); i++) {
+				Entity e = Game.entities.get(i);
+				if(e instanceof CheckBox) {
+					if(((CheckBox) e).getChecked() == true) {
+						if(this.cons != null) {
+							String d = this.dest.text;
+							String f = this.forc.text;
+							String t = this.tama.text;
+							String newSF = "";
+							String newSD = "";
+							String newST = "";
+							for(int ii = 0; ii < (f).length(); ii++) {
+								if(String.valueOf((f).charAt(ii)).equals("1") || 
+										String.valueOf((f).charAt(ii)).equals("2") || 
+										String.valueOf((f).charAt(ii)).equals("3") ||
+										String.valueOf((f).charAt(ii)).equals("4") || 
+										String.valueOf((f).charAt(ii)).equals("5") || 
+										String.valueOf((f).charAt(ii)).equals("6") ||
+										String.valueOf((f).charAt(ii)).equals("7") || 
+										String.valueOf((f).charAt(ii)).equals("8") || 
+										String.valueOf((f).charAt(ii)).equals("9") ||
+										String.valueOf((f).charAt(ii)).equals("0")) {
+									newSF+=f.charAt(ii);
+								}
+							}
+							for(int ii = 0; ii < (t).length(); ii++) {
+								if(String.valueOf((t).charAt(ii)).equals("1") || 
+										String.valueOf((t).charAt(ii)).equals("2") || 
+										String.valueOf((t).charAt(ii)).equals("3") ||
+										String.valueOf((t).charAt(ii)).equals("4") || 
+										String.valueOf((t).charAt(ii)).equals("5") || 
+										String.valueOf((t).charAt(ii)).equals("6") ||
+										String.valueOf((t).charAt(ii)).equals("7") || 
+										String.valueOf((t).charAt(ii)).equals("8") || 
+										String.valueOf((t).charAt(ii)).equals("9") ||
+										String.valueOf((t).charAt(ii)).equals("0")) {
+									newST+=t.charAt(ii);
+								}
+							}
+							for(int ii = 0; ii < (d).length(); ii++) {
+								if(String.valueOf((d).charAt(ii)).equals("1") || 
+										String.valueOf((d).charAt(ii)).equals("2") || 
+										String.valueOf((d).charAt(ii)).equals("3") ||
+										String.valueOf((d).charAt(ii)).equals("4") || 
+										String.valueOf((d).charAt(ii)).equals("5") || 
+										String.valueOf((d).charAt(ii)).equals("6") ||
+										String.valueOf((d).charAt(ii)).equals("7") || 
+										String.valueOf((d).charAt(ii)).equals("8") || 
+										String.valueOf((d).charAt(ii)).equals("9") ||
+										String.valueOf((d).charAt(ii)).equals("0")) {
+									newSD+=d.charAt(ii);
+								}
+							}
+							if(newSF != "" && newSD != "" && newST != "") {
+								if(Integer.parseInt(newSF) < Integer.parseInt(newST) && Integer.parseInt(newSD) < Integer.parseInt(newST)) {
+									this.movi.text = "7";
+								}else if(Integer.parseInt(newSF) > Integer.parseInt(newST) && Integer.parseInt(newSD) > Integer.parseInt(newST)) {
+									this.movi.text = "9";
+								}else if(Integer.parseInt(newSF) >= Integer.parseInt(newST) || Integer.parseInt(newSD) >= Integer.parseInt(newST)) {
+									this.movi.text = "8";
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	

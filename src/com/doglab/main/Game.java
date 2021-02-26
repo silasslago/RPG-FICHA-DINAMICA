@@ -72,8 +72,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		initFrame();
 		image = new BufferedImage(getThisWidth(), getThisHeight(), BufferedImage.TYPE_INT_RGB);
 		// Objetos
-		spr_entities = new Spritesheet("/sheet_interface.png");
 		entities = new ArrayList<Entity>();
+		mouseController = new mouseController(0,0,6,6,0, null);
+		entities.add(mouseController);
+		spr_entities = new Spritesheet("/sheet_interface.png");
 		world = new World();
 		ui = new UI();
 		pause = new Pause();
@@ -81,12 +83,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		end = new Credits();
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu();
-		mouseController = new mouseController(0,0,6,6,0, null);
 		int width = 10;
 		roller = new Roller(Game.WIDTH-width, 0, width, 70, 10, null, false, Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
-		entities.add(mouseController);
+		
 	}
 	
 	public void initFrame() {
@@ -284,6 +285,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}
 			mouseController.currentTextLabel.buildPhrase(e.getKeyChar());	
 		}
+		
 	}
 
 	@Override

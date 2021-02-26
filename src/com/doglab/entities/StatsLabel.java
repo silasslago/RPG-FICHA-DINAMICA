@@ -26,12 +26,32 @@ public class StatsLabel extends Label{
 		maxLie = new TextLabel(getX()+160, getY()+40, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0);
 		
+		CheckBox cb = new CheckBox(getX()+10, getY()+55, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
+				Game.spr_entities.getSprite(126, 231, 25, 25), "Lesão Grave");
+		labels.add(cb);
+		
+		CheckBox cb2 = new CheckBox(getX()+110, getY()+55, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
+				Game.spr_entities.getSprite(126, 231, 25, 25), "Inconsciente");
+		labels.add(cb2);
+		
+		CheckBox cb3 = new CheckBox(getX()+220, getY()+55, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
+				Game.spr_entities.getSprite(126, 231, 25, 25), "Morrendo");
+		labels.add(cb3);
+		
 		sani = new TextLabel(getX(), getY()+95, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Sanidade", 0);
 		sanityPlayer = new TextLabel(getX()+110, getY()+120, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2);
 		maxSanityPlayer = new TextLabel(getX()+135, getY()+120, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0);
+		
+		CheckBox cb4 = new CheckBox(getX()+30, getY()+135, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
+				Game.spr_entities.getSprite(126, 231, 25, 25), "Traumatizado");
+		labels.add(cb4);
+		
+		CheckBox cb5 = new CheckBox(getX()+160, getY()+135, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
+				Game.spr_entities.getSprite(126, 231, 25, 25), "Enlouquecido");
+		labels.add(cb5);
 		
 		ocul = new TextLabel(getX(), getY()+175, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Ocultismo", 0);
@@ -55,9 +75,10 @@ public class StatsLabel extends Label{
 				new Color(0xFFE8EDEB), "1", 1);
 		
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0);
+		TextLabel dLados = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "100", 0);
 		dice = new Dice(getX()+270, getY()+90, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				maxSanityPlayer, sanityPlayer, dAmount, true);
-		
+				dLados, sanityPlayer, dAmount, true, false);
+
 		labels.add(dice);
 		labels.add(maxLie);
 		labels.add(lifePlayer);
@@ -86,43 +107,50 @@ public class StatsLabel extends Label{
 			}
 			for(int i = 0; i < Game.entities.size(); i++) {
 				Entity e = Game.entities.get(i);
-				if(e instanceof AtributosLabel) {
-					if(((AtributosLabel) e).cons != null) {
-						String c = ((AtributosLabel) e).cons.text;
-						String t = ((AtributosLabel) e).tama.text;
-						String newS = "";
-						String newS2 = "";
-						for(int ii = 0; ii < (c).length(); ii++) {
-							if(String.valueOf((c).charAt(ii)).equals("1") || 
-									String.valueOf((c).charAt(ii)).equals("2") || 
-									String.valueOf((c).charAt(ii)).equals("3") ||
-									String.valueOf((c).charAt(ii)).equals("4") || 
-									String.valueOf((c).charAt(ii)).equals("5") || 
-									String.valueOf((c).charAt(ii)).equals("6") ||
-									String.valueOf((c).charAt(ii)).equals("7") || 
-									String.valueOf((c).charAt(ii)).equals("8") || 
-									String.valueOf((c).charAt(ii)).equals("9") ||
-									String.valueOf((c).charAt(ii)).equals("0")) {
-								newS+=c.charAt(ii);
+				if(e instanceof CheckBox) {
+					if(((CheckBox) e).getChecked() == true) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity ee = Game.entities.get(ii);
+							if(ee instanceof AtributosLabel) {
+								if(((AtributosLabel) ee).cons != null) {
+									String c = ((AtributosLabel) ee).cons.text;
+									String t = ((AtributosLabel) ee).tama.text;
+									String newS = "";
+									String newS2 = "";
+									for(int iii = 0; iii < (c).length(); iii++) {
+										if(String.valueOf((c).charAt(iii)).equals("1") || 
+												String.valueOf((c).charAt(iii)).equals("2") || 
+												String.valueOf((c).charAt(iii)).equals("3") ||
+												String.valueOf((c).charAt(iii)).equals("4") || 
+												String.valueOf((c).charAt(iii)).equals("5") || 
+												String.valueOf((c).charAt(iii)).equals("6") ||
+												String.valueOf((c).charAt(iii)).equals("7") || 
+												String.valueOf((c).charAt(iii)).equals("8") || 
+												String.valueOf((c).charAt(iii)).equals("9") ||
+												String.valueOf((c).charAt(iii)).equals("0")) {
+											newS+=c.charAt(iii);
+										}
+									}
+									for(int iii = 0; iii < (t).length(); iii++) {
+										if(String.valueOf((t).charAt(iii)).equals("1") || 
+												String.valueOf((t).charAt(iii)).equals("2") || 
+												String.valueOf((t).charAt(iii)).equals("3") ||
+												String.valueOf((t).charAt(iii)).equals("4") || 
+												String.valueOf((t).charAt(iii)).equals("5") || 
+												String.valueOf((t).charAt(iii)).equals("6") ||
+												String.valueOf((t).charAt(iii)).equals("7") || 
+												String.valueOf((t).charAt(iii)).equals("8") || 
+												String.valueOf((t).charAt(iii)).equals("9") ||
+												String.valueOf((t).charAt(iii)).equals("0")) {
+											newS2+=t.charAt(iii);
+										}
+									}
+									if(newS != "" && newS2 != "") {
+										int maxLife = (Integer.parseInt(newS)+Integer.parseInt(newS2))/2;
+										this.maxLie.text = Integer.toString(maxLife);
+									}
+								}
 							}
-						}
-						for(int ii = 0; ii < (t).length(); ii++) {
-							if(String.valueOf((t).charAt(ii)).equals("1") || 
-									String.valueOf((t).charAt(ii)).equals("2") || 
-									String.valueOf((t).charAt(ii)).equals("3") ||
-									String.valueOf((t).charAt(ii)).equals("4") || 
-									String.valueOf((t).charAt(ii)).equals("5") || 
-									String.valueOf((t).charAt(ii)).equals("6") ||
-									String.valueOf((t).charAt(ii)).equals("7") || 
-									String.valueOf((t).charAt(ii)).equals("8") || 
-									String.valueOf((t).charAt(ii)).equals("9") ||
-									String.valueOf((t).charAt(ii)).equals("0")) {
-								newS2+=t.charAt(ii);
-							}
-						}
-						if(newS != "" && newS2 != "") {
-							int maxLife = (Integer.parseInt(newS)+Integer.parseInt(newS2))/2;
-							this.maxLie.text = Integer.toString(maxLife);
 						}
 					}
 				}

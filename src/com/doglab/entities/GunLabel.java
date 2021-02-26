@@ -32,7 +32,7 @@ public class GunLabel extends Label{
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "?", 0);
 		
 		Dice dice = new Dice(getX()+225-5, getY(), 25, 25, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				gunDamage, gunDamage, diceAmount, false);
+				gunDamage, gunDamage, diceAmount, false, true);
 		labels.add(dice);
 		labels.add(gunDamage);
 		labels.add(diceAmount);

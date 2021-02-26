@@ -55,7 +55,6 @@ public class DetailsLabel extends Label{
 		detalhes = new TextLabel(getX()+55, getY()+30, 200, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
 				new Color(0xFFE8EDEB), "DETALHES PESSOAIS", 1);
 		
-		
 		labels.add(detalhes);
 		labels.add(ldR);
 		labels.add(ldM);

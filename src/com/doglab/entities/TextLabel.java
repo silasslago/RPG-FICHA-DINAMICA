@@ -26,6 +26,9 @@ public class TextLabel extends Label{
 	
 	private double initX;
 	
+	public static boolean showSpace = true;
+	public static boolean editionTime = false;
+	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText) {
 		super(x, y-font.getSize()/1.5, width, height, speed, sprite);
@@ -69,13 +72,16 @@ public class TextLabel extends Label{
 	
 	public void render(Graphics g) {
 		g.setColor(color);
+		if(editionTime) {
+			g.setColor(new Color(0xFF9493D0));
+		}
 		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/3));
 		g.drawString(text, getX(), imaginaryY-Game.roller.getY()*Game.roller.step);
 		if(writing && show) {
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
 		}
-		if(this.text == "") {
+		if(this.text == "" && showSpace) {
 			g.setColor(Color.red);
 			g.drawRect(getX(), getY()-Game.roller.getY()*Game.roller.step, width, height);
 		}
@@ -84,17 +90,19 @@ public class TextLabel extends Label{
 	private void changeLabel() {
 		Entity tL = new Entity(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight(), speed, getSprite());
 		if(this.isColliding(tL, Game.mouseController)) {
-			for(int ii = 0; ii < Game.entities.size(); ii++) {
-				Entity ee = Game.entities.get(ii);
-				if(ee instanceof TextLabel) {
-					((TextLabel) ee).writing = false;
-				}
-			}
-			Game.mouseController.currentTextLabel = this;
 			Game.mouseController.resetPosition();
-			phrase = "";
-			this.beginToWrite();
-			throwPhrase = true;
+			if(editionTime) {
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity ee = Game.entities.get(ii);
+					if(ee instanceof TextLabel) {
+						((TextLabel) ee).writing = false;
+					}
+				}
+				Game.mouseController.currentTextLabel = this;
+				phrase = "";
+				this.beginToWrite();
+				throwPhrase = true;
+			}
 		}
 	}
 	
@@ -141,9 +149,9 @@ public class TextLabel extends Label{
 				letter.equals("u") || letter.equals("v") || letter.equals("w") || letter.equals("x") ||
 				letter.equals("y") || letter.equals("z") || letter.equals("ç") || letter.equals(" ") ||
 				letter.equals("0") || letter.equals("1") || letter.equals("2") || letter.equals("3") ||
-				letter.equals("4") || letter.equals("5") ||letter.equals("6") || letter.equals("7") ||
+				letter.equals("4") || letter.equals("5") || letter.equals("6") || letter.equals("7") ||
 				letter.equals("8") || letter.equals("9") || letter.equals("(") || letter.equals(")") ||
-				letter.equals("+")){
+				letter.equals("+") || letter.equals(".")){
 			phrase+=e;
 			throwText();
 		}

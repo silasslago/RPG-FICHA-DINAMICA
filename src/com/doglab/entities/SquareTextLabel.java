@@ -35,7 +35,7 @@ public class SquareTextLabel extends Label{
 		TextLabel rollTimes = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "1", 0);
 		TextLabel dValue = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "20", 0);
 		dice = new Dice(getX()-20, getY(), getWidth()+35, getHeight()-20, 0, 
-				Game.spr_entities.getSprite(0, 156, 76, 71), dValue, valueL, rollTimes, true);
+				Game.spr_entities.getSprite(0, 156, 76, 71), dValue, valueL, rollTimes, true, true);
 	}
 
 	public void tick() {

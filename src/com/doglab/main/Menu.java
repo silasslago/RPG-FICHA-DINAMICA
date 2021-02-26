@@ -13,15 +13,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.doglab.entities.AtributosLabel;
+import com.doglab.entities.CheckBox;
 import com.doglab.entities.CombatLabel;
 import com.doglab.entities.DetailsLabel;
+import com.doglab.entities.EditButton;
 import com.doglab.entities.Entity;
 import com.doglab.entities.FastSkillsLabel;
 import com.doglab.entities.GunLabel;
 import com.doglab.entities.IconLabel;
 import com.doglab.entities.InventoryLabel;
 import com.doglab.entities.ItemLabel;
+import com.doglab.entities.OptionsLabel;
 import com.doglab.entities.SaveButton;
+import com.doglab.entities.ShowButton;
 import com.doglab.entities.Skills;
 import com.doglab.entities.SquareTextLabel;
 import com.doglab.entities.StatsLabel;
@@ -55,15 +59,18 @@ public class Menu {
 		Game.entities.add(skills);
 		InventoryLabel inventory = new InventoryLabel(10, 1890, Game.WIDTH*Game.SCALE-30, 300, 0, null);
 		Game.entities.add(inventory);
-		SaveButton saveButton = new SaveButton(50, 70, 25, 25, 0, Game.spr_entities.getSprite(76, 231, 25, 25));
-		Game.entities.add(saveButton);
+		CheckBox cb = new CheckBox(30, 83, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
+				Game.spr_entities.getSprite(126, 231, 25, 25), "COC System");
+		Game.entities.add(cb);
+		OptionsLabel optionsLabel = new OptionsLabel(0, 0-45, Game.WIDTH, 45, 0, Game.spr_entities.getSprite(26, 231, 25, 25));
+		Game.entities.add(optionsLabel);
 		File file = new File("info.txt");
 		if(file.exists()) {
 			aplySave(loadGame());
 		}
 	}
 
-	public static void saveGame(String[] val1, int[] val2, int[] val3, int[] val4) {
+	public static void saveGame(String[] val1, int[] val2, int[] val3, String[] val4) {
 		BufferedWriter write = null;
 		try {
 			write = new BufferedWriter(new FileWriter("info.txt"));
@@ -124,11 +131,23 @@ public class Menu {
 	public static void aplySave(String spr) {
 		String[] str = spr.split("/");
 		int str2Times = 0;
+		int lenght2Times = 0;
 		int labelsCAmount = 0;
 		int labelsIAmount = 0;
+		int lenght3Times = 0;
+		int length1 = 12, length2 = 5, length3 = 4, length4 = 3, length5 = 6;
+		boolean olderV = false;
+		if(str[0].equals("v4.0")) {
+			length1 = 11;
+			length2 = 3;
+			length3 = 3;
+			length4 = 2;
+			length5 = 4;
+			olderV = true;
+		}
 		for(int i = 0; i < str.length; i++) {
 			String[] str2 = str[i].split(";");
-			if(str2.length == 11) {
+			if(str2.length == length1) {
 				int index = 0;
 				for(int ii = 0; ii < Game.entities.size(); ii++) {
 					Entity e = Game.entities.get(ii);
@@ -136,12 +155,16 @@ public class Menu {
 						ArrayList<GunLabel> gLL = new ArrayList<GunLabel>();
 					
 						gLL = ((CombatLabel)e).getGunArrayList();
-						
+						int x = 0;
+						if(olderV) {
+							x = ((CombatLabel) e).labelX;
+						}else {
+							x = Integer.parseInt(str2[length1-1]);
+						}
 						GunLabel gL = new GunLabel(((CombatLabel) e).labelX, 
 								((CombatLabel) e).labelY+(((CombatLabel) e).labelY*labelsCAmount), 
 								((CombatLabel) e).labelW, ((CombatLabel) e).labelH, 
 								0, null, ((CombatLabel) e).labelY+((CombatLabel) e).labelH+5);
-						
 						labelsCAmount++;
 						for(int iii = 0; iii < gL.labels.size(); iii++) {
 							Entity ee = gL.labels.get(iii);
@@ -155,27 +178,9 @@ public class Menu {
 						((CombatLabel) e).addB.labels = ((CombatLabel)e).getGunArrayList();
 					}
 				}
-			}else if(str2.length == 4) { 
-				int index = 0;
-				for(int ii = 0; ii < Game.entities.size(); ii++) {
-					Entity e = Game.entities.get(ii);
-					if(e instanceof InventoryLabel) {
-						ArrayList<ItemLabel> iLL = new ArrayList<ItemLabel>();
-						((InventoryLabel) e).addB.actionPerformed();
-						iLL = ((InventoryLabel)e).getItemArrayList();
-						for(int iii = 0; iii < iLL.get(labelsIAmount).labels.size(); iii++) {
-							Entity ee = iLL.get(labelsIAmount).labels.get(iii);
-							if(ee instanceof TextLabel) {
-								((TextLabel) ee).text = str2[index+1];
-								index++;
-							}
-						}
-						labelsIAmount++;
-						((InventoryLabel) e).setItemArrayList(iLL);
-					}
-				}
-			}else if(str2.length == 3) {
-				for(int index = 0; index < 47; index++) {
+			}else if(str2.length == length2 && lenght2Times < 48) {
+				lenght2Times++;
+				for(int index = 0; index < 48; index++) {
 					String indexX = Integer.toString(index);
 					if(indexX.equals(str2[0])) {
 						for(int ii = 0; ii < Game.entities.size(); ii++) {
@@ -186,13 +191,77 @@ public class Menu {
 									if(iii == index) {
 										((TextLabel)sTL.labels.get(0)).text = str2[2];
 										((TextLabel)sTL.labels.get(1)).text = str2[1];
+										if(!olderV) {
+											((TextLabel)sTL.labels.get(0)).setX(Integer.parseInt(str2[length2-2]));
+											((TextLabel)sTL.labels.get(1)).setX(Integer.parseInt(str2[length2-1]));
+										}
 									}
 								}
 							}
 						}
 					}
 				}
-			}else if(str2.length == 2 && str2Times < 15) {
+			}else if(str2.length == length5) { 
+				int index = 0;
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity e = Game.entities.get(ii);
+					if(e instanceof InventoryLabel) {
+						ArrayList<ItemLabel> iLL = new ArrayList<ItemLabel>();
+						((InventoryLabel) e).addB.actionPerformed();
+						iLL = ((InventoryLabel)e).getItemArrayList();
+						for(int iii = 0; iii < iLL.get(labelsIAmount).labels.size(); iii++) {
+							Entity ee = iLL.get(labelsIAmount).labels.get(iii);
+							if(ee instanceof TextLabel) {
+								if(!olderV) {
+									ee.setX(Integer.parseInt(str2[length2-1]));
+								}
+								((TextLabel) ee).text = str2[index+1];
+								index++;
+							}
+						}
+						labelsIAmount++;
+						((InventoryLabel) e).setItemArrayList(iLL);
+					}
+				}
+			}else if(str2.length == length3 && lenght3Times < 5) {
+				lenght3Times++;
+				for(int index = 0; index < 5; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof StatsLabel) {
+								for(int iii = 0; iii < ((StatsLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((StatsLabel) e).labels.get(iii) instanceof CheckBox) {
+											if(str2[1].equals("true")) {
+												((CheckBox)((StatsLabel) e).labels.get(iii)).actionPerformed();
+											}
+											((CheckBox)((StatsLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length3-1]));
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length3) {
+				lenght3Times++;
+				for(int index = 0; index < 1; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof CheckBox) {
+								if(str2[1].equals("true")) {
+									((CheckBox) e).actionPerformed();
+								}
+								((CheckBox) e).setX(Integer.parseInt(str2[length3-1]));
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 15) {
 				str2Times++;
 				for(int index = 0; index < 15; index++) {
 					String indexX = Integer.toString(index);
@@ -203,24 +272,8 @@ public class Menu {
 								for(int iii = 0; iii < ((DetailsLabel)e).labels.size(); iii++) {
 									if(iii == index) {
 										((TextLabel)((DetailsLabel) e).labels.get(iii)).text = str2[1];
-									}
-								}
-							}
-						}
-					}
-				}
-			}else if(str2.length == 2 && str2Times < 31) {
-				str2Times++;
-				for(int index = 0; index < 16; index++) {
-					String indexX = Integer.toString(index);
-					if(indexX.equals(str2[0])) {
-						for(int ii = 0; ii < Game.entities.size(); ii++) {
-							Entity e = Game.entities.get(ii);
-							if(e instanceof StatsLabel) {
-								for(int iii = 0; iii < ((StatsLabel)e).labels.size(); iii++) {
-									if(iii == index) {
-										if(((StatsLabel) e).labels.get(iii) instanceof TextLabel) {
-											((TextLabel)((StatsLabel) e).labels.get(iii)).text = str2[1];
+										if(!olderV) {
+											((TextLabel)((DetailsLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
 										}
 									}
 								}
@@ -228,7 +281,31 @@ public class Menu {
 						}
 					}
 				}
-			}else if(str2.length == 2 && str2Times < 60) {
+			}else if(str2.length == length4 && str2Times < 31) {
+				str2Times++;
+				for(int index = 5; index < 21; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof StatsLabel) {
+								for(int iii = 0; iii < ((StatsLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(iii > 4) {
+											if(((StatsLabel) e).labels.get(iii) instanceof TextLabel) {
+												((TextLabel)((StatsLabel) e).labels.get(iii)).text = str2[1];
+												if(!olderV) {
+													((TextLabel)((StatsLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 60) {
 				str2Times++;
 				for(int index = 0; index < 29; index++) {
 					String indexX = Integer.toString(index);
@@ -240,6 +317,9 @@ public class Menu {
 									if(iii == index) {
 										if(((AtributosLabel) e).labels.get(iii) instanceof TextLabel) {
 											((TextLabel)((AtributosLabel) e).labels.get(iii)).text = str2[1];
+											if(!olderV) {
+												((TextLabel)((AtributosLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
+											}
 										}
 									}
 								}
@@ -247,7 +327,7 @@ public class Menu {
 						}
 					}
 				}
-			}else if(str2.length == 2 && str2Times < 61) {
+			}else if(str2.length == length4 && str2Times < 61) {
 				str2Times++;
 				for(int index = 0; index < 1; index++) {
 					String indexX = Integer.toString(index);
@@ -257,11 +337,14 @@ public class Menu {
 							if(e instanceof IconLabel) {
 								((IconLabel) e).setIcon(str2[1]);
 								((IconLabel) e).path = str2[1];
+								if(!olderV) {
+									e.setX(Integer.parseInt(str2[length4-1]));
+								}
 							}
 						}
 					}
 				}
-			}else if(str2.length == 2 && str2Times < 73) {
+			}else if(str2.length == length4 && str2Times < 73) {
 				str2Times++;
 				for(int index = 0; index < 12; index++) {
 					String indexX = Integer.toString(index);
@@ -273,6 +356,9 @@ public class Menu {
 									if(iii == index) {
 										if(((CombatLabel) e).labels.get(iii) instanceof TextLabel) {
 											((TextLabel)((CombatLabel) e).labels.get(iii)).text = str2[1];
+											if(!olderV) {
+												((TextLabel)((CombatLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
+											}
 										}
 									}
 								}
@@ -280,7 +366,7 @@ public class Menu {
 						}
 					}
 				}
-			}else if(str2.length == 2 && str2Times < 81) {
+			}else if(str2.length == length4 && str2Times < 81) {
 				str2Times++;
 				for(int index = 0; index < 8; index++) {
 					String indexX = Integer.toString(index);
@@ -292,6 +378,10 @@ public class Menu {
 									if(iii == index) {
 										if(((InventoryLabel) e).labels.get(iii) instanceof TextLabel) {
 											((TextLabel)((InventoryLabel) e).labels.get(iii)).text = str2[1];
+											if(!olderV && ((InventoryLabel) e).getItemArrayList().size() > 0) {
+												((TextLabel)(((InventoryLabel) e).getItemArrayList().get(iii)).labels.get(1)).setX(Integer.parseInt(str2[length4-2]));
+												((TextLabel)(((InventoryLabel) e).getItemArrayList().get(iii)).labels.get(2)).setX(Integer.parseInt(str2[length4-1]));
+											}
 										}
 									}
 								}

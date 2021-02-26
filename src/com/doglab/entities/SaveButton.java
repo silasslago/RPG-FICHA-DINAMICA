@@ -1,5 +1,6 @@
 package com.doglab.entities;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.doglab.main.Game;
@@ -11,36 +12,46 @@ public class SaveButton extends Button{
 		super(x, y, width, height, speed, sprite);
 	}
 	
+	public void tick() {
+		Entity e = new Entity(getX(), getY(), getWidth(), getHeight(), speed, getSprite());
+		if(this.isColliding(e, Game.mouseController)) {
+			Game.mouseController.resetPosition();
+			actionPerformed();
+		}
+	}
+	
 	public void actionPerformed() {
 		
 		int[] values = new int[1];
 		String[] skills = new String[1];
 		int[] id = new int[1];
-		int[] x = new int[1];
-		
+		String[] x = new String[1];
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof Skills) {
 				values = new int[((Skills)e).squares.size()];
 				skills = new String[((Skills)e).squares.size()];
 				id = new int[((Skills)e).squares.size()];
-				x = new int[((Skills)e).squares.size()];
+				x = new String[((Skills)e).squares.size()];
 				for(int ii = 0; ii < ((Skills)e).squares.size(); ii++) {
 					SquareTextLabel sTL = ((Skills)e).squares.get(ii);
+					String s = "";
 					for(int iii = 0; iii < sTL.labels.size(); iii++) {
 						TextLabel l = (TextLabel)sTL.labels.get(iii);
 						id[ii] = ii;
-						x[ii] = l.getX();
 						if(iii < 1) {
+							s+= l.getX();
+							s+=";";
 							values[ii] = Integer.parseInt(l.text);
 						}else {
+							s+= l.getX();
 							skills[ii] = l.text;
 						}
 					}
+					x[ii] = s;
 				}
 			}
 		}
-		
 		int[] id2 = new int[1];
 		int[] x2 = new int[1];
 		String[] details = new String[1];
@@ -72,6 +83,18 @@ public class SaveButton extends Button{
 						id3[ii] = ii;
 						x3[ii] = ((TextLabel)((StatsLabel) e).labels.get(ii)).getX();
 						stats[ii] = ((TextLabel)((StatsLabel) e).labels.get(ii)).text;
+					}else if(((StatsLabel)e).labels.get(ii) instanceof CheckBox) {
+						id3[ii] = ii;
+						x3[ii] = ((StatsLabel) e).labels.get(ii).getX();
+						if(((CheckBox)((StatsLabel)e).labels.get(ii)).getChecked() == true) {
+							stats[ii] = "true";
+						}else {
+							stats[ii] = "false";
+						}
+						for(int iii = 0; iii < ((CheckBox)((StatsLabel)e).labels.get(ii)).getArrayList().size(); iii++) {
+							stats[ii]+=";";
+							stats[ii]+=((CheckBox)((StatsLabel)e).labels.get(ii)).getArrayList().get(iii).text;
+						}
 					}else {
 						id3[ii] = 99999999;
 					}
@@ -138,7 +161,7 @@ public class SaveButton extends Button{
 				x7 = new int[((CombatLabel)e).getGunArrayList().size()];
 				for(int ii = 0; ii < ((CombatLabel)e).getGunArrayList().size(); ii++) {
 					id7[ii] = ii;
-					x7[ii] = ((TextLabel)((CombatLabel)e).getGunArrayList().get(ii).labels.get(ii)).getX();
+					x7[ii] = (((CombatLabel)e).getGunArrayList().get(ii).labels.get(ii)).getX();
 					for(int iii = 0; iii < ((CombatLabel)e).getGunArrayList().get(ii).labels.size()-1; iii++) {
 						if(((CombatLabel)e).getGunArrayList().get(ii).labels.get(iii+1) instanceof TextLabel){
 							String s = ((TextLabel)((CombatLabel)e).getGunArrayList().get(ii).labels.get(iii+1)).text;
@@ -147,7 +170,10 @@ public class SaveButton extends Button{
 								gunLabels[ii]+=";";
 							}else {
 								gunLabels[ii]+=s;
-								gunLabels[ii]+=";";
+								if(iii < ((CombatLabel)e).getGunArrayList().get(ii).labels.size()-2) {
+									gunLabels[ii]+=";";
+								}
+							
 							}
 						}
 					}
@@ -160,7 +186,7 @@ public class SaveButton extends Button{
 		int[] x8 = new int[1];
 		String[] itemLabels = new String[1];
 		int[] id9 = new int[1];
-		int[] x9 = new int[1];
+		String[] x9 = new String[1];
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof InventoryLabel) {
@@ -179,20 +205,23 @@ public class SaveButton extends Button{
 				
 				id9 = new int[((InventoryLabel)e).getItemArrayList().size()];
 				itemLabels = new String[((InventoryLabel)e).getItemArrayList().size()];
-				x9 = new int[((InventoryLabel)e).getItemArrayList().size()];
+				x9 = new String[((InventoryLabel)e).getItemArrayList().size()];
 				for(int ii = 0; ii < ((InventoryLabel)e).getItemArrayList().size(); ii++) {
 					id9[ii] = ii;
-					x9[ii] = ((TextLabel)((InventoryLabel)e).getItemArrayList().get(ii).labels.get(ii)).getX();
+					x9[ii] = Integer.toString((((InventoryLabel)e).getItemArrayList().get(ii).labels.get(1)).getX());
+					x9[ii]+=";";
+					x9[ii]+=Integer.toString((((InventoryLabel)e).getItemArrayList().get(ii).labels.get(2)).getX());
 					for(int iii = 0; iii < ((InventoryLabel)e).getItemArrayList().get(ii).labels.size()-1; iii++) {
 						if(((InventoryLabel)e).getItemArrayList().get(ii).labels.get(iii+1) instanceof TextLabel){
 							String s = ((TextLabel)((InventoryLabel)e).getItemArrayList().get(ii).labels.get(iii+1)).text;
 							if(iii == 0) {
 								itemLabels[ii]=s;
-								
 								itemLabels[ii]+=";";
 							}else {
 								itemLabels[ii]+=s;
-								itemLabels[ii]+=";";
+								if(iii<((InventoryLabel)e).getItemArrayList().get(ii).labels.size()-2) {
+									itemLabels[ii]+=";";	
+								}
 							}
 						}
 					}
@@ -200,14 +229,34 @@ public class SaveButton extends Button{
 			}
 		}
 		
+		String[] systemValue = new String[1];
+		int[] id10 = new int[1];
+		int[] x10 = new int[1];
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof CheckBox) {
+				id10[0] = 0;
+				x10[0] = e.getX();
+				if(((CheckBox) e).getChecked() == true) {
+					systemValue[0] = "true";
+				}else {
+					systemValue[0] = "false";
+				}
+				for(int ii = 0; ii < ((CheckBox) e).getArrayList().size(); ii++) {
+					systemValue[0]+=";";
+					systemValue[0]+=((CheckBox) e).getArrayList().get(ii).text;
+				}
+			}
+		}
+		
 		String[] labels = new String[details.length + skills.length + stats.length + atributos.length + 
 		                             image.length + combate.length + gunLabels.length + inventory.length 
-		                             + itemLabels.length];
+		                             + itemLabels.length + systemValue.length];
 		int[] ids = new int[id.length + id2.length + id3.length + id4.length + id5.length + id6.length + 
-		                    id7.length + id8.length + id9.length];
+		                    id7.length + id8.length + id9.length + id10.length];
 		int[] valuesLabels = new int[values.length];
-		int[] xLabels = new int[x.length +  x2.length + x3.length + x4.length + x5.length + x6.length + x7.length +
-		                        x8.length + x9.length];
+		String[] xLabels = new String[x.length +  x2.length + x3.length + x4.length + x5.length + x6.length + x7.length +
+		                        x8.length + x9.length + x10.length];
 		for(int i = 0; i < labels.length; i++) {
 			if(i < skills.length) {
 				labels[i] = skills[i];
@@ -215,40 +264,48 @@ public class SaveButton extends Button{
 				valuesLabels[i] = values[i];
 				xLabels[i] = x[i];
 			}else if(i < skills.length + details.length) {
-				xLabels[i] = x2[i-skills.length];
+				xLabels[i] = Integer.toString(x2[i-skills.length]);
 				labels[i] = details[i-skills.length];
 				ids[i] = id2[i-skills.length];
 			}else if(i < skills.length + details.length + stats.length) {
-				xLabels[i] = x3[i-skills.length-details.length];
+				xLabels[i] = Integer.toString(x3[i-skills.length-details.length]);
 				labels[i] = stats[i-skills.length-details.length];
 				ids[i] = id3[i-skills.length-details.length];
 			}else if(i < skills.length + details.length + stats.length + atributos.length) {
 				labels[i] = atributos[i-skills.length-details.length-stats.length];
 				ids[i] = id4[i-skills.length-details.length-stats.length];
-				xLabels[i] = x4[i-skills.length-details.length-stats.length];
+				xLabels[i] = Integer.toString(x4[i-skills.length-details.length-stats.length]);
 			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length){
 				labels[i] = image[i-skills.length-details.length-stats.length-atributos.length];
 				ids[i] = id5[i-skills.length-details.length-stats.length-atributos.length];
-				xLabels[i] = x5[i-skills.length-details.length-stats.length-atributos.length];
+				xLabels[i] = Integer.toString(x5[i-skills.length-details.length-stats.length-atributos.length]);
 			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length) {
 				labels[i] = combate[i-skills.length-details.length-stats.length-atributos.length-image.length];
 				ids[i] = id6[i-skills.length-details.length-stats.length-atributos.length-image.length];
-				xLabels[i] = x6[i-skills.length-details.length-stats.length-atributos.length-image.length];
+				xLabels[i] = Integer.toString(x6[i-skills.length-details.length-stats.length-atributos.length-image.length]);
 			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length) {
 				labels[i] = gunLabels[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length];
 				ids[i] = id7[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length];
-				xLabels[i] = x7[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length];
+				xLabels[i] = Integer.toString(x7[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length]);
 			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length) {
 				labels[i] = inventory[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length];
 				ids[i] = id8[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length];
-				xLabels[i] = x8[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length];
+				xLabels[i] = Integer.toString(x8[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length]);
 			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length + itemLabels.length) {
 				labels[i] = itemLabels[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length];
 				ids[i] = id9[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length];
 				xLabels[i] = x9[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length];
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length + itemLabels.length + systemValue.length){
+				labels[i] = systemValue[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length];
+				ids[i] = id10[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length];
+				xLabels[i] = Integer.toString(x10[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length]);
 			}
 		}
 		Menu.saveGame(labels, valuesLabels, ids, xLabels);
 	}
 
+	public void render(Graphics g) {
+		g.drawImage(this.getSprite(), this.getX(), this.getY(), width, height, null);
+	}
+	
 }

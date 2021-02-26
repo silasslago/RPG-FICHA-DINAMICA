@@ -21,11 +21,13 @@ public class Dice extends Entity{
 	private int timesRoll = 0;
 	private String newD = "";
 	private boolean show;
+	private boolean typeRoll;
 
 	public Dice(double x, double y, int width, int height, double speed, BufferedImage sprite, 
-			TextLabel dValue, TextLabel stat, TextLabel timesRoll, boolean show) {
+			TextLabel dValue, TextLabel stat, TextLabel timesRoll, boolean show, boolean type) {
 		super(x, y, width, height, speed, sprite);
 		labels = new ArrayList<Label>();
+		typeRoll = type;
 		this.show = show;
 		String t = timesRoll.text;
 		String newT = "";
@@ -230,7 +232,7 @@ public class Dice extends Entity{
 			int hLabel = 150;
 			int xLabel = ((Game.WIDTH*Game.SCALE)/2)-wLabel/2;
 			int yLabel = ((Game.HEIGHT*Game.SCALE)/2)-hLabel/2;
-			if(edit.isEditing()) {
+			if(/*edit.isEditing()*/false) {
 				mEditor = new MouseEditorLabel(xLabel, yLabel, wLabel, hLabel, 0, null, this.d, this);
 				Game.entities.add(mEditor);
 			}else {
@@ -248,17 +250,26 @@ public class Dice extends Entity{
 						return;
 					}
 				}
+				
 				if(this.show) {
-					if(value[0] > d-(stat/5)) {
-						currentState = state5;
-					}else if(value[0] > d-(stat/2)) {
-						currentState = state4;
-					}else if(value[0] > d-stat) {
-						currentState = state3;
-					}else if(value[0] == 1) {
-						currentState = state1;
-					}else if(value[0] <= d-stat) {
-						currentState = state2;
+					if(typeRoll) { // maior
+						if(value[0] > d-(stat/5)) {
+							currentState = state5;
+						}else if(value[0] > d-(stat/2)) {
+							currentState = state4;
+						}else if(value[0] > d-stat) {
+							currentState = state3;
+						}else if(value[0] == 1) {
+							currentState = state1;
+						}else if(value[0] <= d-stat) {
+							currentState = state2;
+						}
+					}else { // menor
+						if(value[0] <= stat) {
+							currentState = state3;
+						}else if(value[0] > (stat/2)) {
+							currentState = state2;
+						}
 					}
 				}else {
 					currentState = null;

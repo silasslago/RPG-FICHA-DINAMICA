@@ -121,7 +121,7 @@ public class ItemLabel extends Label{
 		g.setFont(new Font("sitka banner", Font.BOLD, 26));
 	}
 	
-	public int getPeso() {
+	public float getPeso() {
 		String s = ((TextLabel)labels.get(2)).text;
 		String newS = "";
 		for(int i = 0; i < s.length(); i++) {
@@ -134,14 +134,15 @@ public class ItemLabel extends Label{
 					String.valueOf((s).charAt(i)).equals("7") || 
 					String.valueOf((s).charAt(i)).equals("8") || 
 					String.valueOf((s).charAt(i)).equals("9") ||
-					String.valueOf((s).charAt(i)).equals("0")) {
+					String.valueOf((s).charAt(i)).equals("0") ||
+					String.valueOf((s).charAt(i)).equals(".")) {
 				newS+=(s).charAt(i);
 			}
 		}
 		if(newS == "") {
-			return 0;
+			return 0.0f;
 		}
-		return Integer.parseInt(newS);
+		return Float.parseFloat(newS);
 	}
 
 }
