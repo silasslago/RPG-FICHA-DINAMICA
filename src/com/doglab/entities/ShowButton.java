@@ -7,8 +7,12 @@ import com.doglab.main.Game;
 
 public class ShowButton extends Button{
 
+	private BufferedImage open, closed;
+	
 	public ShowButton(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
+		open = sprite;
+		closed = Game.spr_entities.getSprite(151, 231, 25, 25);
 	}
 	
 	public void tick() {
@@ -21,6 +25,11 @@ public class ShowButton extends Button{
 	
 	public void actionPerformed() {
 		TextLabel.showSpace = !TextLabel.showSpace;
+		if(TextLabel.showSpace) {
+			this.setSprite(open);
+		}else {
+			this.setSprite(closed);
+		}
 	}
 	
 	public void render(Graphics g) {

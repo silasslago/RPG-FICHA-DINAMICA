@@ -1,0 +1,137 @@
+v4.1
+0;Antropologia;1;78;37
+1;Armas de Fogo(P);1;228;171
+2;Armas de Fogo(R|E);1;398;333
+3;Armas de Fogo(A|B);1;568;503
+4;Arqueologia;1;78;41
+5;Arremessar;1;228;195
+6;Arte|Ofício;1;398;361
+7;Avaliação;1;568;539
+8;Charme;1;78;61
+9;Chaveiro;1;228;203
+10;Ciência Forense;1;398;345
+11;Conserto Eletrônico;1;568;499
+12;Conserto Mecânico;1;78;17
+13;Contabilidade;1;228;183
+14;Direito;1;398;377
+15;Dirigir;1;568;547
+16;Disfarce;1;78;53
+17;Encontrar;1;228;199
+18;Escutar;1;398;377
+19;Escalar;1;568;547
+20;Esquivar;1;78;53
+21;Lábia;1;228;215
+22;Intimidação;1;398;361
+23;História;1;568;543
+24;Furtividade;1;78;41
+25;Lutar(Brigar);1;228;183
+26;Medicina;1;398;373
+27;Exposição Paranormal;1;568;495
+28;Mundo Natural;1;78;33
+29;Natação;1;228;207
+30;Navegação;1;398;369
+31;Nível de Crédito;1;568;511
+32;Ocultismo;1;78;49
+33;Operar Máquinario;1;228;167
+34;Persuasão;1;398;369
+35;Pilotar;1;568;547
+36;Prestidigitação;1;78;25
+37;Primeiros Socorros;1;228;163
+38;Psicanálise;1;398;361
+39;Psicologia;1;568;535
+40;Saltar;1;78;61
+41;Rastrear;1;228;203
+42;Sobrevivência;1;398;353
+43;Usar Biblioteca;1;568;515
+44;Usar Computador;1;78;25
+45;Língua Outra;1;228;187
+46;Ciência Química;1;398;345
+47;Ciência Farmácia;1;568;511
+0;DETALHES PESSOAIS;85
+1;Local de residencia;50
+2;Local de Nascimento;50
+3;Sexo;50
+4;Idade;50
+5;Ocupação;50
+6;Jogador;50
+7;Nome;50
+8;nome;60
+9;player;60
+10;ocupation;60
+11;age;60
+12;gender;60
+13;bornPlace;60
+14;livingPlace;60
+0;false;Lesão Grave;350
+1;false;Inconsciente;450
+2;false;Morrendo;560
+3;false;Traumatizado;370
+4;false;Enlouquecido;500
+99999999;null;0
+6;1;500
+7;1;475
+8;1;450
+9;1;475
+10;1;475
+11;1;500
+12;1;500
+13;1;600
+14;1;400
+15;Vida;340
+16;Sanidade;340
+17;Ocultismo;340
+18;Dano Extra;370
+19;Corpo;490
+20;Exp. Par.;580
+0;;170
+99999999;null;0
+2;Aparencia;55
+3;1;80
+99999999;null;0
+5;Constituição;145
+6;;180
+99999999;null;0
+8;Destreza;245
+9;1;268
+99999999;null;0
+11;;85
+12;;86
+99999999;null;0
+14;;179
+15;1;174
+99999999;null;0
+17;Inteligência;237
+18;;274
+99999999;null;0
+20;Poder;67
+21;1;80
+99999999;null;0
+23;Sorte;162
+24;1;174
+25;Movimento;237
+26;8;268
+27;Tamanho;57
+28;1;80
+0;null;346
+99999999;null;0
+1;Combate;280
+99999999;null;0
+3;Nome;70
+4;Tipo;150
+5;Dano;240
+6;Mun. Atual;330
+7;Mun. Máx.;400
+8;Ataque;465
+9;Alcance;515
+10;Defeito;570
+11;Area;620
+0;Inventário;280
+1;Peso Total: ;285
+2;0.0;350
+3;Dinheiro: ;25
+4;0;93
+5;Patrimonio: ;25
+6;0;110
+99999999;null;0
+99999999;null;0
+0;true;COC System;30

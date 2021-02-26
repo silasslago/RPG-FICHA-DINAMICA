@@ -121,7 +121,6 @@ public class InventoryLabel extends Label{
 			for(int i = 0; i < itemLabels.size(); i++) {
 				ItemLabel l = itemLabels.get(i);
 				pesoAmount += l.getPeso();
-				System.out.println(l.getPeso());
 			}
 			this.pesoAmount.text = Float.toString(pesoAmount);
 			

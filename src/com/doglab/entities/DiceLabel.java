@@ -92,7 +92,9 @@ public class DiceLabel extends Label{
 			}
 			if(roll.length==1) {
 				g.setFont(new Font("sitka banner", Font.BOLD, 20));
-				g.drawString(state, diceX, diceY+60);
+				if(state != null) {
+					g.drawString(state, diceX, diceY+60);
+				}
 			}else {
 				int result = 0;
 				for(int i = 0; i < roll.length; i++) {

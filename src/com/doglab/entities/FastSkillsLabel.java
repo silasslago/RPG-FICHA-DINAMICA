@@ -13,7 +13,7 @@ public class FastSkillsLabel extends Label{
 	private int inLocal = 0;
 	private ArrayList<Label> pericias;
 	private boolean showMsg = false;
-	private EditButton editB;
+	
 	
 	public FastSkillsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -22,10 +22,10 @@ public class FastSkillsLabel extends Label{
 				new Color(0xFFE8EDEB), "Perícias", 1);
 		TextLabel fastAcess = new TextLabel(getX()+118, getY()+40, 75, 10, 0, null, new Font("sitka banner", Font.BOLD, 12), 
 				new Color(0xFF424242), "(acesso rápido)", 1);
-		editB = new EditButton(getX()+width-35, getY()+10, 25, 25, 0, Game.spr_entities.getSprite(76, 156, 25, 25));
+		
 		labels.add(pericias);
 		labels.add(fastAcess);
-		labels.add(editB);
+		
 	}
 	
 	public void tick() {

@@ -185,7 +185,7 @@ public class Skills extends Label{
 			
 			for(int i = 0; i < squares.size(); i++) {
 				SquareTextLabel l = squares.get(i);
-				if(l.getY()+l.getHeight() < getY()+getHeight() ) {
+				if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+49+inLocal*2) {
 					l.tick();
 				}
 			}
