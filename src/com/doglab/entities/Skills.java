@@ -18,13 +18,14 @@ public class Skills extends Label{
 		super(x, y, width, height, speed, sprite);
 		squares = new ArrayList<SquareTextLabel>();
 		
-		roller = new Roller(getX()+getWidth()-8, getY(), 8, 40, 10, null, true, getX()+getWidth()-8, 
-				getY(), 8, getHeight());
+		int w = 12;
+		roller = new Roller(getX()+getWidth()-w, getY(), w, 215, 3, null, true, getX()+getWidth()-w, 
+				getY(), w, getHeight());
 		firstYRoller = roller.getY();
 		labels.add(roller);
 		
 		TextLabel pericias = new TextLabel(getX()+290, getY()+30, 70, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
-				new Color(0xFFE8EDEB), "Perícias", 1);
+				new Color(0xFFE8EDEB), "Perícias", 1, false);
 		labels.add(pericias);
 		
 		SquareTextLabel antro = new SquareTextLabel(getX()+20, getY()+60, 110, 95, 0, null, 1, "Antropologia");

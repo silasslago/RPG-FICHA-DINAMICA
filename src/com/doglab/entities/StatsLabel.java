@@ -20,11 +20,11 @@ public class StatsLabel extends Label{
 	public StatsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		life = new TextLabel(getX(), getY()+15, 30, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Vida", 0);
+				new Color(0xFFE8EDEB), "Vida", 0, false);
 		lifePlayer = new TextLabel(getX()+135, getY()+40, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
-				new Color(0xFFE8EDEB), "1", 2);
+				new Color(0xFFE8EDEB), "1", 2, true);
 		maxLie = new TextLabel(getX()+160, getY()+40, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
-				new Color(0xFFE8EDEB), "1", 0);
+				new Color(0xFFE8EDEB), "1", 0, true);
 		
 		CheckBox cb = new CheckBox(getX()+10, getY()+55, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
 				Game.spr_entities.getSprite(126, 231, 25, 25), "Lesão Grave");
@@ -39,11 +39,11 @@ public class StatsLabel extends Label{
 		labels.add(cb3);
 		
 		sani = new TextLabel(getX(), getY()+95, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Sanidade", 0);
+				new Color(0xFFE8EDEB), "Sanidade", 0, false);
 		sanityPlayer = new TextLabel(getX()+110, getY()+120, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
-				new Color(0xFFE8EDEB), "1", 2);
+				new Color(0xFFE8EDEB), "1", 2, true);
 		maxSanityPlayer = new TextLabel(getX()+135, getY()+120, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
-				new Color(0xFFE8EDEB), "1", 0);
+				new Color(0xFFE8EDEB), "1", 0, true);
 		
 		CheckBox cb4 = new CheckBox(getX()+30, getY()+135, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
 				Game.spr_entities.getSprite(126, 231, 25, 25), "Traumatizado");
@@ -54,30 +54,30 @@ public class StatsLabel extends Label{
 		labels.add(cb5);
 		
 		ocul = new TextLabel(getX(), getY()+175, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Ocultismo", 0);
+				new Color(0xFFE8EDEB), "Ocultismo", 0, false);
 		ocultismoPlayer = new TextLabel(getX()+135, getY()+200, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
-				new Color(0xFFE8EDEB), "1", 2);
+				new Color(0xFFE8EDEB), "1", 2, true);
 		maxOcultismoPlayer = new TextLabel(getX()+160, getY()+200, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
-				new Color(0xFFE8EDEB), "1", 0);
+				new Color(0xFFE8EDEB), "1", 0, true);
 		
 		extrada = new TextLabel(getX()+30, getY()+225, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Dano Extra", 1);
+				new Color(0xFFE8EDEB), "Dano Extra", 1, false);
 		corpo = new TextLabel(getX()+150, getY()+225, 40, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Corpo", 1);
+				new Color(0xFFE8EDEB), "Corpo", 1, false);
 		expPar = new TextLabel(getX()+240, getY()+225, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Exp. Par.", 1);
+				new Color(0xFFE8EDEB), "Exp. Par.", 1, false);
 
 		extraDamage = new TextLabel(getX()+60, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
-				new Color(0xFFE8EDEB), "1", 1);
+				new Color(0xFFE8EDEB), "1", 1, true);
 		body = new TextLabel(getX()+160, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
-				new Color(0xFFE8EDEB), "1", 1);
+				new Color(0xFFE8EDEB), "1", 1, true);
 		paranormalExp = new TextLabel(getX()+260, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
-				new Color(0xFFE8EDEB), "1", 1);
+				new Color(0xFFE8EDEB), "1", 1, true);
 		
-		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0);
-		TextLabel dLados = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "100", 0);
+		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0, true);
+		TextLabel dLados = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "100", 0, true);
 		dice = new Dice(getX()+270, getY()+90, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dLados, sanityPlayer, dAmount, true, false);
+				dLados, paranormalExp, dAmount, true, false);
 
 		labels.add(dice);
 		labels.add(maxLie);
@@ -113,6 +113,49 @@ public class StatsLabel extends Label{
 							Entity ee = Game.entities.get(ii);
 							if(ee instanceof AtributosLabel) {
 								if(((AtributosLabel) ee).cons != null) {
+									
+									if(((AtributosLabel) ee).tama.text != "" &&
+											((AtributosLabel) ee).forc.text != "") {
+										int tama = Integer.parseInt(((AtributosLabel) ee).tama.text);
+										int forc = Integer.parseInt(((AtributosLabel) ee).forc.text);
+										
+										this.extraDamage.beginToWrite();
+										
+										if(tama >= 18 && forc <= 14) {
+											this.body.text = "2";
+										}else if(tama >= 16) {
+											if(forc >= 16) {
+												this.body.text = "2";
+												this.extraDamage.text = "1d6";
+												this.extraDamage.setX(this.extraDamage.getX()-27);
+											}else if(forc >= 14) {
+												this.body.text = "1";
+												this.extraDamage.text = "1d4";
+												this.extraDamage.setX(this.extraDamage.getX()-27);
+											}
+										}
+										
+										this.extraDamage.writing = false;
+									}
+									
+									String p = ((AtributosLabel) ee).pode.text;
+									this.maxOcultismoPlayer.text = p;
+									if(p != "") {
+										int pp = Integer.parseInt(p);
+										if(pp <= 9) {
+											this.maxSanityPlayer.text = "40";
+										}else if(pp <= 11) {
+											this.maxSanityPlayer.text = "50";
+										}else if(pp <= 13) {
+											this.maxSanityPlayer.text = "60";
+										}else if(pp <= 15) {
+											this.maxSanityPlayer.text = "70";
+										}else if(pp >= 16) {
+											this.maxSanityPlayer.text = "80";
+										}
+										
+									}
+									
 									String c = ((AtributosLabel) ee).cons.text;
 									String t = ((AtributosLabel) ee).tama.text;
 									String newS = "";

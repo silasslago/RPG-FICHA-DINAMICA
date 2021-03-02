@@ -22,6 +22,13 @@ public class SaveButton extends Button{
 	
 	public void actionPerformed() {
 		
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof OptionsLabel) {
+				((OptionsLabel) e).saving = true;
+			}
+		}
+		
 		int[] values = new int[1];
 		String[] skills = new String[1];
 		int[] id = new int[1];
@@ -302,6 +309,15 @@ public class SaveButton extends Button{
 			}
 		}
 		Menu.saveGame(labels, valuesLabels, ids, xLabels);
+		
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof OptionsLabel) {
+				((OptionsLabel) e).saving = false;
+				((OptionsLabel) e).saved = true;
+			}
+		}
+		
 	}
 
 	public void render(Graphics g) {

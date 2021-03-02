@@ -47,7 +47,7 @@ public class Menu {
 		StatsLabel statsLabel = new StatsLabel(340, 250,(int)(Game.WIDTH/2.18), 440, 0, null);
 		Game.entities.add(statsLabel);
 		TextLabel title = new TextLabel(240, 60, 200, 29, 0, null, new Font("sitka banner", Font.PLAIN, 31), 
-				new Color(0xFFE8EDEB), "Perfil do Jogador", 1);
+				new Color(0xFFE8EDEB), "Perfil do Jogador", 1, false);
 		Game.entities.add(title);
 		AtributosLabel atrLabel = new AtributosLabel(25, 550, 300, 480, 0, null);
 		Game.entities.add(atrLabel);
@@ -252,6 +252,7 @@ public class Menu {
 							if(e instanceof AtributosLabel) {
 								for(int iii = 0; iii < ((AtributosLabel)e).labels.size(); iii++) {
 									if(iii == index) {
+										System.out.println("iii: "+iii);
 										if(((AtributosLabel) e).labels.get(iii) instanceof TextLabel) {
 											((TextLabel)((AtributosLabel) e).labels.get(iii)).text = str2[1];
 										}
@@ -449,7 +450,7 @@ public class Menu {
 						}
 					}
 				}
-			}else if(str2.length == length4 && str2Times < 36) {
+			}else if(str2.length == length4 && str2Times < 31) {
 				str2Times++;
 				for(int index = 5; index < 21; index++) {
 					String indexX = Integer.toString(index);
@@ -484,6 +485,7 @@ public class Menu {
 							if(e instanceof AtributosLabel) {
 								for(int iii = 0; iii < ((AtributosLabel)e).labels.size(); iii++) {
 									if(iii == index) {
+										
 										if(((AtributosLabel) e).labels.get(iii) instanceof TextLabel) {
 											((TextLabel)((AtributosLabel) e).labels.get(iii)).text = str2[1];
 											((TextLabel)((AtributosLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));

@@ -66,15 +66,15 @@ public class ItemLabel extends Label{
 		labels.add(deleteB);
 		
 		TextLabel itemName = new TextLabel(getX()+45, getY()+20, 28, 20, 0, null, new Font("sitka banner", 
-				Font.BOLD, 18), new Color(0xFFE8EDEB), "???", 0);
+				Font.BOLD, 18), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(itemName);
 		
 		TextLabel itemPeso = new TextLabel(getX()+getWidth()-75, getY()+20, 28, 20, 0, null, new Font("sitka banner", 
-				Font.BOLD, 18), new Color(0xFFE8EDEB), "???", 2);
+				Font.BOLD, 18), new Color(0xFFE8EDEB), "???", 2, true);
 		labels.add(itemPeso);
 		
 		TextLabel kg = new TextLabel(getX()+getWidth()-35, getY()+20, 20, 22, 0, null, new Font("sitka banner", 
-				Font.BOLD, 18), new Color(0xFFE8EDEB), "Kg", 2);
+				Font.BOLD, 18), new Color(0xFFE8EDEB), "Kg", 2, false);
 		labels.add(kg);
 	}
 	

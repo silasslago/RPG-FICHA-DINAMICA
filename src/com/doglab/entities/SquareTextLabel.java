@@ -22,18 +22,18 @@ public class SquareTextLabel extends Label{
 		TextLabel valueL = new TextLabel(getX()+getWidth()/2-7, getY()+getHeight()/2+21, 
 				Integer.toString(value).length()*14, 22, 0, null, 
 				new Font("sitka banner", Font.BOLD, 39), 
-				new Color(0xFFE8EDEB), Integer.toString(value), 1);
+				new Color(0xFFE8EDEB), Integer.toString(value), 1, true);
 		
 		labels.add(valueL);
 		
 		TextLabel textL = new TextLabel((getX()+getWidth()/2)-text.length()*4, getY()+getHeight()/2+46, 
 				text.length()*8, 11, 0, null, 
-				new Font("sitka banner", Font.BOLD, 17), new Color(0xFFE8EDEB), text, 1);
+				new Font("sitka banner", Font.BOLD, 17), new Color(0xFFE8EDEB), text, 1, false);
 		
 		labels.add(textL);
 		
-		TextLabel rollTimes = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "1", 0);
-		TextLabel dValue = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "20", 0);
+		TextLabel rollTimes = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "1", 0, true);
+		TextLabel dValue = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "20", 0, true);
 		dice = new Dice(getX()-20, getY(), getWidth()+35, getHeight()-20, 0, 
 				Game.spr_entities.getSprite(0, 156, 76, 71), dValue, valueL, rollTimes, true, true);
 	}

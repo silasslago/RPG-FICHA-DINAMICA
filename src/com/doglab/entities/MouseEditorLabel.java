@@ -18,7 +18,7 @@ public class MouseEditorLabel extends Label{
 		this.d = d;
 		labels.add(dice);
 		TextLabel currentDice = new TextLabel(this.getX()+145, this.getY()+85, 50, 50, 0, null, 
-				new Font("sitka banner", Font.BOLD, 50), Color.WHITE, Integer.toString(d), 0);
+				new Font("sitka banner", Font.BOLD, 50), Color.WHITE, Integer.toString(d), 0, true);
 		int widthB = 25;
 		int heightB = 25;
 		close = new CloseButton(getX()+getWidth()-(int)(widthB*1.5), getY()+(int)(heightB/2), widthB, heightB, 

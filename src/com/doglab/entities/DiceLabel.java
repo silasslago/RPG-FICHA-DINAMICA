@@ -73,22 +73,30 @@ public class DiceLabel extends Label{
 			g2D.setTransform(old);
 		}else {
 			g.setColor(Color.WHITE);
-			
-			int r = 70;
+			int r = -45;
 			int a = (diceX+20)-(r/2)*(roll.length-1);
 			int plusA = a+(r/2)+15;
+			int go = 0;
+			String values = "";
 			for(int i = 0; i < roll.length; i++) {
 				g.setFont(new Font("sitka banner", Font.BOLD, 50));
 				String rollPlus = Integer.toString(roll[i]);
+				values+=rollPlus;
+				if(i+2<=roll.length) {
+					values+="+";
+				}
 				for(int ii = 1; ii < this.plus.length; ii++) {
-					rollPlus+="+";
-					rollPlus+="("+this.plus[ii]+")";
+					if(i+1>=roll.length) {
+						values+="+";
+						values+="("+this.plus[ii]+")";
+					}
 				}
-				g.drawString(rollPlus, a+(r*i), diceY+30);
-				if(roll.length>1 && i<roll.length-1) {
-					g.setFont(new Font("sitka banner", Font.BOLD, 25));
-					g.drawString("+", plusA+(r*i), diceY+25);
-				}
+				go = i;
+			}
+			g.drawString(values, a+(r*go), diceY+30);
+			if(roll.length>1 && go<roll.length-1) {
+				g.setFont(new Font("sitka banner", Font.BOLD, 25));
+				g.drawString("+", plusA+(r*go), diceY+25);
 			}
 			if(roll.length==1) {
 				g.setFont(new Font("sitka banner", Font.BOLD, 20));

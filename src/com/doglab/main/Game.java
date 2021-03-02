@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu();
 		int width = 10;
-		roller = new Roller(Game.WIDTH-width, 0, width, 70, 10, null, false, Game.WIDTH-width, 0, width, Game.HEIGHT);
+		roller = new Roller(Game.WIDTH-width, 0, width, 190, 3, null, false, Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
 		

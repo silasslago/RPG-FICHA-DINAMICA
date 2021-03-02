@@ -162,7 +162,33 @@ public class Dice extends Entity{
 						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("8") || 
 						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("9") ||
 						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("0") ||
-						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("+")) {
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).equals("+") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("a") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("b") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("c") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("d") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("e") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("f") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("g") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("h") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("i") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("j") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("k") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("l") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("m") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("n") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("o") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("p") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("q") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("r") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("s") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("t") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("u") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("v") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("w") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("x") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("y") ||
+						String.valueOf(((TextLabel)labels.get(index)).text.charAt(i)).toLowerCase().equals("z")) {
 					numbers+=((TextLabel)labels.get(index)).text.charAt(i);
 				}
 			}
@@ -183,7 +209,7 @@ public class Dice extends Entity{
 			for(int i = 0; i < ss.length(); i++) {
 				if(String.valueOf(((TextLabel)labels.get(1)).text.charAt(i)).equals("+")) {
 					hasPlus = true;
-					if(ss.length() > 2) {
+					if(i+1 < ss.length()) {
 						String[] s = ss.split("\\+");
 						this.d = Integer.parseInt(s[0]);
 					}
@@ -238,9 +264,17 @@ public class Dice extends Entity{
 			}else {
 				int value[] = new int[timesRoll];
 				String plus[] = new String[1];
-				if(this.newD.length() > 2) {
-					plus = this.newD.split("\\+");
-				}else {
+				for(int i = 0; i < this.newD.length(); i++) {
+					if(String.valueOf(newD.charAt(i)).equals("+")) {
+						if(i+1 < newD.length()) {
+							plus = this.newD.split("\\+");
+						}else {
+							String[] catchNumber = this.newD.split("\\+");
+							plus[0] = catchNumber[0];
+						}
+					}
+				}
+				if(plus[0] == null) {
 					plus[0] = this.newD;
 				}
 				for(int i = 0; i < timesRoll; i++) {

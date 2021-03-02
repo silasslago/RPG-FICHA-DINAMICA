@@ -29,9 +29,12 @@ public class TextLabel extends Label{
 	public static boolean showSpace = true;
 	public static boolean editionTime = false;
 	
+	private boolean limiter;
+	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
-			Color color, String text, int typeText) {
+			Color color, String text, int typeText, boolean limiter) {
 		super(x, y-font.getSize()/1.5, width, height, speed, sprite);
+		this.limiter = limiter;
 		size = 0;
 		initX = x;
 		this.font = font;
@@ -112,11 +115,8 @@ public class TextLabel extends Label{
 			return;
 		}
 		text = "";
-		if(typeText == 0) {
+		if(typeText == 0 || typeText == 1) {
 			setX((int)initX);
-		}else if(typeText == 1) {
-			int newX = this.getX() + this.getWidth()/2;
-			setX(newX);
 		}else if(typeText == 2) {
 			setX((int)initX+width-this.font.getSize());
 		}
@@ -152,8 +152,15 @@ public class TextLabel extends Label{
 				letter.equals("4") || letter.equals("5") || letter.equals("6") || letter.equals("7") ||
 				letter.equals("8") || letter.equals("9") || letter.equals("(") || letter.equals(")") ||
 				letter.equals("+") || letter.equals(".")){
-			phrase+=e;
-			throwText();
+			if(this.limiter) {
+				if(phrase.length() < 5) {
+					phrase+=e;
+					throwText();
+				}
+			}else {
+				phrase+=e;
+				throwText();
+			}
 		}
 	}
 	

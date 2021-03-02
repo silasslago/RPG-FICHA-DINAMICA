@@ -42,25 +42,25 @@ public class CombatLabel extends Label{
 		super(x, y, width, height, speed, sprite);
 		gunLabels = new ArrayList<GunLabel>();
 		TextLabel combate = new TextLabel(getX()+270, getY()+30, 75, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
-				new Color(0xFFE8EDEB), "Combate", 1);
+				new Color(0xFFE8EDEB), "Combate", 1, false);
 		TextLabel nome = new TextLabel(getX()+60, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Nome", 0);
+				new Color(0xFFE8EDEB), "Nome", 0, false);
 		TextLabel tipo = new TextLabel(getX()+140, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Tipo", 0);
+				new Color(0xFFE8EDEB), "Tipo", 0, false);
 		TextLabel dano = new TextLabel(getX()+230, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Dano", 0);
+				new Color(0xFFE8EDEB), "Dano", 0, false);
 		TextLabel munAtual = new TextLabel(getX()+320, getY()+65, 60, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Mun. Atual", 0);
+				new Color(0xFFE8EDEB), "Mun. Atual", 0, false);
 		TextLabel munMaxima = new TextLabel(getX()+390, getY()+65, 53, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Mun. Máx.", 0);
+				new Color(0xFFE8EDEB), "Mun. Máx.", 0, false);
 		TextLabel ataque = new TextLabel(getX()+455, getY()+65, 37, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Ataque", 0);
+				new Color(0xFFE8EDEB), "Ataque", 0, false);
 		TextLabel alcance = new TextLabel(getX()+505, getY()+65, 40, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Alcance", 0);
+				new Color(0xFFE8EDEB), "Alcance", 0, false);
 		TextLabel defeito = new TextLabel(getX()+560, getY()+65, 40, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Defeito", 0);
+				new Color(0xFFE8EDEB), "Defeito", 0, false);
 		TextLabel area = new TextLabel(getX()+610, getY()+65, 28, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
-				new Color(0xFFE8EDEB), "Area", 0);
+				new Color(0xFFE8EDEB), "Area", 0, false);
 		
 		initY = getY()+50;
 		addB.setX(getX()+getWidth()-35);
@@ -70,7 +70,7 @@ public class CombatLabel extends Label{
 		addB.setSprite(Game.spr_entities.getSprite(76, 206, 25, 25));
 		this.labelX = getX()+5;
 		this.labelY = initY;
-		this.labelW = getWidth()-10;
+		this.labelW = getWidth()-15;
 		this.labelH = 20;
 		addB.labelX = this.labelX;
 		addB.labelY = this.labelY;
@@ -78,7 +78,8 @@ public class CombatLabel extends Label{
 		addB.labelH = this.labelH;
 		addB.speed = 0;
 		
-		roller = new Roller(getX()+getWidth()-5, getY(), 5, 15, 10, null, true, getX()+getWidth()-5, getY(), 5, getHeight());
+		int w = 8;
+		roller = new Roller(getX()+getWidth()-w, getY(), w, 35, 2, null, true, getX()+getWidth()-w, getY(), w, getHeight());
 		firstYRoller = roller.getY();
 		labels.add(roller);
 		labels.add(combate);
@@ -125,6 +126,26 @@ public class CombatLabel extends Label{
 				int calc = initY-l.inLocal+height*times;
 				l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
 			}
+			
+			int plus = 0;
+			if(gunLabels.size()>6 && gunLabels.size() < 23) {
+				boolean minus = false;
+				for(int i = 0; i < gunLabels.size(); i++) {
+					if(gunLabels.get(i).inLocal != 0) {
+						minus = true;
+					}
+				}
+				int minusAnao = 0;
+				if(minus) {
+					minusAnao = gunLabels.get(0).inLocal*2;
+				}
+				plus = (int)(((gunLabels.get(0).getHeight()-minusAnao)*(gunLabels.size()-6))/1.8);
+				this.roller.setHeight(getHeight()-plus-inLocal*2);
+				this.roller.maskh = getHeight()-plus-inLocal*2;
+			}else if(gunLabels.size()<=6) {
+				this.roller.setHeight(getHeight()-inLocal*2);
+				this.roller.maskh = getHeight()-inLocal*2;
+			}	
 		}
 	}
 	
