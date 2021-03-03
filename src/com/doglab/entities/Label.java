@@ -80,13 +80,14 @@ public class Label extends Entity{
 	}
 	
 	public void changeTickers() {
+		Game.tick = !Game.tick;
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof Label) {
 				((Label) e).tick = !((Label) e).tick;
 			}
 		}
-		this.tick = true;
+		this.tick = true;	
 	}
 	
 	public void render(Graphics g) {

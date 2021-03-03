@@ -17,7 +17,7 @@ public class Dice extends Entity{
 	private int stat;
 	public EditButton edit;
 	private MouseEditorLabel mEditor;
-	private ArrayList<Label> labels;
+	public ArrayList<Label> labels;
 	private int timesRoll = 0;
 	private String newD = "";
 	private boolean show;

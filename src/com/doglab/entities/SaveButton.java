@@ -256,14 +256,53 @@ public class SaveButton extends Button{
 			}
 		}
 		
+		String[] fastSkills = new String[1];
+		int[] id11 = new int[1];
+		int[] x11 = new int[1];
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof FastSkillsLabel) {
+				fastSkills = new String[((FastSkillsLabel) e).labels.size()];
+				id11 = new int[((FastSkillsLabel) e).labels.size()];
+				x11 = new int[((FastSkillsLabel) e).labels.size()];
+				for(int ii = 0; ii < ((FastSkillsLabel) e).labels.size(); ii++) {
+					if(((FastSkillsLabel) e).labels.get(ii) instanceof TextLabel) {
+						id11[ii] = ii;
+						x11[ii] = ((FastSkillsLabel) e).labels.get(ii).getX();
+						fastSkills[ii] = ((TextLabel)((FastSkillsLabel) e).labels.get(ii)).text;
+					}else {
+						id11[ii] = 99999999;
+					}
+				}
+			}
+		}
+		
+		String[] value = new String[1];
+		int[] id12 = new int[1];
+		int[] x12 = new int[1];
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof FastSkillsLabel) {
+				value = new String[((FastSkillsLabel) e).getSkillArrayList().size()];
+				id12 = new int[((FastSkillsLabel) e).getSkillArrayList().size()];
+				x12 = new int[((FastSkillsLabel) e).getSkillArrayList().size()];
+				for(int ii = 0; ii < ((FastSkillsLabel) e).getSkillArrayList().size(); ii++) {
+					SkillLabel sL = ((FastSkillsLabel) e).getSkillArrayList().get(ii);
+					id12[ii] = ii;
+					x12[ii] = sL.labels.get(0).getX();
+					value[ii] = Integer.toString(sL.getID());
+				}
+			}
+		}
+		
 		String[] labels = new String[details.length + skills.length + stats.length + atributos.length + 
 		                             image.length + combate.length + gunLabels.length + inventory.length 
-		                             + itemLabels.length + systemValue.length];
+		                             + itemLabels.length + systemValue.length + fastSkills.length + value.length];
 		int[] ids = new int[id.length + id2.length + id3.length + id4.length + id5.length + id6.length + 
-		                    id7.length + id8.length + id9.length + id10.length];
+		                    id7.length + id8.length + id9.length + id10.length + id11.length + id12.length];
 		int[] valuesLabels = new int[values.length];
 		String[] xLabels = new String[x.length +  x2.length + x3.length + x4.length + x5.length + x6.length + x7.length +
-		                        x8.length + x9.length + x10.length];
+		                        x8.length + x9.length + x10.length + x11.length + x12.length];
 		for(int i = 0; i < labels.length; i++) {
 			if(i < skills.length) {
 				labels[i] = skills[i];
@@ -306,6 +345,14 @@ public class SaveButton extends Button{
 				labels[i] = systemValue[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length];
 				ids[i] = id10[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length];
 				xLabels[i] = Integer.toString(x10[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length]);
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length + itemLabels.length + systemValue.length + fastSkills.length) {
+				labels[i] = fastSkills[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length];
+				ids[i] = id11[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length];
+				xLabels[i] = Integer.toString(x11[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length]);
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length + itemLabels.length + systemValue.length + fastSkills.length + value.length) {
+				labels[i] = value[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length];
+				ids[i] = id12[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length];
+				xLabels[i] = Integer.toString(x12[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length]);
 			}
 		}
 		Menu.saveGame(labels, valuesLabels, ids, xLabels);

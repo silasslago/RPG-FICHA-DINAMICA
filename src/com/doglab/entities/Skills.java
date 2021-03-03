@@ -221,5 +221,13 @@ public class Skills extends Label{
 			}
 		}
 	}
+	
+	public ArrayList<SquareTextLabel> getSkills(){
+		return this.squares;
+	}
+	
+	public void setSkills(ArrayList<SquareTextLabel> pericias) {
+		this.squares = pericias;
+	}
 
 }

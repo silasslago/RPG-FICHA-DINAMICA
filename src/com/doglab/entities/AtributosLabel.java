@@ -23,7 +23,7 @@ public class AtributosLabel extends Label{
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0, true);
 		
 		TextLabel aparencia = new TextLabel(getX()+30, getY()+100, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Aparencia", 1, false);
+				new Color(0xFFE8EDEB), "Aparência", 1, false);
 		TextLabel apar = new TextLabel(getX()+55, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice aparDice = new Dice(getX()+33, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
@@ -63,7 +63,7 @@ public class AtributosLabel extends Label{
 		labels.add(educ); 
 		
 		TextLabel forca = new TextLabel(getX()+137, getY()+200, 35, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Força", 1, false);
+				new Color(0xFFE8EDEB), "Forï¿½a", 1, false);
 		forc = new TextLabel(getX()+149, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice forcDice = new Dice(getX()+128, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 

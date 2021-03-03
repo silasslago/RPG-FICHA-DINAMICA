@@ -54,11 +54,19 @@ public class Roller extends Entity{
 			g.setColor(Color.lightGray);
 			g.fillRect(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight());
 		}else {
-			g.fillRect(Game.WIDTH-getWidth(), 0, getWidth(), Game.HEIGHT);
+			g.fillRect(barX, barY, barW, barH);
 			g.setColor(Color.lightGray);
 			g.fillRect(getX(), getY(), getWidth(), getHeight());
 		}
-		
 	}
-
+	
+	public void setBars(int barx, int bary, int barw, int barh) {
+		this.barX = barx;
+		this.barY = bary;
+		this.barW = barw;
+		this.barH = barh;
+		this.height = barh;
+		this.width = barw;
+	}
+	
 }

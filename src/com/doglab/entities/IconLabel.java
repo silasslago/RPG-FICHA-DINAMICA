@@ -23,7 +23,6 @@ public class IconLabel extends Label{
 		super(x, y, width, height, speed, sprite);
 		characterIcon = new CharacterIcon(getX()+70, getY()+80, 1, 1, 0, null);
 		labels.add(characterIcon);
-		
 	}
 	
 	public void tick() {

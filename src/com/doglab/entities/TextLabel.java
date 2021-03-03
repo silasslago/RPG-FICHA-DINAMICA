@@ -115,8 +115,10 @@ public class TextLabel extends Label{
 			return;
 		}
 		text = "";
-		if(typeText == 0 || typeText == 1) {
+		if(typeText == 0) {
 			setX((int)initX);
+		}else if(typeText == 1){
+			setX((int)initX+getWidth()/2);
 		}else if(typeText == 2) {
 			setX((int)initX+width-this.font.getSize());
 		}

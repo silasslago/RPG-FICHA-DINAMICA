@@ -49,13 +49,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static final int SCALE = 1;
 	private Thread thread;
 	public static BufferedImage image;
-	public static String gameState = "MENU";
+	public static String gameState = "BOOTSPLASH";
 	public static World world;
 	public static Menu menu;
 	public static Player player;
 	public static mouseController mouseController;
 	public static Game game;
 	public static Roller roller;
+	public static boolean tick = true;
 
 	private boolean setF = false;
 	private boolean fullscreen = true;
@@ -370,8 +371,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		roller.setY(roller.getY()+e.getWheelRotation()*6);
-		Game.mouseController.resetPosition();
+		if(tick) {
+			roller.setY(roller.getY()+e.getWheelRotation()*6);
+			Game.mouseController.resetPosition();
+		}	
 	}
 
 }

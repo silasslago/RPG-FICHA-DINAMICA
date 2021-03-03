@@ -9,7 +9,7 @@ import com.doglab.main.Game;
 
 public class SquareTextLabel extends Label{
 
-	private Dice dice;
+	public Dice dice;
 	private Color color;
 	private int plusY;
 	
