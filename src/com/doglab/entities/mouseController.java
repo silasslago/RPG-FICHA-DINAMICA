@@ -1,11 +1,10 @@
 package com.doglab.entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.doglab.main.Game;
-
+import com.doglab.main.Menu;
 
 public class mouseController extends Entity{
 
@@ -22,6 +21,16 @@ public class mouseController extends Entity{
 	public void tick() {
 		order = 3;
 		if(isPressed) {
+			if(Menu.showReadme) {
+				Menu.showReadme = false;
+				this.resetPosition();
+				for(int i = 0; i < Game.entities.size(); i++) {
+					Entity e = Game.entities.get(i);
+					if(e instanceof ReadmeLabel) {
+						Game.entities.remove(e);
+					}
+				}
+			}
 			this.x = (int)xTarget;
 			this.y = (int)yTarget;
 		}

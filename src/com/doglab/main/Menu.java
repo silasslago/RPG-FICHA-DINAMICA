@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.doglab.entities.AtributosLabel;
+import com.doglab.entities.CharacterLabel;
 import com.doglab.entities.CheckBox;
 import com.doglab.entities.CombatLabel;
 import com.doglab.entities.DetailsLabel;
-import com.doglab.entities.EditButton;
 import com.doglab.entities.Entity;
 import com.doglab.entities.FastSkillsLabel;
 import com.doglab.entities.GunLabel;
@@ -25,19 +25,16 @@ import com.doglab.entities.InventoryLabel;
 import com.doglab.entities.ItemLabel;
 import com.doglab.entities.OptionsLabel;
 import com.doglab.entities.ReadmeLabel;
-import com.doglab.entities.SaveButton;
-import com.doglab.entities.ShowButton;
 import com.doglab.entities.SkillLabel;
 import com.doglab.entities.Skills;
 import com.doglab.entities.SquareTextLabel;
 import com.doglab.entities.StatsLabel;
 import com.doglab.entities.TextLabel;
-import com.doglab.world.World;
 
 public class Menu {
 
 	private static String version = "v4.2";
-	public boolean showReadme = true;
+	public static boolean showReadme = true;
 	
 	private final Color BLACK = new Color(0xFF000000);
 	private Color bg = BLACK;
@@ -67,12 +64,8 @@ public class Menu {
 		Game.entities.add(cb);
 		OptionsLabel optionsLabel = new OptionsLabel(0, 0-45, Game.WIDTH, 45, 0, Game.spr_entities.getSprite(26, 231, 25, 25));
 		Game.entities.add(optionsLabel);
-		
-		if(showReadme) {
-			ReadmeLabel rL = new ReadmeLabel(30, 30, Game.WIDTH*Game.SCALE-70, Game.HEIGHT*Game.SCALE-60, 0, null);
-			Game.entities.add(rL);
-		}
-		
+		CharacterLabel characterLabel = new CharacterLabel(10, 2210, Game.WIDTH*Game.SCALE-30, 260, 0, null);
+		Game.entities.add(characterLabel);
 		File file = new File("info.txt");
 		if(file.exists()) {
 			String spr = loadGame();
@@ -84,6 +77,9 @@ public class Menu {
 			}else if (sprD[0].equals("v4.2")) {
 				aplySaveCurrent(loadGame());
 			}
+		}else {
+			ReadmeLabel rL = new ReadmeLabel(30, 30, Game.WIDTH*Game.SCALE-70, Game.HEIGHT*Game.SCALE-40, 0, null);
+			Game.entities.add(rL);
 		}
 	}
 

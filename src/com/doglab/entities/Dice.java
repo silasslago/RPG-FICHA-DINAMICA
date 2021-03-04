@@ -117,7 +117,6 @@ public class Dice extends Entity{
 			this.d = 1;
 			this.newD = "1";
 		}
-		System.out.println("newD: "+this.newD);
 		labels.add(stat);
 		labels.add(dValue);
 		labels.add(timesRoll);

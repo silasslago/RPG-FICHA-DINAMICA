@@ -84,10 +84,10 @@ public class TextLabel extends Label{
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
 		}
-		//if(this.text == "" && showSpace) {
+		if(this.text == "" && showSpace) {
 			g.setColor(Color.red);
 			g.drawRect(getX(), getY()-Game.roller.getY()*Game.roller.step, width, height);
-		//}
+		}
 	}
 	
 	private void changeLabel() {

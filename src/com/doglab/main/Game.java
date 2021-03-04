@@ -85,7 +85,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu();
 		int width = 10;
-		roller = new Roller(Game.WIDTH-width, 0, width, 190, 3, null, false, Game.WIDTH-width, 0, width, Game.HEIGHT);
+		roller = new Roller(Game.WIDTH-width, 0, width, 100, 3, null, false, Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
 		
@@ -197,10 +197,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}
 			for(int i = 0; i < entities.size(); i++) {
 				Entity e = entities.get(i);
-				if(!menu.showReadme) {
+				if(!Menu.showReadme) {
 					e.tick();
 				}else {
 					if(e instanceof ReadmeLabel) {
+						mouseController.tick();
 						e.tick();
 					}
 				}

@@ -30,7 +30,7 @@ public class Sound {
 				 */
 				new Thread() {
 					public void run() {
-						clip.play();
+						//clip.play();
 					}
 				}.start();
 				

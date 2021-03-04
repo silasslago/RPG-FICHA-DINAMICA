@@ -2,15 +2,22 @@ package com.doglab.entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.doglab.main.Game;
+import com.doglab.world.World;
 
-public class CharacterIcon extends Entity{
+public class CharacterIcon extends Label{
 
 	private BufferedImage barrier;
 	private int barrierX, barrierY;
 	private int iconX, iconY;
 	private BufferedImage camera;
+	private String path;
 	
 	public CharacterIcon(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -23,13 +30,38 @@ public class CharacterIcon extends Entity{
 	}
 	
 	public void tick() {
-		
+		if(tick) {
+			changeIcon();
+		}
 	}
 	
 	public void render(Graphics g) {
 		g.drawImage(camera, this.getX(), this.getY()-15-Game.roller.getY()*Game.roller.step, null);
 		g.drawImage(Game.player.icon, iconX, iconY-Game.roller.getY()*Game.roller.step, 130, 130, null);
 		g.drawImage(barrier, barrierX, barrierY-Game.roller.getY()*Game.roller.step, 196, 156, null);
+	}
+	
+	public void setIcon(String path) {
+		ImageIcon icon = new ImageIcon(path);
+		Game.player.icon = icon.getImage();
+	}
+	
+	private void changeIcon() {
+		double z = World.calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
+				this.getX(), this.getY()-Game.roller.getY()*Game.roller.step);
+		if(z < 65) {
+			Game.mouseController.resetPosition();
+			Game.fileChooser.setDialogTitle("");
+			Game.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "png", "jpg");
+			Game.fileChooser.setFileFilter(filter);
+			int fileSelected = Game.fileChooser.showOpenDialog(Game.game);
+			if(fileSelected == JFileChooser.APPROVE_OPTION) {
+				File file = Game.fileChooser.getSelectedFile();
+				this.path = file.getPath();
+				setIcon(this.path);
+			}
+		}
 	}
 
 }
