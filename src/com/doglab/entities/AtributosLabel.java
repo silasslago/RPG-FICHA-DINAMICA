@@ -63,7 +63,7 @@ public class AtributosLabel extends Label{
 		labels.add(educ); 
 		
 		TextLabel forca = new TextLabel(getX()+137, getY()+200, 35, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Forï¿½a", 1, false);
+				new Color(0xFFE8EDEB), "Força", 1, false);
 		forc = new TextLabel(getX()+149, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice forcDice = new Dice(getX()+128, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
@@ -118,8 +118,8 @@ public class AtributosLabel extends Label{
 	}
 	
 	public void tick() {
-		super.tick();
 		if(tick) {
+			super.tick();
 			if(current) {
 				inLocal = this.size;
 			}else {

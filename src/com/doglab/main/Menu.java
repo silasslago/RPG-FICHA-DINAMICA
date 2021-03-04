@@ -24,6 +24,7 @@ import com.doglab.entities.IconLabel;
 import com.doglab.entities.InventoryLabel;
 import com.doglab.entities.ItemLabel;
 import com.doglab.entities.OptionsLabel;
+import com.doglab.entities.ReadmeLabel;
 import com.doglab.entities.SaveButton;
 import com.doglab.entities.ShowButton;
 import com.doglab.entities.SkillLabel;
@@ -36,6 +37,7 @@ import com.doglab.world.World;
 public class Menu {
 
 	private static String version = "v4.2";
+	public boolean showReadme = true;
 	
 	private final Color BLACK = new Color(0xFF000000);
 	private Color bg = BLACK;
@@ -65,6 +67,12 @@ public class Menu {
 		Game.entities.add(cb);
 		OptionsLabel optionsLabel = new OptionsLabel(0, 0-45, Game.WIDTH, 45, 0, Game.spr_entities.getSprite(26, 231, 25, 25));
 		Game.entities.add(optionsLabel);
+		
+		if(showReadme) {
+			ReadmeLabel rL = new ReadmeLabel(30, 30, Game.WIDTH*Game.SCALE-70, Game.HEIGHT*Game.SCALE-60, 0, null);
+			Game.entities.add(rL);
+		}
+		
 		File file = new File("info.txt");
 		if(file.exists()) {
 			String spr = loadGame();
@@ -136,7 +144,6 @@ public class Menu {
 		}
 		return line;
 	}
-	
 	
 	public static void aplySaveOlder(String spr) {
 		String[] str = spr.split("/");

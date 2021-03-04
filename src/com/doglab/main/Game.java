@@ -197,8 +197,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}
 			for(int i = 0; i < entities.size(); i++) {
 				Entity e = entities.get(i);
-				e.tick();
+				if(!menu.showReadme) {
+					e.tick();
+				}else {
+					if(e instanceof ReadmeLabel) {
+						e.tick();
+					}
+				}
 			}
+			
 			menu.tick();	
 		}
 	}	
@@ -371,7 +378,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(tick) {
+		if(tick && !menu.showReadme) {
 			roller.setY(roller.getY()+e.getWheelRotation()*6);
 			Game.mouseController.resetPosition();
 		}	

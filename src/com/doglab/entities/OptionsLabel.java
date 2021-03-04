@@ -60,6 +60,7 @@ public class OptionsLabel extends Label{
 			Entity e1 = labels.get(i);
 			if(e1 instanceof Dice) {
 				e1.setY(getY()+3 + Game.roller.getY()*Game.roller.step);
+				e1.setMask(e1.getX(), e1.getY(), e1.getWidth(), e1.getHeight());
 			}else if(e1 instanceof TextLabel) {
 				e1.setY(getY()+18 + Game.roller.getY()*Game.roller.step);
 				((TextLabel) e1).setImaginaryY(getY()+35 + Game.roller.getY()*Game.roller.step);

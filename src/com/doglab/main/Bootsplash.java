@@ -41,7 +41,7 @@ public class Bootsplash {
 	public void render(Graphics g) {
 		g.setColor(new Color(0xFFECECEC));
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.drawImage(bootsplash, -30, 120, imgWidth-400, imgHeight-320, null);
+		g.drawImage(bootsplash, -15, 120, imgWidth-400, imgHeight-320, null);
 	}
 	
 }

@@ -22,6 +22,7 @@ public class Dice extends Entity{
 	private String newD = "";
 	private boolean show;
 	private boolean typeRoll;
+	private boolean hasMEL;
 
 	public Dice(double x, double y, int width, int height, double speed, BufferedImage sprite, 
 			TextLabel dValue, TextLabel stat, TextLabel timesRoll, boolean show, boolean type) {
@@ -114,7 +115,9 @@ public class Dice extends Entity{
 			this.d = Integer.parseInt(newD);
 		}else {
 			this.d = 1;
+			this.newD = "1";
 		}
+		System.out.println("newD: "+this.newD);
 		labels.add(stat);
 		labels.add(dValue);
 		labels.add(timesRoll);
@@ -199,7 +202,48 @@ public class Dice extends Entity{
 		return var;
 	}
 	
+	private boolean isANumber(String string) {
+		boolean is = true;
+		if(string.length() == 0) {
+			is = false;
+			return is;
+		}
+		for(int ii = 0 ; ii<string.length(); ii++) {
+			if(!(String.valueOf(string.charAt(ii)).toLowerCase().equals("0") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("1") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("2") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("3") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("4") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("5") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("6") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("7") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("8") ||
+					String.valueOf(string.charAt(ii)).toLowerCase().equals("9"))) {
+				is = false;
+			}
+		}
+		return is;
+	}
+	
 	public void tick() {
+		hasMEL = false;
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof MouseEditorLabel) {
+				hasMEL = true;
+			}
+		}
+		if(!hasMEL) {
+			mEditor = null;
+		}
+		
+		if(mEditor != null) {
+			if(!mEditor.returnD().equals(((TextLabel)labels.get(1)).text)) {
+				((TextLabel)labels.get(1)).text = mEditor.returnD();
+				this.newD = mEditor.returnD();
+			}
+		}
+		
 		if(((TextLabel)labels.get(0)).width > 0) {
 			this.stat = updateArrayList(0);
 		}
@@ -211,16 +255,50 @@ public class Dice extends Entity{
 					hasPlus = true;
 					if(i+1 < ss.length()) {
 						String[] s = ss.split("\\+");
-						this.d = Integer.parseInt(s[0]);
+						String convert = "";
+						for(int ii = 0 ; ii<s[0].length(); ii++) {
+							if(String.valueOf(s[0].charAt(ii)).toLowerCase().equals("0") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("1") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("2") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("3") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("4") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("5") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("6") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("7") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("8") ||
+									String.valueOf(s[0].charAt(ii)).toLowerCase().equals("9")) {
+								convert+=s[0].charAt(ii);
+							}
+						}
+						if(!convert.equals("")) {
+							this.d = Integer.parseInt(convert);
+						}
 					}
 				}
 			}
 			if(!hasPlus) {
-				if(ss != "") {
-					this.d = Integer.parseInt(ss);
+				String convert = "";
+				for(int i = 0 ; i<ss.length(); i++) {
+					if(String.valueOf(ss.charAt(i)).toLowerCase().equals("0") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("1") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("2") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("3") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("4") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("5") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("6") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("7") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("8") ||
+							String.valueOf(ss.charAt(i)).toLowerCase().equals("9")) {
+						convert+=ss.charAt(i);
+					}
 				}
+				if(convert != "") {
+					this.d = Integer.parseInt(convert);
+					this.newD = convert;
+				}
+			}else {
+				this.newD = ss;
 			}
-			this.newD = ss;
 		}
 		if(((TextLabel)labels.get(2)).width > 0) {
 			this.timesRoll = updateArrayList(2);
@@ -245,12 +323,6 @@ public class Dice extends Entity{
 				current = false;
 			}
 		}
-		
-		if(mEditor != null) {
-			if(mEditor.returnD() != this.d) {
-				this.d = mEditor.returnD();
-			}
-		}
 		Entity e = new Entity(maskx, masky-Game.roller.getY()*Game.roller.step, maskw, maskh, speed, getSprite());
 		if(this.isColliding(e, Game.mouseController)) {
 			Game.mouseController.resetPosition();
@@ -258,9 +330,12 @@ public class Dice extends Entity{
 			int hLabel = 150;
 			int xLabel = ((Game.WIDTH*Game.SCALE)/2)-wLabel/2;
 			int yLabel = ((Game.HEIGHT*Game.SCALE)/2)-hLabel/2;
-			if(/*edit.isEditing()*/false) {
-				mEditor = new MouseEditorLabel(xLabel, yLabel, wLabel, hLabel, 0, null, this.d, this);
-				Game.entities.add(mEditor);
+			if(TextLabel.editionTime) {
+				if(mEditor == null) {
+					mEditor = new MouseEditorLabel(xLabel, yLabel, wLabel, hLabel, 0, null, 
+							((TextLabel)labels.get(1)).text, this);
+					Game.entities.add(mEditor);
+				}
 			}else {
 				int value[] = new int[timesRoll];
 				String plus[] = new String[1];
@@ -268,14 +343,19 @@ public class Dice extends Entity{
 					if(String.valueOf(newD.charAt(i)).equals("+")) {
 						if(i+1 < newD.length()) {
 							plus = this.newD.split("\\+");
+							if(!this.isANumber(plus[0])) {
+								plus[0] = "1";
+							}
 						}else {
-							String[] catchNumber = this.newD.split("\\+");
-							plus[0] = catchNumber[0];
+							if(i != 0) {
+								String[] catchNumber = this.newD.split("\\+");
+								plus[0] = catchNumber[0];
+							}
 						}
 					}
 				}
 				if(plus[0] == null) {
-					plus[0] = this.newD;
+					plus[0] = Integer.toString(d);
 				}
 				for(int i = 0; i < timesRoll; i++) {
 					if(Integer.parseInt(plus[0]) > 0) {
@@ -318,8 +398,6 @@ public class Dice extends Entity{
 	
 	public void render(Graphics g) {
 		super.render(g);
-		//g.setColor(Color.red);
-		//g.drawRect(maskx, masky - Game.roller.getY()*Game.roller.step, maskw, maskh);
 	}
 	
 }
