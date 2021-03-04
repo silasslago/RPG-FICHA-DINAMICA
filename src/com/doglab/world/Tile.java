@@ -3,7 +3,6 @@ package com.doglab.world;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import com.doglab.main.Game;
 
 public class Tile {
 

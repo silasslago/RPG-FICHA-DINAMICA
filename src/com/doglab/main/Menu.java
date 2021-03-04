@@ -33,7 +33,7 @@ import com.doglab.entities.TextLabel;
 
 public class Menu {
 
-	private static String version = "v4.2";
+	private static String version = "v4.3";
 	public static boolean showReadme = true;
 	
 	private final Color BLACK = new Color(0xFF000000);
@@ -74,10 +74,16 @@ public class Menu {
 				aplySaveOlder(loadGame());
 			}else if(sprD[0].equals("v4.1")) {
 				aplySaveOlder1(loadGame());
-			}else if (sprD[0].equals("v4.2")) {
+			}else if(sprD[0].equals("v4.2")) {
+				aplySaveOlder2(loadGame());
+			}else if(sprD[0].equals("v4.3")) {
+				if(sprD[1].equals("false")) {
+					showReadme = false;
+				}
 				aplySaveCurrent(loadGame());
 			}
-		}else {
+		}
+		if(showReadme) {
 			ReadmeLabel rL = new ReadmeLabel(30, 30, Game.WIDTH*Game.SCALE-70, Game.HEIGHT*Game.SCALE-40, 0, null);
 			Game.entities.add(rL);
 		}
@@ -92,6 +98,8 @@ public class Menu {
 		}
 		try {
 			write.write(version);
+			write.newLine();
+			write.write(Boolean.toString(showReadme));
 			write.newLine();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -564,7 +572,7 @@ public class Menu {
 		}
 	}
 
-	public static void aplySaveCurrent(String spr) {
+	public static void aplySaveOlder2(String spr) {
 		String[] str = spr.split("/");
 		int str2Times = 0;
 		int lenght2Times = 0;
@@ -830,6 +838,285 @@ public class Menu {
 								((FastSkillsLabel) e).addB.labelW, ((FastSkillsLabel) e).addB.labelH-5, 0, null, Integer.parseInt(str2[1]), ((FastSkillsLabel) e).addB.labelY+10);
 						sLL.add(sL);
 						((FastSkillsLabel) e).setSkillArrayList(sLL);
+					}
+				}
+			}
+		}
+	}
+
+	public static void aplySaveCurrent(String spr) {
+		String[] str = spr.split("/");
+		int str2Times = 0;
+		int lenght2Times = 0;
+		int labelsCAmount = 0;
+		int labelsIAmount = 0;
+		int lenght3Times = 0;
+		int length1 = 12, length2 = 5, length3 = 4, length4 = 3, length5 = 6;
+		for(int i = 0; i < str.length; i++) {
+			String[] str2 = str[i].split(";");
+			if(str2.length == length1) {
+				int index = 0;
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity e = Game.entities.get(ii);
+					if(e instanceof CombatLabel) {
+						ArrayList<GunLabel> gLL = new ArrayList<GunLabel>();
+						gLL = ((CombatLabel)e).getGunArrayList();
+						GunLabel gL = new GunLabel(((CombatLabel) e).labelX, 
+								((CombatLabel) e).labelY+(((CombatLabel) e).labelY*labelsCAmount), 
+								((CombatLabel) e).labelW, ((CombatLabel) e).labelH, 
+								0, null, ((CombatLabel) e).labelY+((CombatLabel) e).labelH+5);
+						labelsCAmount++;
+						for(int iii = 0; iii < gL.labels.size(); iii++) {
+							Entity ee = gL.labels.get(iii);
+							if(ee instanceof TextLabel) {
+								((TextLabel) ee).text = str2[index+1];
+								index++;
+							}
+						}
+						gLL.add(gL);
+						((CombatLabel) e).setGunArrayList(gLL);
+						((CombatLabel) e).addB.labels = ((CombatLabel)e).getGunArrayList();
+					}
+				}
+			}else if(str2.length == length2 && lenght2Times < 48) {
+				lenght2Times++;
+				for(int index = 0; index < 48; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof Skills) {
+								for(int iii = 0; iii < ((Skills)e).squares.size(); iii++) {
+									SquareTextLabel sTL = ((Skills) e).squares.get(iii);
+									if(iii == index) {
+										((TextLabel)sTL.labels.get(0)).text = str2[2];
+										((TextLabel)sTL.labels.get(1)).text = str2[1];
+										((TextLabel)sTL.labels.get(0)).setX(Integer.parseInt(str2[length2-2]));
+										((TextLabel)sTL.labels.get(1)).setX(Integer.parseInt(str2[length2-1]));
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length5) { 
+				int index = 0;
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity e = Game.entities.get(ii);
+					if(e instanceof InventoryLabel) {
+						ArrayList<ItemLabel> iLL = new ArrayList<ItemLabel>();
+						((InventoryLabel) e).addB.actionPerformed();
+						iLL = ((InventoryLabel)e).getItemArrayList();
+						for(int iii = 0; iii < iLL.get(labelsIAmount).labels.size(); iii++) {
+							Entity ee = iLL.get(labelsIAmount).labels.get(iii);
+							if(ee instanceof TextLabel) {
+								ee.setX(Integer.parseInt(str2[length2-1]));
+								((TextLabel) ee).text = str2[index+1];
+								index++;
+							}
+						}
+						labelsIAmount++;
+						((InventoryLabel) e).setItemArrayList(iLL);
+					}
+				}
+			}else if(str2.length == length3 && lenght3Times < 5) {
+				lenght3Times++;
+				for(int index = 0; index < 5; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof StatsLabel) {
+								for(int iii = 0; iii < ((StatsLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((StatsLabel) e).labels.get(iii) instanceof CheckBox) {
+											if(str2[1].equals("true")) {
+												((CheckBox)((StatsLabel) e).labels.get(iii)).actionPerformed();
+											}
+											((CheckBox)((StatsLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length3-1]));
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length3) {
+				lenght3Times++;
+				for(int index = 0; index < 1; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof CheckBox) {
+								if(str2[1].equals("true")) {
+									((CheckBox) e).actionPerformed();
+								}
+								((CheckBox) e).setX(Integer.parseInt(str2[length3-1]));
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 15) {
+				str2Times++;
+				for(int index = 0; index < 15; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof DetailsLabel) {
+								for(int iii = 0; iii < ((DetailsLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										((TextLabel)((DetailsLabel) e).labels.get(iii)).text = str2[1];
+										((TextLabel)((DetailsLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 31) {
+				str2Times++;
+				for(int index = 5; index < 21; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof StatsLabel) {
+								for(int iii = 0; iii < ((StatsLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((StatsLabel) e).labels.get(iii) instanceof TextLabel) {
+											((TextLabel)((StatsLabel) e).labels.get(iii)).text = str2[1];
+											if(iii > 4) {
+												if(((StatsLabel) e).labels.get(iii) instanceof TextLabel) {
+													((TextLabel)((StatsLabel) e).labels.get(iii)).text = str2[1];
+													((TextLabel)((StatsLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 60) {
+				str2Times++;
+				for(int index = 0; index < 29; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof AtributosLabel) {
+								for(int iii = 0; iii < ((AtributosLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										
+										if(((AtributosLabel) e).labels.get(iii) instanceof TextLabel) {
+											((TextLabel)((AtributosLabel) e).labels.get(iii)).text = str2[1];
+											((TextLabel)((AtributosLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 61) {
+				str2Times++;
+				for(int index = 0; index < 1; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof IconLabel) {
+								((IconLabel) e).setIcon(str2[1]);
+								((IconLabel) e).path = str2[1];
+								e.setX(Integer.parseInt(str2[length4-1]));
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 73) {
+				str2Times++;
+				for(int index = 0; index < 12; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof CombatLabel) {
+								for(int iii = 0; iii < ((CombatLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((CombatLabel) e).labels.get(iii) instanceof TextLabel) {
+											((TextLabel)((CombatLabel) e).labels.get(iii)).text = str2[1];
+											((TextLabel)((CombatLabel) e).labels.get(iii)).setX(Integer.parseInt(str2[length4-1]));
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 82) {
+				str2Times++;
+				for(int index = 0; index < 8; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof InventoryLabel) {
+								for(int iii = 0; iii < ((InventoryLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((InventoryLabel) e).labels.get(iii) instanceof TextLabel) {
+											((TextLabel)((InventoryLabel) e).labels.get(iii)).text = str2[1];
+											if(((InventoryLabel) e).getItemArrayList().size() > 0) {
+												((TextLabel)(((InventoryLabel) e).getItemArrayList().get(iii)).labels.get(1)).setX(Integer.parseInt(str2[length4-2]));
+												((TextLabel)(((InventoryLabel) e).getItemArrayList().get(iii)).labels.get(2)).setX(Integer.parseInt(str2[length4-1]));
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2Times < 86) {
+				str2Times++;
+				for(int index = 0; index < 4; index++) {
+					String indexX = Integer.toString(index);
+					if(indexX.equals(str2[0])) {
+						for(int ii = 0; ii < Game.entities.size(); ii++) {
+							Entity e = Game.entities.get(ii);
+							if(e instanceof FastSkillsLabel) {
+								for(int iii = 0; iii < ((FastSkillsLabel)e).labels.size(); iii++) {
+									if(iii == index) {
+										if(((FastSkillsLabel) e).labels.get(iii) instanceof TextLabel) {
+											((FastSkillsLabel) e).labels.get(iii).setX(Integer.parseInt(str2[2]));
+											((TextLabel)((FastSkillsLabel) e).labels.get(iii)).text = str2[1];
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(str2.length == length4 && str2[1].length() < 3){
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity e = Game.entities.get(ii);
+					if(e instanceof FastSkillsLabel) {
+						ArrayList<SkillLabel> sLL = new ArrayList<SkillLabel>();
+						sLL = ((FastSkillsLabel) e).getSkillArrayList();
+						SkillLabel sL = new SkillLabel(((FastSkillsLabel) e).addB.labelX, 
+								((FastSkillsLabel) e).addB.labelY+10+((((FastSkillsLabel) e).addB.labelH+5)*((FastSkillsLabel) e).addB.labelsAmount),
+								((FastSkillsLabel) e).addB.labelW, ((FastSkillsLabel) e).addB.labelH-5, 0, null, Integer.parseInt(str2[1]), ((FastSkillsLabel) e).addB.labelY+10);
+						sLL.add(sL);
+						((FastSkillsLabel) e).setSkillArrayList(sLL);
+					}
+				}
+			}else if(str2.length == length4) {
+				for(int ii = 0; ii < Game.entities.size(); ii++) {
+					Entity e = Game.entities.get(ii);
+					if(e instanceof CharacterLabel) {
+						((CharacterLabel) e).setIcon(str2[1]);
 					}
 				}
 			}

@@ -1,12 +1,6 @@
 package com.doglab.world;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import com.doglab.entities.Entity;
 import com.doglab.main.Game;
 
 public class World {

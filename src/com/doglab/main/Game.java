@@ -4,7 +4,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -19,13 +18,11 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.doglab.entities.*;
 import com.doglab.graficos.Spritesheet;
 import com.doglab.graficos.UI;
-import com.doglab.world.Camera;
 import com.doglab.world.World;
 
 import javax.imageio.ImageIO;
@@ -43,7 +40,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static List<Entity> entities;
 	public static int WIDTH = 680;
 	public static int HEIGHT = 698;
-	private JFrame frame;
+	private static JFrame frame;
 	public static JFileChooser fileChooser;
 	private boolean isRunning;
 	public static final int SCALE = 1;
@@ -95,29 +92,24 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame = new JFrame("Role Play Game");
 		frame.add(this);
 		fileChooser = new JFileChooser();
-		//frame.setUndecorated(true);
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+		frame.setVisible(true);
 		Image icon = null;
 		try {
 			icon = ImageIO.read(getClass().getResource("/icon.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		frame.setIconImage(icon);
-		
-		//Toolkit tool = Toolkit.getDefaultToolkit();
-		//Cursor c = tool.createCustomCursor(icon, new Point(0,0), "img");
-		
-		//frame.setCursor(c);
-		
-		frame.setVisible(true);
-		
+	}
+	
+	public static void setCursor(Image icon) {
+		Toolkit tool = Toolkit.getDefaultToolkit();
+		Cursor c = tool.createCustomCursor(icon, new Point(0,0), "img");
+		frame.setCursor(c);
 	}
 	
 	public static void main(String[] args) {
@@ -309,7 +301,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	// SETTERS
 	public void setFrame(JFrame f) {
-		this.frame = f;
+		frame = f;
 	}
 	
 	public void setRunning(boolean r) {
@@ -379,7 +371,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(tick && !menu.showReadme) {
+		if(tick && !Menu.showReadme) {
 			roller.setY(roller.getY()+e.getWheelRotation()*6);
 			Game.mouseController.resetPosition();
 		}	

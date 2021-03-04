@@ -295,14 +295,33 @@ public class SaveButton extends Button{
 			}
 		}
 		
+		String[] characters = new String[1];
+		int[] x13 = new int[1];
+		int id13[] = new int[1];
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof CharacterLabel) {
+				x13 = new int[((CharacterLabel) e).getPaths().size()];
+				id13 = new int[((CharacterLabel) e).getPaths().size()];
+				characters = new String[((CharacterLabel) e).getPaths().size()];
+				for(int ii = 0; ii < ((CharacterLabel) e).getPaths().size(); ii++) {
+					id13[ii] = ii;
+					x13[ii] = 0;
+					characters[ii] = ((CharacterLabel) e).getPaths().get(ii);
+				}
+			}
+		}
+		
 		String[] labels = new String[details.length + skills.length + stats.length + atributos.length + 
 		                             image.length + combate.length + gunLabels.length + inventory.length 
-		                             + itemLabels.length + systemValue.length + fastSkills.length + value.length];
+		                             + itemLabels.length + systemValue.length + fastSkills.length + value.length +
+		                             characters.length];
 		int[] ids = new int[id.length + id2.length + id3.length + id4.length + id5.length + id6.length + 
-		                    id7.length + id8.length + id9.length + id10.length + id11.length + id12.length];
+		                    id7.length + id8.length + id9.length + id10.length + id11.length + id12.length +
+		                    id13.length];
 		int[] valuesLabels = new int[values.length];
 		String[] xLabels = new String[x.length +  x2.length + x3.length + x4.length + x5.length + x6.length + x7.length +
-		                        x8.length + x9.length + x10.length + x11.length + x12.length];
+		                        x8.length + x9.length + x10.length + x11.length + x12.length + x13.length];
 		for(int i = 0; i < labels.length; i++) {
 			if(i < skills.length) {
 				labels[i] = skills[i];
@@ -353,6 +372,10 @@ public class SaveButton extends Button{
 				labels[i] = value[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length];
 				ids[i] = id12[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length];
 				xLabels[i] = Integer.toString(x12[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length]);
+			}else if(i < skills.length + details.length + stats.length + atributos.length + image.length + combate.length + gunLabels.length + inventory.length + itemLabels.length + systemValue.length + fastSkills.length + value.length + characters.length) {
+				labels[i] = characters[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length-value.length];
+				ids[i] = id13[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length-value.length];
+				xLabels[i] = Integer.toString(x13[i-skills.length-details.length-stats.length-atributos.length-image.length-combate.length-gunLabels.length-inventory.length-itemLabels.length-systemValue.length-fastSkills.length-value.length]);
 			}
 		}
 		Menu.saveGame(labels, valuesLabels, ids, xLabels);
