@@ -24,6 +24,4 @@ Bases para criação dos Icons do personagem do usuário nos formatos .psd .mdp 
 
 Interface dinâmica e totalmente personalizavel para agrado do úsuario.
 
-**OBS:** versão não finalizada.
-
-![Interface](https://cdn.discordapp.com/attachments/601118494527848498/800106056402993162/unknown.png)
+![Interface](https://cdn.discordapp.com/attachments/601118494527848498/817618601980067870/unknown.png)
