@@ -11,6 +11,7 @@ public class mouseController extends Entity{
 	public double currentX, currentY;
 	
 	public TextLabel currentTextLabel;
+	public Roller currentRoller = null;
 	
 	public mouseController(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);

@@ -17,7 +17,7 @@ public class CharacterIcon extends Label{
 	private int barrierX, barrierY;
 	private int iconX, iconY;
 	private BufferedImage camera;
-	private String path;
+	public String path;
 	
 	public CharacterIcon(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -42,6 +42,7 @@ public class CharacterIcon extends Label{
 	}
 	
 	public void setIcon(String path) {
+		this.path = path;
 		ImageIcon icon = new ImageIcon(path);
 		Game.player.icon = icon.getImage();
 	}

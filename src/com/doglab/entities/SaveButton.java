@@ -136,9 +136,10 @@ public class SaveButton extends Button{
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof IconLabel) {
-				image[0] = ((IconLabel)e).path;
+				image[0] = ((IconLabel)e).characterIcon.path;
 				x5[0] = e.getX();
 				id5[0] = 0;
+				System.out.println(image[0]);
 			}
 		}
 		

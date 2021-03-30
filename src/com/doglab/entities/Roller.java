@@ -11,6 +11,7 @@ public class Roller extends Entity{
 	public int step;
 	private boolean thisStep;
 	private int barX, barY, barW, barH;
+	public boolean selected = false;
 	
 	public Roller(double x, double y, int width, int height, double speed, BufferedImage sprite, boolean step,
 			int barX, int barY, int barW, int barH) {
@@ -24,16 +25,28 @@ public class Roller extends Entity{
 	}
 	
 	public void tick() {
+		if(Game.mouseController.currentRoller == null) {
+			selected = false;
+			if(this.isColliding(this, new Entity(Game.mouseController.currentX, 
+					Game.mouseController.currentY+Game.roller.getY()*Game.roller.step, Game.mouseController.width, Game.mouseController.height, 0, null))) {
+				selected = true;
+				Game.mouseController.currentRoller = this;
+			}
+			if(this.isColliding(this, new Entity(Game.mouseController.currentX, Game.mouseController.currentY, 
+					Game.mouseController.width, Game.mouseController.height, 0, null))) {
+				selected = true;
+				Game.mouseController.currentRoller = this;
+			}
+		}
+
 		if(Game.mouseController.isPressed) {
 			if(thisStep) {
-				if(this.isColliding(this, new Entity(Game.mouseController.currentX, 
-						Game.mouseController.currentY+Game.roller.getY()*Game.roller.step, Game.mouseController.width, Game.mouseController.height, 0, null))) {
+				if(selected) {
 					int dif = (int)Game.mouseController.currentY+Game.roller.getY()*Game.roller.step - height/2;
 					this.setY(dif);
 				}
 			}else {
-				if(this.isColliding(this, new Entity(Game.mouseController.currentX, Game.mouseController.currentY, 
-						Game.mouseController.width, Game.mouseController.height, 0, null))) {
+				if(selected) {
 					int dif = (int)Game.mouseController.currentY - height/2;
 					this.setY(dif);
 				}

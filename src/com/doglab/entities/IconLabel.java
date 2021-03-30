@@ -4,19 +4,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.doglab.main.Game;
-import com.doglab.world.World;
 
 public class IconLabel extends Label{
 
-	private CharacterIcon characterIcon;
-	public String path;
+	public CharacterIcon characterIcon;
 	private int degress = 0;
 	
 	public IconLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
@@ -28,7 +21,6 @@ public class IconLabel extends Label{
 	public void tick() {
 		super.tick();
 		if(tick) {
-			changeIcon();
 			if(current) {
 				inLocal = this.size;
 			}else {
@@ -56,29 +48,6 @@ public class IconLabel extends Label{
 		for(int i = 0; i < labels.size(); i++) {
 			Entity e = labels.get(i);
 			e.render(g);
-		}
-	}
-	
-	public void setIcon(String path) {
-		ImageIcon icon = new ImageIcon(path);
-		Game.player.icon = icon.getImage();
-	}
-	
-	private void changeIcon() {
-		double z = World.calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
-				characterIcon.getX(), characterIcon.getY()-Game.roller.getY()*Game.roller.step);
-		if(z < 65) {
-			Game.mouseController.resetPosition();
-			Game.fileChooser.setDialogTitle("");
-			Game.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "png", "jpg");
-			Game.fileChooser.setFileFilter(filter);
-			int fileSelected = Game.fileChooser.showOpenDialog(Game.game);
-			if(fileSelected == JFileChooser.APPROVE_OPTION) {
-				File file = Game.fileChooser.getSelectedFile();
-				this.path = file.getPath();
-				setIcon(this.path);
-			}
 		}
 	}
 	

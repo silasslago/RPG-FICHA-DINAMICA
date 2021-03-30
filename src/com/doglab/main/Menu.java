@@ -90,6 +90,17 @@ public class Menu {
 	}
 
 	public static void saveGame(String[] val1, int[] val2, int[] val3, String[] val4) {
+		
+		File file = new File("info.txt");
+		if(file.exists()) {
+			file.delete();
+		}
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		BufferedWriter write = null;
 		try {
 			write = new BufferedWriter(new FileWriter("info.txt"));
@@ -284,8 +295,8 @@ public class Menu {
 						for(int ii = 0; ii < Game.entities.size(); ii++) {
 							Entity e = Game.entities.get(ii);
 							if(e instanceof IconLabel) {
-								((IconLabel) e).setIcon(str2[1]);
-								((IconLabel) e).path = str2[1];
+								((IconLabel) e).characterIcon.setIcon(str2[1]);
+								((IconLabel) e).characterIcon.path = str2[1];
 							}
 						}
 					}
@@ -518,8 +529,8 @@ public class Menu {
 						for(int ii = 0; ii < Game.entities.size(); ii++) {
 							Entity e = Game.entities.get(ii);
 							if(e instanceof IconLabel) {
-								((IconLabel) e).setIcon(str2[1]);
-								((IconLabel) e).path = str2[1];
+								((IconLabel) e).characterIcon.setIcon(str2[1]);
+								((IconLabel) e).characterIcon.path = str2[1];
 								e.setX(Integer.parseInt(str2[length4-1]));
 							}
 						}
@@ -757,8 +768,8 @@ public class Menu {
 						for(int ii = 0; ii < Game.entities.size(); ii++) {
 							Entity e = Game.entities.get(ii);
 							if(e instanceof IconLabel) {
-								((IconLabel) e).setIcon(str2[1]);
-								((IconLabel) e).path = str2[1];
+								((IconLabel) e).characterIcon.setIcon(str2[1]);
+								((IconLabel) e).characterIcon.path = str2[1];
 								e.setX(Integer.parseInt(str2[length4-1]));
 							}
 						}
@@ -1029,8 +1040,8 @@ public class Menu {
 						for(int ii = 0; ii < Game.entities.size(); ii++) {
 							Entity e = Game.entities.get(ii);
 							if(e instanceof IconLabel) {
-								((IconLabel) e).setIcon(str2[1]);
-								((IconLabel) e).path = str2[1];
+								((IconLabel) e).characterIcon.setIcon(str2[1]);
+								((IconLabel) e).characterIcon.path = str2[1];
 								e.setX(Integer.parseInt(str2[length4-1]));
 							}
 						}

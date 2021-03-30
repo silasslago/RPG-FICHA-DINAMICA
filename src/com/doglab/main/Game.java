@@ -22,7 +22,6 @@ import java.util.List;
 
 import com.doglab.entities.*;
 import com.doglab.graficos.Spritesheet;
-import com.doglab.graficos.UI;
 import com.doglab.world.World;
 
 import javax.imageio.ImageIO;
@@ -33,10 +32,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	private static final long serialVersionUID = 1L;
 	public static Spritesheet spr_entities;
-	public static UI ui;
 	private Bootsplash bootsplash;
-	private Pause pause;
-	private Credits end;
 	public static List<Entity> entities;
 	public static int WIDTH = 680;
 	public static int HEIGHT = 698;
@@ -75,14 +71,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		entities.add(mouseController);
 		spr_entities = new Spritesheet("/sheet_interface.png");
 		world = new World();
-		ui = new UI();
-		pause = new Pause();
 		bootsplash = new Bootsplash();
-		end = new Credits();
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu();
 		int width = 10;
-		roller = new Roller(Game.WIDTH-width, 0, width, 100, 3, null, false, Game.WIDTH-width, 0, width, Game.HEIGHT);
+		roller = new Roller(Game.WIDTH-width, 0, width, 100, 3, null, false, 
+				Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
 		
@@ -172,19 +166,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}	
 		}else if(gameState == "BOOTSPLASH") {
 			bootsplash.tick();
-		}else if(gameState == "PAUSE") {
-			pause.tick();
-		}else if(gameState == "GAME_OVER") {
-			
-		}else if(gameState == "CREDITS") {
-			end.tick();
 		}else if(gameState == "MENU") {
 			if(frame.getMousePosition() != null) {
 				try{
 					mouseController.currentX = getMousePosition().x;
 					mouseController.currentY = getMousePosition().y;
 				}catch(NullPointerException e ){
-					e.printStackTrace();
+					
 				}
 			}
 			for(int i = 0; i < entities.size(); i++) {
@@ -217,19 +205,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 		// Renderização do jogo
 		if(gameState == "NORMAL" || gameState == "PAUSE" || gameState == "TUTORIAL") {
-			world.render(g);
 			for(int i = 0; i < entities.size(); i++) {
 				Entity e = entities.get(i);
 				e.render(g);
 			}	
-			ui.render(g);
-			if(gameState == "PAUSE") {
-				pause.render(g);
-			}
 		}else if(gameState == "BOOTSPLASH"){
 			bootsplash.render(g);
-		}else if(gameState == "CREDITS") {
-			end.render(g);
 		}else if(gameState == "MENU") {
 			menu.render(g);
 			for(int i = 0; i < entities.size(); i++) {
@@ -237,7 +218,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				e.render(g);
 			}
 		}
-	
 		g.dispose();
 		g = bs.getDrawGraphics();
 		if(fullscreen) {
@@ -367,6 +347,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	@Override
 	public void mouseReleased(MouseEvent m) {
 		mouseController.isPressed = false;
+		mouseController.currentRoller = null;
 	}
 
 	@Override
