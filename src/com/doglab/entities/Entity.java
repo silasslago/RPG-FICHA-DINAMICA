@@ -21,7 +21,6 @@ public class Entity {
 	
 	protected int maskx, masky, maskw, maskh;
 	
-	private int aStarDir;
 	protected int depth;
 	public int inLocal;
 	
@@ -62,8 +61,8 @@ public class Entity {
 		this.maskh = maskh;
 	}
 	
-	protected int getAStarDir() {
-		return this.aStarDir;
+	public static double calculoDistance(int x1, int y1, int x2, int y2) {
+		return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 	}
 	
 	public void collision(Graphics g) {

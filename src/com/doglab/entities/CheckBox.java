@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import com.doglab.main.Game;
+import com.doglab.main.Menu;
 
 public class CheckBox extends Entity{
 
@@ -33,6 +34,7 @@ public class CheckBox extends Entity{
 		}else {
 			this.setSprite(this.emptyBox);
 		}
+		Menu.save();
 	}
 	
 	public void tick() {

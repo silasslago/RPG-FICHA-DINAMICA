@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import com.doglab.main.Game;
+import com.doglab.main.Menu;
 
 public class TextLabel extends Label{
 
@@ -29,7 +30,7 @@ public class TextLabel extends Label{
 	public static boolean showSpace = true;
 	public static boolean editionTime = false;
 	
-	private boolean limiter;
+	private boolean limiter, canClick = false;
 	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText, boolean limiter) {
@@ -37,7 +38,7 @@ public class TextLabel extends Label{
 		this.limiter = limiter;
 		size = 0;
 		initX = x;
-		this.font = font;
+		this.font = Menu.specialElite.deriveFont(font.getSize2D()-2);
 		this.color = color;
 		this.text = text;
 		this.imaginaryY = (int)y;
@@ -95,18 +96,24 @@ public class TextLabel extends Label{
 		if(this.isColliding(tL, Game.mouseController)) {
 			Game.mouseController.resetPosition();
 			if(editionTime) {
-				for(int ii = 0; ii < Game.entities.size(); ii++) {
-					Entity ee = Game.entities.get(ii);
-					if(ee instanceof TextLabel) {
-						((TextLabel) ee).writing = false;
-					}
-				}
-				Game.mouseController.currentTextLabel = this;
-				phrase = "";
-				this.beginToWrite();
-				throwPhrase = true;
+				edit();
+			}else if(canClick){
+				edit();
 			}
 		}
+	}
+	
+	private void edit() {
+		for(int ii = 0; ii < Game.entities.size(); ii++) {
+			Entity ee = Game.entities.get(ii);
+			if(ee instanceof TextLabel) {
+				((TextLabel) ee).writing = false;
+			}
+		}
+		Game.mouseController.currentTextLabel = this;
+		phrase = "";
+		this.beginToWrite();
+		throwPhrase = true;
 	}
 	
 	public void beginToWrite() {
@@ -164,6 +171,7 @@ public class TextLabel extends Label{
 				throwText();
 			}
 		}
+		Menu.save();
 	}
 	
 	public void delete(String newString) {
@@ -200,6 +208,10 @@ public class TextLabel extends Label{
 	
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public void canClick(boolean canClick) {
+		this.canClick = canClick;
 	}
 	
 }

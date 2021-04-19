@@ -22,11 +22,12 @@ import java.util.List;
 
 import com.doglab.entities.*;
 import com.doglab.graficos.Spritesheet;
-import com.doglab.world.World;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseWheelListener {
 
@@ -43,7 +44,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private Thread thread;
 	public static BufferedImage image;
 	public static String gameState = "BOOTSPLASH";
-	public static World world;
+	
 	public static Menu menu;
 	public static Player player;
 	public static mouseController mouseController;
@@ -70,7 +71,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		mouseController = new mouseController(0,0,6,6,0, null);
 		entities.add(mouseController);
 		spr_entities = new Spritesheet("/sheet_interface.png");
-		world = new World();
 		bootsplash = new Bootsplash();
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu();
@@ -79,7 +79,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
-		
 	}
 	
 	public void initFrame() {
@@ -90,7 +89,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
 		Image icon = null;
 		try {
 			icon = ImageIO.read(getClass().getResource("/icon.png"));
@@ -98,6 +96,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			e.printStackTrace();
 		}
 		frame.setIconImage(icon);
+		frame.setVisible(true);
 	}
 	
 	public static void setCursor(Image icon) {
@@ -107,6 +106,17 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 	
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		game = new Game();
 		game.start();
 	}

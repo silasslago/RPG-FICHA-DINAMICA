@@ -34,7 +34,7 @@ public class DetailsLabel extends Label{
 		
 		idade = new TextLabel(getX()+20, getY()+185, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Idade", 0, false);
-		agePlayer = new TextLabel(getX()+30, getY()+200, 18, 11, 0, null, new Font("sitka banner", Font.PLAIN, 13), 
+		agePlayer = new TextLabel(getX()+30, getY()+200, 18, 11, 0, null, new Font("SpecialElite-Regular", Font.PLAIN, 13), 
 				new Color(0xFFE8EDEB), "age", 0, false);
 		
 		sex = new TextLabel(getX()+20, getY()+225, 25, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 

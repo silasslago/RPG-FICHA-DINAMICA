@@ -16,8 +16,6 @@ public class OptionsLabel extends Label{
 
 	public OptionsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
-		SaveButton saveButton = new SaveButton(Game.WIDTH/2-40, 10, 25, 25, 0, Game.spr_entities.getSprite(76, 231, 25, 25));
-		labels.add(saveButton);
 		ShowButton showButton = new ShowButton(Game.WIDTH/2-5, 10, 25, 25, 0, 
 				Game.spr_entities.getSprite(51, 231, 25, 25));
 		labels.add(showButton);

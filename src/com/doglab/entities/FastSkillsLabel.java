@@ -88,7 +88,7 @@ public class FastSkillsLabel extends Label{
 				showMsg = false;
 			}
 			
-			if(this.pericias.size() < 12) {
+			if(this.pericias.size() < 6) {
 				int plusH = 0;
 				for(int i = 0; i < this.pericias.size(); i++) {
 					plusH+=this.pericias.get(i).getHeight()+5-this.pericias.get(i).inLocal;
@@ -113,7 +113,7 @@ public class FastSkillsLabel extends Label{
 			}
 			
 			int plus = 0;
-			if(pericias.size()>11 && pericias.size() < 32) {
+			if(pericias.size()>5 && pericias.size() < 32) {
 				boolean minus = false;
 				for(int i = 0; i < pericias.size(); i++) {
 					if(pericias.get(i).inLocal != 0) {
@@ -124,10 +124,10 @@ public class FastSkillsLabel extends Label{
 				if(minus) {
 					minusAnao = pericias.get(0).inLocal*2;
 				}
-				plus = (int)(((pericias.get(0).getHeight()-minusAnao)*(pericias.size()-6))/1.8);
+				plus = (int)(((pericias.get(0).getHeight()-minusAnao)*(pericias.size()-5))/1.8);
 				this.roller.setHeight(getHeight()-plus-inLocal*2);
 				this.roller.maskh = getHeight()-plus-inLocal*2;
-			}else if(pericias.size()<=6) {
+			}else if(pericias.size()<=5) {
 				this.roller.setHeight(getHeight()-inLocal*2);
 				this.roller.maskh = getHeight()-inLocal*2;
 			}	

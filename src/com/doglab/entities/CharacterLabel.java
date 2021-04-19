@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.doglab.main.Game;
+import com.doglab.main.Menu;
 
 public class CharacterLabel extends Label{
 
@@ -40,7 +41,7 @@ public class CharacterLabel extends Label{
 				inLocal = 0;
 			}
 			Entity e1 = new Entity(Game.mouseController.getX(), Game.mouseController.getY(), Game.mouseController.getWidth(), Game.mouseController.getHeight(), 0, null);
-			Entity e2 = new Entity(getX()+getWidth()/2-95, getY()+5 - Game.roller.getY()*Game.roller.step, (int)(45*3.5), (int)(73*3.5), 0, null);
+			Entity e2 = new Entity(getX()+getWidth()/2-70, getY()+5 - Game.roller.getY()*Game.roller.step, (int)(45*2.8), (int)(73*2.8), 0, null);
 			Entity e3 = new Entity(getX()+30+inLocal, getY()+getHeight()/2-25/2 - Game.roller.getY()*Game.roller.step, 25, 25, 0, null);
 			Entity e4 = new Entity(getX()+getWidth()-30-inLocal, getY()+getHeight()/2-25/2 - Game.roller.getY()*Game.roller.step, 25, 25, 0, null);
 			Entity e5 = new Entity(getX()+getWidth()-35-inLocal, getY()+inLocal+10 - Game.roller.getY()*Game.roller.step, 25, 25, 0, null);
@@ -78,10 +79,10 @@ public class CharacterLabel extends Label{
 	
 	public void render(Graphics g) {
 		super.render(g);
-		g.drawImage(siluett.get(current), getX()+getWidth()/2-95, getY()+inLocal+5 - Game.roller.getY()*Game.roller.step, (int)(45*3.5), (int)(73*3.5), null);
+		g.drawImage(siluett.get(current), getX()+getWidth()/2-70, getY()+inLocal+5 - Game.roller.getY()*Game.roller.step, (int)(45*2.8), (int)(73*2.8), null);
 		g.setColor(Color.red);
 		g.drawImage(Game.spr_entities.getSprite(76, 181, 25, 25) ,getX()+getWidth()-35-inLocal, getY()+10+inLocal - Game.roller.getY()*Game.roller.step, 25, 25, null);
-		g.drawImage(signE, getX()+30+inLocal, getY()+getHeight()/2-25/2 - Game.roller.getY()*Game.roller.step, 25, 25, null);
+		g.drawImage(signE, getX()+10+inLocal, getY()+getHeight()/2-25/2 - Game.roller.getY()*Game.roller.step, 25, 25, null);
 		g.drawImage(signD, getX()+getWidth()-30-inLocal, getY()+getHeight()/2-25/2 - Game.roller.getY()*Game.roller.step, 25, 25, null);
 	}
 
@@ -90,6 +91,7 @@ public class CharacterLabel extends Label{
 		siluett.add(icon.getImage());
 		paths.add(path);
 		current++;
+		Menu.save();
 	}
 	
 	private void changeIcon() {

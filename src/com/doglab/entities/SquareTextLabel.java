@@ -84,6 +84,19 @@ public class SquareTextLabel extends Label{
 				dice.setY(plusY+13);
 				dice.masky = plusY+13;
 			}
+
+			for(int i = 0; i < labels.size(); i++) {
+				Entity l = labels.get(i);
+				if(l instanceof TextLabel) {
+					if(i==0) {
+						l.setX(getX()+getWidth()/2-7);
+					}else {
+						l.setX((getX()+getWidth()/2)-((TextLabel) l).text.length()*4);
+					}
+				}else if(l instanceof Dice){
+					l.setX(getX()-20);
+				}
+			}
 			
 		}
 	}

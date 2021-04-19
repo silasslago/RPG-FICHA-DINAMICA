@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import com.doglab.main.Game;
+import com.doglab.main.Menu;
 
 public class DiceLabel extends Label{
 
@@ -79,7 +80,7 @@ public class DiceLabel extends Label{
 			int go = 0;
 			String values = "";
 			for(int i = 0; i < roll.length; i++) {
-				g.setFont(new Font("sitka banner", Font.BOLD, 50));
+				g.setFont(Menu.specialElite.deriveFont(48.0f));
 				String rollPlus = Integer.toString(roll[i]);
 				values+=rollPlus;
 				if(i+2<=roll.length) {
@@ -95,11 +96,11 @@ public class DiceLabel extends Label{
 			}
 			g.drawString(values, a+(r*go), diceY+30);
 			if(roll.length>1 && go<roll.length-1) {
-				g.setFont(new Font("sitka banner", Font.BOLD, 25));
+				g.setFont(Menu.specialElite.deriveFont(23.0f));
 				g.drawString("+", plusA+(r*go), diceY+25);
 			}
 			if(roll.length==1) {
-				g.setFont(new Font("sitka banner", Font.BOLD, 20));
+				g.setFont(Menu.specialElite.deriveFont(18.0f));
 				if(state != null) {
 					g.drawString(state, diceX, diceY+60);
 				}
@@ -108,7 +109,7 @@ public class DiceLabel extends Label{
 				for(int i = 0; i < roll.length; i++) {
 					result+=roll[i];
 				}
-				g.setFont(new Font("sitka banner", Font.BOLD, 20));
+				g.setFont(Menu.specialElite.deriveFont(18.0f));
 				String resultPlus = "= "+result;
 				for(int i = 1; i < this.plus.length; i++) {
 					resultPlus+="+";
@@ -118,7 +119,7 @@ public class DiceLabel extends Label{
 			}
 			
 		}
-		g.setFont(new Font("sitka banner", Font.BOLD, 20));
+		g.setFont(Menu.specialElite.deriveFont(18.0f));
 		g.drawString("Roll", getX()+160, getY()+20);
 		g.drawLine(getX(), getY()+30, getX()+getWidth(), getY()+30);
 		close.render(g2D);

@@ -11,12 +11,21 @@ import com.doglab.main.Game;
 public class Skills extends Label{
 
 	private Roller roller;
-	private int initY, firstYRoller;
-	public ArrayList<SquareTextLabel> squares;
+	private int initY, initX, firstYRoller;
+	public ArrayList<SquareTextLabel> squares, currents;
+	private TextLabel searchBar;
+	private BufferedImage lupa;
 	
+	@SuppressWarnings("unchecked")
 	public Skills(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
+		lupa = Game.spr_entities.getSprite(200, 205, 25, 25);
 		squares = new ArrayList<SquareTextLabel>();
+
+		this.searchBar = new TextLabel(getX()+getWidth()-170, getY()+30, 70, 19, 0, null, 
+				new Font("sitka banner", Font.BOLD, 21), new Color(0xFF000000), "", 0, true);
+		searchBar.canClick(true);
+		labels.add(searchBar);
 		
 		int w = 12;
 		roller = new Roller(getX()+getWidth()-w, getY(), w, 215, 3, null, true, getX()+getWidth()-w, 
@@ -172,28 +181,50 @@ public class Skills extends Label{
 		SquareTextLabel cienFa = new SquareTextLabel(getX()+510, getY()+1270, 110, 95, 0, null, 1, "Ciência Farmácia");
 		squares.add(cienFa);
 		
+		currents = (ArrayList<SquareTextLabel>) squares.clone();
+		
 		initY = getY()-90;
+		initX = getX()+20;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void tick() {
 		super.tick();
 		if(tick) {
+			searchBar.setHeight(19);
+			searchBar.setWidth(140);
 			if(current) {
 				inLocal = this.size;
 			}else {
 				inLocal = 0;
 			}
-			
-			for(int i = 0; i < squares.size(); i++) {
-				SquareTextLabel l = squares.get(i);
+		
+			if(!searchBar.text.equals("")) {
+				String bar = searchBar.text;
+				currents.clear();
+				for(SquareTextLabel sTL : squares) {
+					String cSkill = ((TextLabel)sTL.labels.get(1)).text;
+					String curName = "";
+					for(int i = 0; i < bar.length(); i++) {
+						curName+=cSkill.charAt(i);
+					}
+					if(curName.toLowerCase().equals(bar.toLowerCase())) {
+						currents.add(sTL);
+					}
+				}
+			}else {
+				currents = (ArrayList<SquareTextLabel>) squares.clone();
+			}
+			for(int i = 0; i < currents.size(); i++) {
+				SquareTextLabel l = currents.get(i);
 				if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+49+inLocal*2) {
 					l.tick();
 				}
 			}
 			
 			int newTimes = 1;
-			for(int i = 0; i < squares.size(); i++) {
-				SquareTextLabel l = squares.get(i);
+			for(int i = 0; i < currents.size(); i++) {
+				SquareTextLabel l = currents.get(i);
 				int times = i+1;
 				int height = 0;
 				if(i < 4) {
@@ -207,19 +238,40 @@ public class Skills extends Label{
 					newTimes++;
 				}
 			}
+			
+			int[] newX = {getX()+inLocal+20, getX()+inLocal+170, getX()+inLocal+340, getX()+inLocal+510};
+			int current = 0;
+			for(int i = 0; i < currents.size(); i++) {
+				SquareTextLabel l = currents.get(i);
+				l.setX(newX[current] - l.inLocal);
+				current++;
+				if(current>=4) {
+					current=0;
+				}
+			}
+			
 		}
 	}
 	
 	public void render(Graphics g){
 		super.render(g);
+		g.setColor(new Color(0xFFE8EDEB));
+		g.fillRect(getX()+getWidth()-180-inLocal, getY()+10+inLocal-Game.roller.getY()*Game.roller.step, 160, 29);
+		g.setColor(Color.DARK_GRAY);
+		g.drawRect(getX()+getWidth()-180-inLocal, getY()+10+inLocal-Game.roller.getY()*Game.roller.step, 160, 29);
+		g.drawImage(lupa, getX()+getWidth()-215-inLocal, 
+				getY()+15+inLocal-Game.roller.getY()*Game.roller.step, null);
 		g.setColor(new Color(0xFF424242));
-		g.drawLine(getX()+inLocal+15, getY()+inLocal-Game.roller.getY()*Game.roller.step+50, getX()+getWidth()-inLocal-15, getY()+inLocal+50-Game.roller.getY()*Game.roller.step);
-		for(int i = 0; i < squares.size(); i++) {
-			SquareTextLabel l = squares.get(i);
+		g.drawLine(getX()+inLocal+15, getY()+inLocal-Game.roller.getY()*Game.roller.step+50, 
+				getX()+getWidth()-inLocal-15, getY()+inLocal+50-Game.roller.getY()*Game.roller.step);
+		
+		for(int i = 0; i < currents.size(); i++) {
+			SquareTextLabel l = currents.get(i);
 			if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+49+inLocal*2) {
 				l.render(g);
 			}
 		}
+		this.searchBar.render(g);
 	}
 	
 	public ArrayList<SquareTextLabel> getSkills(){

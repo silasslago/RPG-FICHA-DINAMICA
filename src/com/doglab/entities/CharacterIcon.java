@@ -9,7 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.doglab.main.Game;
-import com.doglab.world.World;
+import com.doglab.main.Menu;
 
 public class CharacterIcon extends Label{
 
@@ -45,10 +45,11 @@ public class CharacterIcon extends Label{
 		this.path = path;
 		ImageIcon icon = new ImageIcon(path);
 		Game.player.icon = icon.getImage();
+		Menu.save();
 	}
 	
 	private void changeIcon() {
-		double z = World.calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
+		double z = calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
 				this.getX(), this.getY()-Game.roller.getY()*Game.roller.step);
 		if(z < 65) {
 			Game.mouseController.resetPosition();

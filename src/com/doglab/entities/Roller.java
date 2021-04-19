@@ -25,6 +25,7 @@ public class Roller extends Entity{
 	}
 	
 	public void tick() {
+		
 		if(Game.mouseController.currentRoller == null) {
 			selected = false;
 			if(this.isColliding(this, new Entity(Game.mouseController.currentX, 
@@ -36,9 +37,9 @@ public class Roller extends Entity{
 					Game.mouseController.width, Game.mouseController.height, 0, null))) {
 				selected = true;
 				Game.mouseController.currentRoller = this;
-			}
+			}	
 		}
-
+		
 		if(Game.mouseController.isPressed) {
 			if(thisStep) {
 				if(selected) {
@@ -51,6 +52,8 @@ public class Roller extends Entity{
 					this.setY(dif);
 				}
 			}
+		}else {
+			Game.mouseController.currentRoller = null;
 		}
 		if(this.getY() < barY) {
 			this.setY(barY);
