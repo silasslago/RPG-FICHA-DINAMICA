@@ -21,15 +21,19 @@ public class GunLabel extends Label{
 		TextLabel gunName = new TextLabel(getX()+60-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunName);
+		gunName.canClick(true);
 		
 		TextLabel gunType = new TextLabel(getX()+140-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunType);
+		gunType.canClick(true);
 		
 		TextLabel diceAmount = new TextLabel(getX()+230+20, getY()+plusY, 5, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "?", 0, true);
 		TextLabel gunDamage = new TextLabel(getX()+230+40, getY()+plusY, 5, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "?", 0, true);
+		diceAmount.canClick(true);
+		gunDamage.canClick(true);
 		
 		Dice dice = new Dice(getX()+225-5, getY(), 25, 25, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
 				gunDamage, gunDamage, diceAmount, false, true);
@@ -40,26 +44,32 @@ public class GunLabel extends Label{
 		TextLabel gunMunAtual = new TextLabel(getX()+320-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunMunAtual);
+		gunMunAtual.canClick(true);
 
 		TextLabel gunMunMax = new TextLabel(getX()+390-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunMunMax);
+		gunMunMax.canClick(true);
 		
 		TextLabel gunAtaque = new TextLabel(getX()+455-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunAtaque);
-
+		gunAtaque.canClick(true);
+		
 		TextLabel gunAlcance = new TextLabel(getX()+505-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunAlcance);
+		gunAlcance.canClick(true);
 		
 		TextLabel gunDefeito = new TextLabel(getX()+560-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunDefeito);
+		gunDefeito.canClick(true);
 		
 		TextLabel gunArea = new TextLabel(getX()+610-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunArea);
+		gunArea.canClick(true);
 	}
 	
 	public void tick() {

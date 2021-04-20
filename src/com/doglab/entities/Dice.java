@@ -10,12 +10,11 @@ public class Dice extends Entity{
 
 	private boolean current = false;
 	private int size = 10;
-	private String state1 = "SE FUDEU", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
+	private String state1 = "DESASTRE", state2 = "FRACASSO", state3 = "NORMAL", state4 = "BOM", 
 			state5 = "EXTREMO";
 	private String currentState = state1;
 	public int d = 0;
 	private int stat;
-	public EditButton edit;
 	private MouseEditorLabel mEditor;
 	public ArrayList<Label> labels;
 	private int timesRoll = 0;
@@ -120,7 +119,6 @@ public class Dice extends Entity{
 		labels.add(stat);
 		labels.add(dValue);
 		labels.add(timesRoll);
-		edit = new EditButton(0, 0, 0, 0, 0, null);
 		this.setMask((int)x+10, (int)y+10, width-20, height-20);
 	}
 	
@@ -329,13 +327,13 @@ public class Dice extends Entity{
 			int hLabel = 150;
 			int xLabel = ((Game.WIDTH*Game.SCALE)/2)-wLabel/2;
 			int yLabel = ((Game.HEIGHT*Game.SCALE)/2)-hLabel/2;
-			if(TextLabel.editionTime) {
+			/*if(TextLabel.editionTime) {
 				if(mEditor == null) {
 					mEditor = new MouseEditorLabel(xLabel, yLabel, wLabel, hLabel, 0, null, 
 							((TextLabel)labels.get(1)).text, this);
 					Game.entities.add(mEditor);
 				}
-			}else {
+			}else {*/
 				int value[] = new int[timesRoll];
 				String plus[] = new String[1];
 				for(int i = 0; i < this.newD.length(); i++) {
@@ -392,7 +390,7 @@ public class Dice extends Entity{
 						value, currentState, plus);
 				Game.entities.add(diceLabel);	
 			}
-		}
+		//}
 	}
 	
 	public void render(Graphics g) {

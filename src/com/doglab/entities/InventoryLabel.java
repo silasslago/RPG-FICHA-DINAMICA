@@ -63,6 +63,7 @@ public class InventoryLabel extends Label{
 				new Color(0xFFE8EDEB), "Dinheiro: ", 0, false);
 		TextLabel dinheiroAmount = new TextLabel(getX()+83, getY()+75, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "0", 0, false);
+		dinheiroAmount.canClick(true);
 		labels.add(dinheiro);
 		labels.add(dinheiroAmount);
 		
@@ -70,6 +71,7 @@ public class InventoryLabel extends Label{
 				new Color(0xFFE8EDEB), "Patrimonio: ", 0, false);
 		TextLabel patrimonioAmount = new TextLabel(getX()+100, getY()+90, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "0", 0, false);
+		patrimonioAmount.canClick(true);
 		labels.add(patrimonio);
 		labels.add(patrimonioAmount);
 		

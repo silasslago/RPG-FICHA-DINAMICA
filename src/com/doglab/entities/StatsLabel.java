@@ -23,6 +23,7 @@ public class StatsLabel extends Label{
 				new Color(0xFFE8EDEB), "Vida", 0, false);
 		lifePlayer = new TextLabel(getX()+135, getY()+43, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2, true);
+		lifePlayer.canClick(true);
 		maxLie = new TextLabel(getX()+160, getY()+43, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0, true);
 		
@@ -42,6 +43,7 @@ public class StatsLabel extends Label{
 				new Color(0xFFE8EDEB), "Sanidade", 0, false);
 		sanityPlayer = new TextLabel(getX()+110, getY()+123, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2, true);
+		sanityPlayer.canClick(true);
 		maxSanityPlayer = new TextLabel(getX()+135, getY()+123, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0, true);
 		
@@ -57,6 +59,7 @@ public class StatsLabel extends Label{
 				new Color(0xFFE8EDEB), "Ocultismo", 0, false);
 		ocultismoPlayer = new TextLabel(getX()+135, getY()+203, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2, true);
+		ocultismoPlayer.canClick(true);
 		maxOcultismoPlayer = new TextLabel(getX()+160, getY()+203, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0, true);
 		
@@ -66,13 +69,16 @@ public class StatsLabel extends Label{
 				new Color(0xFFE8EDEB), "Corpo", 1, false);
 		expPar = new TextLabel(getX()+240, getY()+225, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Exp. Par.", 1, false);
-
+		
 		extraDamage = new TextLabel(getX()+60, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1, true);
 		body = new TextLabel(getX()+160, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1, true);
 		paranormalExp = new TextLabel(getX()+260, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1, true);
+		extraDamage.canClick(true);
+		body.canClick(true);
+		paranormalExp.canClick(true);
 		
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0, true);
 		TextLabel dLados = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "100", 0, true);

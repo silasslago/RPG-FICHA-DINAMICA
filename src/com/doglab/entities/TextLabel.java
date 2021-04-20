@@ -25,19 +25,20 @@ public class TextLabel extends Label{
 	public String phrase = "";
 	public boolean throwPhrase = false;
 	
-	private double initX;
+	private double initX, initW;
 	
 	public static boolean showSpace = true;
-	public static boolean editionTime = false;
+	public EditTextLabel eTL;
 	
-	private boolean limiter, canClick = false;
+	private boolean limiter, canClick = false, canEdit = false;
 	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText, boolean limiter) {
-		super(x, y-font.getSize()/1.5, width, height, speed, sprite);
+		super(x, y-font.getSize2D()/1.5, width, height, speed, sprite);
 		this.limiter = limiter;
 		size = 0;
 		initX = x;
+		initW = width;
 		this.font = Menu.specialElite.deriveFont(font.getSize2D()-2);
 		this.color = color;
 		this.text = text;
@@ -63,7 +64,19 @@ public class TextLabel extends Label{
 					size = 0;
 				}
 			}
+			if(eTL != null) {
+				if(eTL.selected) {
+					canEdit = true;
+					edit();
+				}
+				Game.entities.remove(eTL);
+				eTL = null;
+			}
 			changeLabel();
+			if(text.equals("")) {
+				canEdit = true;
+			}
+			
 			if(writing) {
 				timer++;
 				if(timer > this.maxTimer) {
@@ -76,28 +89,34 @@ public class TextLabel extends Label{
 	
 	public void render(Graphics g) {
 		g.setColor(color);
-		if(editionTime) {
-			g.setColor(new Color(0xFF9493D0));
-		}
 		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/3));
 		g.drawString(text, getX(), imaginaryY-Game.roller.getY()*Game.roller.step);
 		if(writing && show) {
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
 		}
-		if(this.text == "" && showSpace) {
-			g.setColor(Color.red);
-			g.drawRect(getX(), getY()-Game.roller.getY()*Game.roller.step, width, height);
+		if(size == font.getSize() && text.equals("")) {
+			g.drawRect((int)initX, getY(), (int)initW, getHeight());
 		}
+		
 	}
 	
 	private void changeLabel() {
 		Entity tL = new Entity(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight(), speed, getSprite());
 		if(this.isColliding(tL, Game.mouseController)) {
 			Game.mouseController.resetPosition();
-			if(editionTime) {
+			if(canClick){
 				edit();
-			}else if(canClick){
+			}
+			if(eTL == null && text != "") {
+				int wLabel = 350;
+				int hLabel = 150;
+				int xLabel = ((Game.WIDTH*Game.SCALE)/2)-wLabel/2;
+				int yLabel = ((Game.HEIGHT*Game.SCALE)/2)-hLabel/2;
+				eTL = new EditTextLabel(xLabel, yLabel, wLabel, hLabel, 0, null);
+				Game.entities.add(eTL);
+			}
+			if(text == "") {
 				edit();
 			}
 		}
@@ -108,6 +127,7 @@ public class TextLabel extends Label{
 			Entity ee = Game.entities.get(ii);
 			if(ee instanceof TextLabel) {
 				((TextLabel) ee).writing = false;
+				((TextLabel) ee).canEdit = false;
 			}
 		}
 		Game.mouseController.currentTextLabel = this;
@@ -125,7 +145,7 @@ public class TextLabel extends Label{
 		if(typeText == 0) {
 			setX((int)initX);
 		}else if(typeText == 1){
-			setX((int)initX+getWidth()/2);
+			setX((int)(initX+initW/2));
 		}else if(typeText == 2) {
 			setX((int)initX+width-this.font.getSize());
 		}
@@ -204,6 +224,7 @@ public class TextLabel extends Label{
 		throwPhrase = false;
 		this.writing = false;
 		phrase = "";
+		canEdit = false;
 	}
 	
 	public void setColor(Color color) {

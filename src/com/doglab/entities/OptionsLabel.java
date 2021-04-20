@@ -16,12 +16,6 @@ public class OptionsLabel extends Label{
 
 	public OptionsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
-		ShowButton showButton = new ShowButton(Game.WIDTH/2-5, 10, 25, 25, 0, 
-				Game.spr_entities.getSprite(51, 231, 25, 25));
-		labels.add(showButton);
-		EditButton editButton = new EditButton(Game.WIDTH/2+30, 10, 25, 25, 0, 
-				Game.spr_entities.getSprite(76, 156, 25, 25));
-		labels.add(editButton);
 		closed = Game.spr_entities.getSprite(1, 231, 25, 25);
 		
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0, true);

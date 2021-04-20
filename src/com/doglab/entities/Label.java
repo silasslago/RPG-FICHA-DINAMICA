@@ -16,7 +16,7 @@ public class Label extends Entity{
 	protected int size = 0;
 	private boolean light = false;
 	protected boolean current = false;
-	public boolean tick = true;
+	public static boolean tick = true;
 	public int inLocal;
 	
 	protected static Comparator<Entity> labelSorter = new Comparator<Entity>() {
@@ -79,14 +79,7 @@ public class Label extends Entity{
 	}
 	
 	public void changeTickers() {
-		Game.tick = !Game.tick;
-		for(int i = 0; i < Game.entities.size(); i++) {
-			Entity e = Game.entities.get(i);
-			if(e instanceof Label) {
-				((Label) e).tick = !((Label) e).tick;
-			}
-		}
-		this.tick = true;	
+		Label.tick = !tick;	
 	}
 	
 	public void render(Graphics g) {
