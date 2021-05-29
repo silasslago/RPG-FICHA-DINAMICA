@@ -77,11 +77,6 @@ public class FastSkillsLabel extends Label{
 	public void tick() {
 		super.tick();
 		if(tick) {
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
 			if(pericias.size() <= 0) {
 				showMsg = true;
 			}else {

@@ -43,7 +43,7 @@ public class CombatLabel extends Label{
 		gunLabels = new ArrayList<GunLabel>();
 		TextLabel combate = new TextLabel(getX()+270, getY()+30, 75, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
 				new Color(0xFFE8EDEB), "Combate", 1, false);
-		TextLabel nome = new TextLabel(getX()+60, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		TextLabel nome = new TextLabel(getX()+35, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Nome", 0, false);
 		TextLabel tipo = new TextLabel(getX()+140, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Tipo", 0, false);
@@ -99,12 +99,6 @@ public class CombatLabel extends Label{
 	public void tick() {
 		super.tick();
 		if(tick) {
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
-
 			for(int i = 0; i < gunLabels.size(); i++) {
 				GunLabel l = gunLabels.get(i);
 				if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+74+inLocal*2) {

@@ -377,7 +377,7 @@ public class Dice extends Entity{
 						}
 					}else { // menor
 						if(value[0] <= stat) {
-							currentState = state3;
+							currentState = "SUCESSO";
 						}else if(value[0] > (stat/2)) {
 							currentState = state2;
 						}

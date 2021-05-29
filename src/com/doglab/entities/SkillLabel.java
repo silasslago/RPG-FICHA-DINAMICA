@@ -83,9 +83,9 @@ public class SkillLabel extends Label{
 	
 	public void tick() {
 		if(tick) {
-			if((Game.mouseController.currentX > this.getX()+size && Game.mouseController.currentY > this.getY()+size-Game.roller.getY()*Game.roller.step) &&
-					(Game.mouseController.currentX < this.getX()-size+this.getWidth() && 
-							Game.mouseController.currentY < this.getY()-size-Game.roller.getY()*Game.roller.step+this.getHeight())) {
+			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
+					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
+							Game.mouseController.currentY < this.getY()-Game.roller.getY()*Game.roller.step+this.getHeight())) {
 				if(!current) {
 					current = true;
 				}
@@ -95,10 +95,8 @@ public class SkillLabel extends Label{
 				}
 			}
 			if(current) {
-				inLocal = this.size;
 				color = new Color(0xFF121212);
 			}else {
-				inLocal = 0;
 				color = new Color(0xFFF0F0F0);
 			}
 			for(int i = 0; i < labels.size(); i++) {

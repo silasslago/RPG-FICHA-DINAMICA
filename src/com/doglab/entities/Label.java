@@ -13,11 +13,8 @@ public class Label extends Entity{
 
 	public ArrayList<Entity> labels; 
 	private BufferedImage lightImage;
-	protected int size = 0;
-	private boolean light = false;
 	protected boolean current = false;
 	public static boolean tick = true;
-	public int inLocal;
 	
 	protected static Comparator<Entity> labelSorter = new Comparator<Entity>() {
 
@@ -44,33 +41,6 @@ public class Label extends Entity{
 	
 	public void tick() {
 		if(tick) {
-			if((Game.mouseController.currentX > this.getX()+size && Game.mouseController.currentY > this.getY()+size-Game.roller.getY()*Game.roller.step) &&
-					(Game.mouseController.currentX < this.getX()-size+this.getWidth() && 
-							Game.mouseController.currentY < this.getY()-size-Game.roller.getY()*Game.roller.step+this.getHeight())) {
-				light = true;
-				if(!current) {
-					size = 30;
-					this.x-=size;
-					this.y-=size;
-					this.width+=size*2;
-					this.height+=size*2;
-					current = true;
-					this.order = 1;
-					Collections.sort(Game.entities, labelSorter);
-				}
-			}else {
-				light = false;
-				if(current) {
-					this.order = 0;
-					Collections.sort(Game.entities, labelSorter);
-					this.x+=size;
-					this.y+=size;
-					this.width-=size*2;
-					this.height-=size*2;
-					current = false;
-					size = 0;
-				}
-			}
 			for(int i = 0; i < labels.size(); i++) {
 				Entity e = labels.get(i);
 				e.tick();
@@ -83,9 +53,6 @@ public class Label extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		if(light) {
-			g.drawImage(lightImage, getX()-5, getY()-5-Game.roller.getY()*Game.roller.step, getWidth()+10, getHeight()+10, null);
-		}
 		g.setColor(new Color(0xFF000000));
 		g.fillRect(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight());
 		g.setColor(new Color(0xFF424242));

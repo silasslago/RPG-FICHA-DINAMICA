@@ -32,7 +32,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseWheelListener {
 
 	private static final long serialVersionUID = 1L;
-	public static Spritesheet spr_entities;
+	public static Spritesheet spr_entities, bars;
 	private Bootsplash bootsplash;
 	public static List<Entity> entities;
 	public static int WIDTH = 680;
@@ -71,18 +71,19 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		mouseController = new mouseController(0,0,6,6,0, null);
 		entities.add(mouseController);
 		spr_entities = new Spritesheet("/sheet_interface.png");
+		bars = new Spritesheet("/bars.png");
 		bootsplash = new Bootsplash();
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu();
 		int width = 10;
-		roller = new Roller(Game.WIDTH-width, 0, width, 100, 3, null, false, 
+		roller = new Roller(Game.WIDTH-width, 0, width, 100, 3, null, false,
 				Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
 	}
 	
 	public void initFrame() {
-		frame = new JFrame("Role Play Game");
+		frame = new JFrame("Dicer");
 		frame.add(this);
 		fileChooser = new JFileChooser();
 		frame.setResizable(false);

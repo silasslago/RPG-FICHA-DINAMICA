@@ -193,11 +193,6 @@ public class Skills extends Label{
 		if(tick) {
 			searchBar.setHeight(19);
 			searchBar.setWidth(140);
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
 		
 			if(!searchBar.text.equals("")) {
 				String bar = searchBar.text;

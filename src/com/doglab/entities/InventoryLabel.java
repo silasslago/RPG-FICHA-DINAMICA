@@ -101,12 +101,6 @@ public class InventoryLabel extends Label{
 	public void tick() {
 		super.tick();
 		if(tick) {
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
-			
 			for(int i = 0; i < itemLabels.size(); i++) {
 				ItemLabel l = itemLabels.get(i);
 				if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+99+inLocal*2) {

@@ -18,7 +18,7 @@ public class GunLabel extends Label{
 				Game.spr_entities.getSprite(76, 181, 25, 25), minY);
 		labels.add(deleteB);
 		
-		TextLabel gunName = new TextLabel(getX()+60-5, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
+		TextLabel gunName = new TextLabel(getX()+35, getY()+plusY, 18, 13, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), new Color(0xFFE8EDEB), "???", 0, false);
 		labels.add(gunName);
 		gunName.canClick(true);
@@ -75,11 +75,6 @@ public class GunLabel extends Label{
 	public void tick() {
 		super.tick();
 		if(tick) {
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
 			for(int i = 0; i < labels.size(); i++) {
 				Entity l = labels.get(i);
 				if(l instanceof TextLabel) {

@@ -9,6 +9,7 @@ import com.doglab.main.Game;
 
 public class StatsLabel extends Label{
 
+	private BufferedImage barL, barS, barO;
 	private TextLabel life, sani, ocul, extrada, corpo, expPar, lifePlayer, maxLie, sanityPlayer,
 	maxSanityPlayer, ocultismoPlayer, maxOcultismoPlayer, body, extraDamage,paranormalExp;
 	private Dice dice;
@@ -19,6 +20,9 @@ public class StatsLabel extends Label{
 
 	public StatsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
+		barS = Game.bars.getSprite(0, 0, 454, 98);
+		barL = Game.bars.getSprite(0, 98, 454, 98);
+		barO = Game.bars.getSprite(0, 196, 454, 98);
 		life = new TextLabel(getX(), getY()+15, 30, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Vida", 0, false);
 		lifePlayer = new TextLabel(getX()+135, getY()+43, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
@@ -106,11 +110,6 @@ public class StatsLabel extends Label{
 	public void tick() {
 		super.tick();
 		if(tick) {
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
 			for(int i = 0; i < Game.entities.size(); i++) {
 				Entity e = Game.entities.get(i);
 				if(e instanceof CheckBox) {
@@ -213,20 +212,17 @@ public class StatsLabel extends Label{
 			e.render(g);
 		}
 		try{
-			g.setColor(lifeColor);
-			g.fillRect(getX()+inLocal, getY()+inLocal+20-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 25);
+			g.drawImage(barL,getX()+inLocal, getY()+inLocal+20-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 25, null);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try{
-			g.setColor(sanityColor);
-			g.fillRect(getX()+inLocal, getY()+inLocal+100-Game.roller.getY()*Game.roller.step, (260*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 25);
+			g.drawImage(barS, getX()+inLocal, getY()+inLocal+100-Game.roller.getY()*Game.roller.step, (260*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 25, null);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try{
-			g.setColor(oculColor);
-			g.fillRect(getX()+inLocal, getY()+inLocal+180-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 25);
+			g.drawImage(barO, getX()+inLocal, getY()+inLocal+180-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 25,null);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}

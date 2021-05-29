@@ -120,12 +120,6 @@ public class AtributosLabel extends Label{
 	public void tick() {
 		if(tick) {
 			super.tick();
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}	
-			
 			for(int i = 0; i < Game.entities.size(); i++) {
 				Entity e = Game.entities.get(i);
 				if(e instanceof CheckBox) {

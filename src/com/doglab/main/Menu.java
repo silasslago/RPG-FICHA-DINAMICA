@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,6 +14,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import com.doglab.entities.AtributosLabel;
 import com.doglab.entities.CharacterLabel;
@@ -41,6 +44,7 @@ public class Menu {
 	private final Color BLACK = new Color(0xFF000000);
 	private Color bg = BLACK;
 	public static Font specialElite;
+	private BufferedImage icon;
 	
 	public Menu() {
 		try {
@@ -52,7 +56,6 @@ public class Menu {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		DetailsLabel detailsLabel = new DetailsLabel(30, 100, Game.WIDTH/2-50, 370, 0, null);
 		Game.entities.add(detailsLabel);
 		IconLabel iconLabel = new IconLabel(346, 80, 285, 160, 0, null);
@@ -75,10 +78,10 @@ public class Menu {
 		CheckBox cb = new CheckBox(30, 83, 12, 12, 0, Game.spr_entities.getSprite(101, 231, 25, 25),
 				Game.spr_entities.getSprite(126, 231, 25, 25), "COC System");
 		Game.entities.add(cb);
-		OptionsLabel optionsLabel = new OptionsLabel(0, 0-45, Game.WIDTH, 45, 0, Game.spr_entities.getSprite(26, 231, 25, 25));
-		Game.entities.add(optionsLabel);
 		CharacterLabel characterLabel = new CharacterLabel(340, 820, 320, 210, 0, null);
 		Game.entities.add(characterLabel);
+		OptionsLabel optionsLabel = new OptionsLabel(0, 0-45, Game.WIDTH, 45, 0, Game.spr_entities.getSprite(26, 231, 25, 25));
+		Game.entities.add(optionsLabel);
 		File file = new File("info.txt");
 		if(file.exists()) {
 			String spr = loadGame();
@@ -99,6 +102,11 @@ public class Menu {
 		if(showReadme) {
 			ReadmeLabel rL = new ReadmeLabel(30, 30, Game.WIDTH*Game.SCALE-70, Game.HEIGHT*Game.SCALE-40, 0, null);
 			Game.entities.add(rL);
+		}
+		try {
+			icon = ImageIO.read(getClass().getResource("/dogcon.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -156,6 +164,7 @@ public class Menu {
 	}
 	
 	public static void save() {
+		try {
 			for(int i = 0; i < Game.entities.size(); i++) {
 				Entity e = Game.entities.get(i);
 				if(e instanceof OptionsLabel) {
@@ -522,8 +531,11 @@ public class Menu {
 					((OptionsLabel) e).saved = true;
 				}
 			}
-			
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
 		}
+			
+	}
 
 	public static String loadGame() {
 		String line = "";
@@ -1520,6 +1532,7 @@ public class Menu {
 	public void render(Graphics g) {
 		g.setColor(bg);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		g.drawImage(icon, 230, 2200-Game.roller.getY()*Game.roller.step, null);
 	}
 	
 	public void tick() {

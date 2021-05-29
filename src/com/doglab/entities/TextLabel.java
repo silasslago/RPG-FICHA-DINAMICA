@@ -14,7 +14,7 @@ public class TextLabel extends Label{
 	private int imaginaryY;
 	public Font font;
 	protected Color color;
-	public String text;
+	public String text, showText;
 	public boolean writing = false;
 	public int typeText;
 	
@@ -32,16 +32,19 @@ public class TextLabel extends Label{
 	
 	private boolean limiter, canClick = false, canEdit = false;
 	
+	private int size;
+	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText, boolean limiter) {
 		super(x, y-font.getSize2D()/1.5, width, height, speed, sprite);
 		this.limiter = limiter;
-		size = 0;
 		initX = x;
+		size = 0;
 		initW = width;
 		this.font = Menu.specialElite.deriveFont(font.getSize2D()-2);
 		this.color = color;
 		this.text = text;
+		this.showText = text;
 		this.imaginaryY = (int)y;
 		this.typeText = typeText;
 	}
@@ -50,6 +53,21 @@ public class TextLabel extends Label{
 		if(Game.mouseController.isPressed) {
 			this.resetPhrase();
 		}
+		
+		/*
+		int currentW = 0;
+		String currentS = "";
+		for(int i = 0; i < text.length(); i++) {
+			currentS+=text.charAt(i);
+			currentW+=font.getSize2D();
+			if(currentW>initW) {
+				break;
+			}
+		}
+		*/
+		
+		this.showText = this.text;
+		
 		if(tick) {
 			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
 					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
@@ -60,8 +78,8 @@ public class TextLabel extends Label{
 				}
 			}else {
 				if(current) {
-					current = false;
 					size = 0;
+					current = false;
 				}
 			}
 			if(eTL != null) {
@@ -90,13 +108,13 @@ public class TextLabel extends Label{
 	public void render(Graphics g) {
 		g.setColor(color);
 		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/3));
-		g.drawString(text, getX(), imaginaryY-Game.roller.getY()*Game.roller.step);
+		g.drawString(showText, getX(), imaginaryY-Game.roller.getY()*Game.roller.step);
 		if(writing && show) {
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
 		}
 		if(size == font.getSize() && text.equals("")) {
-			g.drawRect((int)initX, getY(), (int)initW, getHeight());
+			g.drawRect((int)initX, getY()-Game.roller.getY()*Game.roller.step, (int)initW, getHeight());
 		}
 		
 	}

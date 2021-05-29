@@ -35,11 +35,6 @@ public class CharacterLabel extends Label{
 	public void tick() {
 		if(tick) {
 			super.tick();
-			if(super.current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
 			Entity e1 = new Entity(Game.mouseController.getX(), Game.mouseController.getY(), Game.mouseController.getWidth(), Game.mouseController.getHeight(), 0, null);
 			Entity e2 = new Entity(getX()+getWidth()/2-70, getY()+5 - Game.roller.getY()*Game.roller.step, (int)(45*2.8), (int)(73*2.8), 0, null);
 			Entity e3 = new Entity(getX()+30+inLocal, getY()+getHeight()/2-25/2 - Game.roller.getY()*Game.roller.step, 25, 25, 0, null);

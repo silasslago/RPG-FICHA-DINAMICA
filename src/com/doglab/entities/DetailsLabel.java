@@ -81,13 +81,6 @@ public class DetailsLabel extends Label{
 
 	public void tick() {
 		super.tick();
-		if(tick) {
-			if(current) {
-				inLocal = this.size;
-			}else {
-				inLocal = 0;
-			}
-		}
 	}
 	
 	public void render(Graphics g) {

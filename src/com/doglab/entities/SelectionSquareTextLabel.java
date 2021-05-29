@@ -41,31 +41,6 @@ public class SelectionSquareTextLabel extends Label{
 
 	private void superTick() {
 		if(tick) {
-			if((Game.mouseController.currentX > this.getX()+size && Game.mouseController.currentY > this.getY()+size) &&
-					(Game.mouseController.currentX < this.getX()-size+this.getWidth() && 
-							Game.mouseController.currentY < this.getY()-size+this.getHeight())) {
-				if(!current) {
-					size = 30;
-					this.x-=size;
-					this.y-=size;
-					this.width+=size*2;
-					this.height+=size*2;
-					current = true;
-					this.order = 1;
-					Collections.sort(Game.entities, labelSorter);
-				}
-			}else {
-				if(current) {
-					this.order = 0;
-					Collections.sort(Game.entities, labelSorter);
-					this.x+=size;
-					this.y+=size;
-					this.width-=size*2;
-					this.height-=size*2;
-					current = false;
-					size = 0;
-				}
-			}
 			for(int i = 0; i < labels.size(); i++) {
 				Entity e = labels.get(i);
 				e.tick();
@@ -77,10 +52,8 @@ public class SelectionSquareTextLabel extends Label{
 		superTick();
 		if(tick) {
 			if(current) {
-				inLocal = this.size;
 				color = new Color(0xFF121212);
 			}else {
-				inLocal = 0;
 				color = new Color(0xFFF0F0F0);
 			}
 			

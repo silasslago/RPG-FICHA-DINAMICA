@@ -42,10 +42,8 @@ public class SquareTextLabel extends Label{
 		super.tick();
 		if(tick) {
 			if(current) {
-				inLocal = this.size;
 				color = new Color(0xFF121212);
 			}else {
-				inLocal = 0;
 				color = new Color(0xFFF0F0F0);
 			}
 			
