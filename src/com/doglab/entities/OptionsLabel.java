@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.doglab.main.Game;
+import com.doglab.menu.HomeButton;
 
 public class OptionsLabel extends Label{
 
@@ -13,6 +14,21 @@ public class OptionsLabel extends Label{
 	private BufferedImage closed;
 	public boolean saving, saved;
 	private int timerSaved = 0, maxTimerSaved = 120;
+	private HomeButton home = new HomeButton(326, 15, 26, 25) {
+		
+		public void tick() {
+			Entity e = new Entity(getX(), getY(), getWidth(), getHeight(), speed, getSprite());
+			if(this.isColliding(e, Game.mouseController)) {
+				Game.mouseController.resetPosition();
+				actionPerformed();
+			}
+		}
+		
+		public void render(Graphics g) {
+			g.drawImage(this.getSprite(), this.getX(), this.getY(), width, height, null);
+		}
+		
+	};
 
 	public OptionsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -67,7 +83,9 @@ public class OptionsLabel extends Label{
 				timerSaved = 0;
 			}
 		}
-
+		if(show) {
+			home.tick();
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -86,14 +104,16 @@ public class OptionsLabel extends Label{
 			g.setFont(new Font("sitka banner", Font.BOLD, 20));
 			if(saving) {
 				g.setColor(Color.red);
-				g.drawString("Saving...", 10, 10);
+				g.drawString("Saving...", 20, 30);
 			}else if(saved) {
 				g.setColor(Color.green);
 				g.drawString("Saved!", 20, 30);
 			}
+			home.render(g);
 		}else {
 			g.drawImage(closed, getX()+getWidth()/2-12, getY()+getHeight(), 25, 25, null);
 		}
+		
 	}
 
 }

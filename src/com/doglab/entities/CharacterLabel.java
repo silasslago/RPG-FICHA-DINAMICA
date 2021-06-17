@@ -26,7 +26,6 @@ public class CharacterLabel extends Label{
 		super(x, y, width, height, speed, sprite);
 		siluett = new ArrayList<Image>();
 		paths = new ArrayList<String>();
-		paths.add("null;null;null;null;null;null;null;null;null;null;null;null;null;null;null;null");
 		siluett.add(Game.spr_entities.getSprite(151, 155, 45, 73));
 		signD = Game.spr_entities.getSprite(176, 231, 25, 25);
 		signE = Game.spr_entities.getSprite(201, 231, 25, 25);
@@ -109,6 +108,14 @@ public class CharacterLabel extends Label{
 	
 	public ArrayList<String> getPaths() {
 		return this.paths;
+	}
+	
+	public void addPath(String path) {
+		paths.add(path);
+		ImageIcon icon = new ImageIcon(path);
+		siluett.add(icon.getImage());
+		paths.add(path);
+		current++;
 	}
 	
 }

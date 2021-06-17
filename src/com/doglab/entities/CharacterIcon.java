@@ -48,6 +48,12 @@ public class CharacterIcon extends Label{
 		Menu.save();
 	}
 	
+	public void setIcon2(String path) {
+		this.path = path;
+		ImageIcon icon = new ImageIcon(path);
+		Game.player.icon = icon.getImage();
+	}
+	
 	private void changeIcon() {
 		double z = calculoDistance((int)Game.mouseController.getX(), (int)Game.mouseController.getY(), 
 				this.getX(), this.getY()-Game.roller.getY()*Game.roller.step);

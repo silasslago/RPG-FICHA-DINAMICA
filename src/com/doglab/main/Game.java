@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -16,12 +17,15 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.doglab.entities.*;
 import com.doglab.graficos.Spritesheet;
+import com.doglab.menu.CreationMenu;
+import com.doglab.menu.Files;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -50,6 +54,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static mouseController mouseController;
 	public static Game game;
 	public static Roller roller;
+	public static Files files;
 	public static boolean tick = true;
 
 	private boolean setF = false;
@@ -60,6 +65,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static int maxLanguage = english;
 
 	public Game() {
+		
+		File filesFolder = new File("files");
+		if(!filesFolder.exists()) {
+			filesFolder.mkdir();
+		}
+	
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseWheelListener(this);
@@ -74,12 +85,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		bars = new Spritesheet("/bars.png");
 		bootsplash = new Bootsplash();
 		player = new Player(0,0,0,0,0, null);
-		menu = new Menu();
+		menu = new Menu(0, 0);
 		int width = 10;
-		roller = new Roller(Game.WIDTH-width, 0, width, 100, 3, null, false,
+		roller = new Roller(Game.WIDTH-width, 0, width, 170, 4, null, false,
 				Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
+		files = new Files();
 	}
 	
 	public void initFrame() {
@@ -177,15 +189,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}	
 		}else if(gameState == "BOOTSPLASH") {
 			bootsplash.tick();
-		}else if(gameState == "MENU") {
+		}else if(gameState == "FICHA") {
 			if(frame.getMousePosition() != null) {
 				try{
 					mouseController.currentX = getMousePosition().x;
 					mouseController.currentY = getMousePosition().y;
-				}catch(NullPointerException e ){
-					
-				}
+				}catch(NullPointerException e ){}
 			}
+		
 			for(int i = 0; i < entities.size(); i++) {
 				Entity e = entities.get(i);
 				if(!Menu.showReadme) {
@@ -197,8 +208,23 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 					}
 				}
 			}
-			
+
 			menu.tick();	
+		}else if(gameState == "MENU") {
+			if(frame.getMousePosition() != null) {
+				try{
+					mouseController.currentX = getMousePosition().x;
+					mouseController.currentY = getMousePosition().y;
+				}catch(NullPointerException e ){}
+			}
+			mouseController.tick();
+			for(Entity e : entities) {
+				if(e instanceof CreationMenu) {
+					e.tick();
+				}
+			}
+			
+			files.tick();
 		}
 	}	
 	
@@ -222,11 +248,18 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}	
 		}else if(gameState == "BOOTSPLASH"){
 			bootsplash.render(g);
-		}else if(gameState == "MENU") {
+		}else if(gameState == "FICHA") {
 			menu.render(g);
 			for(int i = 0; i < entities.size(); i++) {
 				Entity e = entities.get(i);
 				e.render(g);
+			}
+		}else if(gameState == "MENU") {
+			files.render(g);
+			for(Entity e : entities) {
+				if(e instanceof CreationMenu) {
+					e.render(g);
+				}
 			}
 		}
 		g.dispose();
@@ -363,10 +396,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(tick && !Menu.showReadme) {
+		if(Label.tick && gameState == "FICHA" && (!Menu.showReadme)) {
 			roller.setY(roller.getY()+e.getWheelRotation()*6);
 			Game.mouseController.resetPosition();
-		}	
+		}else if(Label.tick && gameState == "MENU") {
+			Game.files.roller.setY(Game.files.roller.getY()+e.getWheelRotation()*6);
+			Game.mouseController.resetPosition();
+		}
 	}
 
 }

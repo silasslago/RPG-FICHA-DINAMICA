@@ -70,10 +70,10 @@ public class Skills extends Label{
 		SquareTextLabel cienF = new SquareTextLabel(getX()+340, getY()+280, 110, 95, 0, null, 1, "Ciência Forense");
 		squares.add(cienF);
 		
-		SquareTextLabel consE = new SquareTextLabel(getX()+510, getY()+280, 110, 95, 0, null, 1, "Conserto Eletrônico");
+		SquareTextLabel consE = new SquareTextLabel(getX()+510, getY()+280, 110, 95, 0, null, 1, "Eletrônica");
 		squares.add(consE);
 		
-		SquareTextLabel consM = new SquareTextLabel(getX()+20, getY()+390, 110, 95, 0, null, 1, "Conserto Mecânico");
+		SquareTextLabel consM = new SquareTextLabel(getX()+20, getY()+390, 110, 95, 0, null, 1, "Mecânica");
 		squares.add(consM);
 		
 		SquareTextLabel cont = new SquareTextLabel(getX()+170, getY()+390, 110, 95, 0, null, 1, "Contabilidade");
@@ -118,7 +118,7 @@ public class Skills extends Label{
 		SquareTextLabel med = new SquareTextLabel(getX()+340, getY()+720, 110, 95, 0, null, 1, "Medicina");
 		squares.add(med);
 		
-		SquareTextLabel exp = new SquareTextLabel(getX()+510, getY()+720, 110, 95, 0, null, 1, "Exposição Paranormal");
+		SquareTextLabel exp = new SquareTextLabel(getX()+510, getY()+720, 110, 95, 0, null, 1, "Exp. Paranormal");
 		squares.add(exp);
 		
 		SquareTextLabel mund = new SquareTextLabel(getX()+20, getY()+830, 110, 95, 0, null, 1, "Mundo Natural");

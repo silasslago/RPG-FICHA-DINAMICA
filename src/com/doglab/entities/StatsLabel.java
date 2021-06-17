@@ -25,7 +25,7 @@ public class StatsLabel extends Label{
 		barO = Game.bars.getSprite(0, 196, 454, 98);
 		life = new TextLabel(getX(), getY()+15, 30, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Vida", 0, false);
-		lifePlayer = new TextLabel(getX()+135, getY()+43, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		lifePlayer = new TextLabel(getX()+150, getY()+43, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2, true);
 		lifePlayer.canClick(true);
 		maxLie = new TextLabel(getX()+160, getY()+43, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
@@ -45,7 +45,7 @@ public class StatsLabel extends Label{
 		
 		sani = new TextLabel(getX(), getY()+95, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Sanidade", 0, false);
-		sanityPlayer = new TextLabel(getX()+110, getY()+123, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		sanityPlayer = new TextLabel(getX()+125, getY()+123, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2, true);
 		sanityPlayer.canClick(true);
 		maxSanityPlayer = new TextLabel(getX()+135, getY()+123, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
@@ -61,7 +61,7 @@ public class StatsLabel extends Label{
 		
 		ocul = new TextLabel(getX(), getY()+175, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Ocultismo", 0, false);
-		ocultismoPlayer = new TextLabel(getX()+135, getY()+203, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
+		ocultismoPlayer = new TextLabel(getX()+150, getY()+203, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2, true);
 		ocultismoPlayer.canClick(true);
 		maxOcultismoPlayer = new TextLabel(getX()+160, getY()+203, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 

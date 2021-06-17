@@ -40,66 +40,74 @@ public class SelectionSquareTextLabel extends Label{
 	}
 
 	private void superTick() {
-		if(tick) {
-			for(int i = 0; i < labels.size(); i++) {
-				Entity e = labels.get(i);
-				e.tick();
-			}
+		for(int i = 0; i < labels.size(); i++) {
+			Entity e = labels.get(i);
+			e.tick();
 		}
 	}
 	
 	public void tick() {
 		superTick();
-		if(tick) {
+		if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()) &&
+				(Game.mouseController.currentX < this.getX()+this.getWidth() && 
+						Game.mouseController.currentY < this.getY()+this.getHeight())) {
+			if(!current) {
+				current = true;
+			}
+		}else {
 			if(current) {
-				color = new Color(0xFF121212);
-			}else {
-				color = new Color(0xFFF0F0F0);
+				current = false;
 			}
-			
-			for(int i = 0; i < labels.size(); i++) {
-				Entity e = labels.get(i);
-				if(e instanceof TextLabel) {
-					((TextLabel)e).setColor(color);
-				}
+		}
+		if(current) {
+			color = new Color(0xFF121212);
+		}else {
+			color = new Color(0xFFF0F0F0);
+		}
+		
+		for(int i = 0; i < labels.size(); i++) {
+			Entity e = labels.get(i);
+			if(e instanceof TextLabel) {
+				((TextLabel)e).setColor(color);
 			}
-			int plusY = 0;
-			for(int i = 0; i < labels.size(); i++) {
-				Entity l = labels.get(i);
-				if(l instanceof TextLabel) {
-					if(i == 0) {
-						plusY = getY()+this.plusY+inLocal+Game.roller.getY()*Game.roller.step;
-						if(plusY != l.getY()-inLocal) {
-							l.setY(plusY-this.plusY/2+2+10);
-							((TextLabel) l).setImaginaryY(plusY);
-						}
-					}else {
-						plusY = getY()+this.plusY+inLocal+25+Game.roller.getY()*Game.roller.step;
-						if(plusY != l.getY()-inLocal) {
-							l.setY(plusY-this.plusY/2+12+12);
-							((TextLabel) l).setImaginaryY(plusY);
-						}
+		}
+		int plusY = 0;
+		for(int i = 0; i < labels.size(); i++) {
+			Entity l = labels.get(i);
+			if(l instanceof TextLabel) {
+				if(i == 0) {
+					plusY = getY()+this.plusY+inLocal+Game.roller.getY()*Game.roller.step;
+					if(plusY != l.getY()-inLocal) {
+						l.setY(plusY-this.plusY/2+2+10);
+						((TextLabel) l).setImaginaryY(plusY);
+					}
+				}else {
+					plusY = getY()+this.plusY+inLocal+25+Game.roller.getY()*Game.roller.step;
+					if(plusY != l.getY()-inLocal) {
+						l.setY(plusY-this.plusY/2+12+12);
+						((TextLabel) l).setImaginaryY(plusY);
 					}
 				}
-			}	
-			
-			if(this.isColliding(this, Game.mouseController)) {
-				Game.mouseController.resetPosition();
-				for(int i = 0; i < Game.entities.size(); i++) {
-					Entity e = Game.entities.get(i);
-					if(e instanceof FastSkillsLabel) {
-						((FastSkillsLabel) e).createLabel(id);
-					}else if(e instanceof FastSkillsChooserLabel) {
-						for(int ii = 0; ii < ((FastSkillsChooserLabel) e).labels.size(); ii++) {
-							Entity ee = ((FastSkillsChooserLabel) e).labels.get(ii);
-							if(ee instanceof CloseButton) {
-								((CloseButton) ee).actionPerformed();
-							}
+			}
+		}	
+		
+		if(this.isColliding(this, Game.mouseController)) {
+			Game.mouseController.resetPosition();
+			for(int i = 0; i < Game.entities.size(); i++) {
+				Entity e = Game.entities.get(i);
+				if(e instanceof FastSkillsLabel) {
+					((FastSkillsLabel) e).createLabel(id);
+				}else if(e instanceof FastSkillsChooserLabel) {
+					for(int ii = 0; ii < ((FastSkillsChooserLabel) e).labels.size(); ii++) {
+						Entity ee = ((FastSkillsChooserLabel) e).labels.get(ii);
+						if(ee instanceof CloseButton) {
+							((CloseButton) ee).actionPerformed();
 						}
 					}
 				}
 			}
 		}
+		
 	}
 	
 	public void render(Graphics g) {

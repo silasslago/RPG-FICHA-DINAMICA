@@ -30,9 +30,15 @@ public class TextLabel extends Label{
 	public static boolean showSpace = true;
 	public EditTextLabel eTL;
 	
-	private boolean limiter, canClick = false, canEdit = false;
+	private boolean limiter, canClick = false;
+	
+	private boolean goDown = false;
+	private int maxLine = 0;
+	private int maxChars = 0;
+	private int maxW = 0;	
 	
 	private int size;
+	private boolean firstTime = false;
 	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText, boolean limiter) {
@@ -54,18 +60,6 @@ public class TextLabel extends Label{
 			this.resetPhrase();
 		}
 		
-		/*
-		int currentW = 0;
-		String currentS = "";
-		for(int i = 0; i < text.length(); i++) {
-			currentS+=text.charAt(i);
-			currentW+=font.getSize2D();
-			if(currentW>initW) {
-				break;
-			}
-		}
-		*/
-		
 		this.showText = this.text;
 		
 		if(tick) {
@@ -84,17 +78,13 @@ public class TextLabel extends Label{
 			}
 			if(eTL != null) {
 				if(eTL.selected) {
-					canEdit = true;
 					edit();
 				}
 				Game.entities.remove(eTL);
 				eTL = null;
 			}
 			changeLabel();
-			if(text.equals("")) {
-				canEdit = true;
-			}
-			
+
 			if(writing) {
 				timer++;
 				if(timer > this.maxTimer) {
@@ -102,13 +92,53 @@ public class TextLabel extends Label{
 					show = !show;
 				}
 			}
+			
+			if(goDown) {
+				String formatedString = "";
+				int cc = 0;
+				for(int i = 0; i < showText.length(); i++) {
+					if(i>maxChars) {
+						break;
+					}
+					formatedString+=showText.charAt(i);
+					if(cc == maxLine) {
+						formatedString+="==";
+						cc = 0;
+					}
+					cc++;
+				}
+				showText = formatedString;
+				
+				if(width>this.maxW) {
+					width = maxW;
+				}
+			}
+			
 		}
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(color);
 		g.setFont(new Font(font.getFontName(), font.getStyle(), font.getSize()+size/3));
-		g.drawString(showText, getX(), imaginaryY-Game.roller.getY()*Game.roller.step);
+		if(!firstTime) {
+			this.initW = g.getFontMetrics().stringWidth(showText);
+			firstTime=true;
+		}
+		if(!goDown) {
+			g.drawString(showText, getX(), imaginaryY - Game.roller.getY()*Game.roller.step);
+			
+			if((!writing) && text.equals("")){
+				this.width = 150;
+			}else {
+				this.width = g.getFontMetrics().stringWidth(showText);
+			}
+			
+		}else {
+			drawString(g, showText, getX(), imaginaryY 
+					- g.getFontMetrics().getHeight()
+					-Game.roller.getY()*Game.roller.step);
+		}
+		
 		if(writing && show) {
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
@@ -116,9 +146,32 @@ public class TextLabel extends Label{
 		if(size == font.getSize() && text.equals("")) {
 			g.drawRect((int)initX, getY()-Game.roller.getY()*Game.roller.step, (int)initW, getHeight());
 		}
+		if(this.typeText == 0) {
+			this.setX((int)initX);
+		}else if(this.typeText == 1) {
+			this.setX((int)(initX+initW/2-this.getWidth()/2));
+		}else if(this.typeText == 2) {
+			this.setX((int)(initX-this.getWidth()));
+		}
 		
 	}
 	
+	private void drawString(Graphics g, String text, int x, int y) {
+		this.height = 0;
+		for (String line : text.split("==")) {
+			show = false;
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
+			height+=g.getFontMetrics().getHeight();
+		}
+	}
+	
+	public void textBox(boolean goDown, int maxLine, int maxChars, int maxW) {
+		this.maxLine = maxLine;
+		this.goDown = goDown;
+		this.maxChars = maxChars;
+		this.maxW = maxW;
+	}
+
 	private void changeLabel() {
 		Entity tL = new Entity(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight(), speed, getSprite());
 		if(this.isColliding(tL, Game.mouseController)) {
@@ -145,7 +198,6 @@ public class TextLabel extends Label{
 			Entity ee = Game.entities.get(ii);
 			if(ee instanceof TextLabel) {
 				((TextLabel) ee).writing = false;
-				((TextLabel) ee).canEdit = false;
 			}
 		}
 		Game.mouseController.currentTextLabel = this;
@@ -163,9 +215,9 @@ public class TextLabel extends Label{
 		if(typeText == 0) {
 			setX((int)initX);
 		}else if(typeText == 1){
-			setX((int)(initX+initW/2));
+			setX((int)(initX+initW/2-this.getWidth()/2));
 		}else if(typeText == 2) {
-			setX((int)initX+width-this.font.getSize());
+			setX((int)initX+this.getWidth());
 		}
 		width = 10;
 	}
@@ -198,7 +250,7 @@ public class TextLabel extends Label{
 				letter.equals("0") || letter.equals("1") || letter.equals("2") || letter.equals("3") ||
 				letter.equals("4") || letter.equals("5") || letter.equals("6") || letter.equals("7") ||
 				letter.equals("8") || letter.equals("9") || letter.equals("(") || letter.equals(")") ||
-				letter.equals("+") || letter.equals(".")){
+				letter.equals("+") || letter.equals(".") || letter.equals(",")){
 			if(this.limiter) {
 				if(phrase.length() < 5) {
 					phrase+=e;
@@ -209,7 +261,6 @@ public class TextLabel extends Label{
 				throwText();
 			}
 		}
-		Menu.save();
 	}
 	
 	public void delete(String newString) {
@@ -218,31 +269,30 @@ public class TextLabel extends Label{
 		}
 		phrase = newString;
 		this.text = newString;
-		int jump = (int)(this.font.getSize()/4);
-		this.setWidth(this.getWidth()-(int)(jump*1.9));
 		if(this.typeText == 1) {
-			this.setX((int)(this.getX()+jump));
+			this.setX((int)(initX+initW/2-this.getWidth()/2));
 		}else if(this.typeText == 2) {
-			this.setX((int)(this.getX()+jump*1.28));
+			this.setX((int)(initX-this.getWidth()));
 		}
 	}
 	
 	public void throwText() {
 		this.text = phrase;
-		int jump = (int)(this.font.getSize()/4);
 		if(this.typeText == 1) {
-			this.setX(this.getX()-jump);
+			this.setX((int)(initX+initW/2-this.getWidth()/2));
 		}else if(this.typeText == 2) {
-			this.setX((int)(this.getX()-jump*1.05));
+			this.setX((int)(initX-this.getWidth()));
 		}
-		this.setWidth(this.getWidth()+(int)(jump*1.9));
+		if(Game.gameState == "FICHA") {
+			System.out.println(this.text);
+			Menu.save();
+		}
 	}
 	
 	public void resetPhrase() {
 		throwPhrase = false;
 		this.writing = false;
 		phrase = "";
-		canEdit = false;
 	}
 	
 	public void setColor(Color color) {

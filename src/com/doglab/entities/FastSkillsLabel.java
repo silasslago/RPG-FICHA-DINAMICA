@@ -15,7 +15,7 @@ public class FastSkillsLabel extends Label{
 	private ArrayList<SkillLabel> pericias;
 	private boolean showMsg = false;
 	public AddButton addB = new AddButton(0, 0, 0, 0, 0, null, 0, 0, 0, 0) {
-		public void actionPerformed(){
+		public void actionPerformed() {
 			for(int i = 0; i < Game.entities.size(); i++) {
 				Entity e = Game.entities.get(i);
 				if(e instanceof Skills) {
@@ -134,6 +134,7 @@ public class FastSkillsLabel extends Label{
 		super.render(g);
 		g.setColor(new Color(0xFF424242));
 		g.setFont(new Font("sitka banner", Font.BOLD, 12));
+		g.setColor(Color.DARK_GRAY);
 		g.drawLine(getX()+35+inLocal, getY()+50+inLocal-Game.roller.getY()*Game.roller.step, getX()+getWidth()-35-inLocal, getY()+50+inLocal-Game.roller.getY()*Game.roller.step);
 		if(showMsg) {
 			g.drawString("Nada adicionado no acesso rápido", getX()+70+inLocal, getY()+70+inLocal-Game.roller.getY()*Game.roller.step);

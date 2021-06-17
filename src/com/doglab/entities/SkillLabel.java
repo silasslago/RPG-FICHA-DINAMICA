@@ -17,7 +17,7 @@ public class SkillLabel extends Label{
 	
 	private ArrayList<TextLabel> toDice;
 	
-	private DeleteButton deleteB = new DeleteButton(0,0,0,0,0,null,0){
+	private DeleteButton deleteB = new DeleteButton(0,0,0,0,0,null,0) {
 		
 		public void labelSorter(ArrayList<SkillLabel> list, int beginning, int iX) {
 			for(int i = beginning; i < list.size(); i++) {

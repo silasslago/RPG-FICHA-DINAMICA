@@ -64,15 +64,15 @@ public class DiceLabel extends Label{
 		g.fillRect(0, 0, Game.WIDTH*Game.SCALE, Game.HEIGHT*Game.SCALE);
 		g.setColor(new Color(0xFF000000));
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
-		g.setColor(Color.WHITE);
+		g.setColor(new Color(0xFFE8EDEB));
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
+		g.setColor(Color.WHITE);
 		if(animation) {
 			AffineTransform old = g2D.getTransform();
 			g2D.rotate(Math.toRadians(degress), diceX+diceW/2, diceY+diceH/2);
 			g.drawImage(getSprite(), diceX, diceY, diceW, diceH, null);
 			g2D.setTransform(old);
 		}else {
-			g.setColor(Color.WHITE);
 			int r = -45;
 			int a = (diceX+20)-(r/2)*(roll.length-1);
 			int plusA = a+(r/2)+15;
@@ -93,7 +93,7 @@ public class DiceLabel extends Label{
 				}
 				go = i;
 			}
-			g.drawString(values, a+(r*go), diceY+30);
+			g.drawString(values, getX()+getWidth()/2 - g.getFontMetrics().stringWidth(values)/2, diceY+30);
 			if(roll.length>1 && go<roll.length-1) {
 				g.setFont(Menu.specialElite.deriveFont(23.0f));
 				g.drawString("+", plusA+(r*go), diceY+25);
@@ -101,7 +101,7 @@ public class DiceLabel extends Label{
 			if(roll.length==1) {
 				g.setFont(Menu.specialElite.deriveFont(18.0f));
 				if(state != null) {
-					g.drawString(state, diceX, diceY+60);
+					g.drawString(state, getX()+getWidth()/2 - g.getFontMetrics().stringWidth(state)/2, diceY+60);
 				}
 			}else {
 				int result = 0;
@@ -110,16 +110,13 @@ public class DiceLabel extends Label{
 				}
 				g.setFont(Menu.specialElite.deriveFont(18.0f));
 				String resultPlus = "= "+result;
-				for(int i = 1; i < this.plus.length; i++) {
-					resultPlus+="+";
-					resultPlus+="("+this.plus[i]+")";
-				}
-				g.drawString(resultPlus, diceX+20, diceY+60);
+				g.drawString(resultPlus, getX()+getWidth()/2 - g.getFontMetrics().stringWidth(resultPlus)/2, diceY+60);
 			}
 			
 		}
 		g.setFont(Menu.specialElite.deriveFont(18.0f));
-		g.drawString("Roll", getX()+160, getY()+20);
+		g.drawString("Roll", getX()+getWidth()/2 - g.getFontMetrics().stringWidth("Roll")/2, getY()+20);
+		g.setColor(new Color(0xFFE8EDEB));
 		g.drawLine(getX(), getY()+30, getX()+getWidth(), getY()+30);
 		close.render(g2D);
 	}

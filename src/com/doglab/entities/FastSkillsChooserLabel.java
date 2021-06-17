@@ -65,11 +65,11 @@ public class FastSkillsChooserLabel extends Label{
 			int times = i+1;
 			int height = 0;
 			if(i < 4) {
-				height = l.getHeight()+50-l.inLocal*2;
+				height = l.getHeight()+50;
 			}else {
-				height = l.getHeight()+50-l.inLocal*2;
+				height = l.getHeight()+50;
 			}
-			int calc = initY-l.inLocal+height*newTimes;
+			int calc = initY+height*newTimes;
 			l.setY((calc) + ((firstYRoller - roller.getY())*roller.step));
 			if(times%4==0) {
 				newTimes++;
@@ -83,10 +83,11 @@ public class FastSkillsChooserLabel extends Label{
 		g.fillRect(0, 0, Game.WIDTH*Game.SCALE, Game.HEIGHT*Game.SCALE);
 		g.setColor(new Color(0xFF000000));
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
-		g.setColor(new Color(0xFFE8EDEB));
+		g.setColor(Color.DARK_GRAY);
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
 		g.drawLine(getX()+15, getY()+100, getX()+getWidth()-15, getY()+100);
 		g.setFont(new Font("sitka banner", Font.BOLD, 25));
+		g.setColor(Color.WHITE);
 		g.drawString("Escolha uma pericia", getX()+getWidth()/2-100, getY()+60);
 		for(int i = 0; i < labels.size(); i++) {
 			Entity e = labels.get(i);
