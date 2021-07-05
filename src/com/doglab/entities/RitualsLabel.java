@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -29,15 +28,9 @@ public class RitualsLabel extends Label{
 			for(int i = beginning; i < list.size(); i++) {
 				Label l = list.get(i);
 				if(i%2==0) {
-					if(l.getY() > minY || l.getX() > iX+15) {
-						l.setY(l.getY()-l.height-5);
-						l.setX(l.getX()-l.getWidth()-5);
-					}
+					l.setX(iX+10);
 				}else {
-					if(l.getY() > minY || l.getX() > iX+15) {
-						l.setY(l.getY()-l.height-5);
-						l.setX(l.getX()+l.getWidth()+5);
-					}
+					l.setX(iX+20 + l.getWidth());
 				}
 			}
 		}
@@ -61,11 +54,11 @@ public class RitualsLabel extends Label{
 				}
 			}
 		}
-		
 	};
 
 	public RitualsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, int minY) {
 		super(x, y, width, height, speed, sprite);
+		
 		TextLabel name = new TextLabel(getX()+15, getY()+30, 32, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Nome", 0, false);
 		TextLabel ritualName = new TextLabel(getX()+20, getY()+50, 32, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
@@ -122,6 +115,14 @@ public class RitualsLabel extends Label{
 		if(tick) {
 			Entity e = new Entity(getX()+180, getY()+70-Game.roller.getY()*Game.roller.step, 110, 110, 0, null);
 			setSymbol(this.isColliding(e, Game.mouseController));
+			
+			int[]plus = {15, 20, 15, 20, 170, 175, 250, 245, 20, 20, getWidth()/2-10};
+			int i = 0;
+			for(Entity label : labels) {
+				label.setX(getX()+plus[i]);
+				i++;
+			}
+			
 		}
 	}
 	

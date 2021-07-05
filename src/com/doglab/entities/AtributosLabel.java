@@ -15,7 +15,7 @@ public class AtributosLabel extends Label{
 	public AtributosLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		TextLabel atributos = new TextLabel(getX()+105, getY()+30, 80, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
-				new Color(0xFFE8EDEB), "Atributos", 1, false);
+				new Color(0xFFE8EDEB), "ATRIBUTOS", 1, false);
 		labels.add(atributos);
 		
 		TextLabel dValue = new TextLabel(0, 0, 0, 0, 0, null, new Font("sitka banner", 

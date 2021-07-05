@@ -19,22 +19,22 @@ public class Skills extends Label{
 	@SuppressWarnings("unchecked")
 	public Skills(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
-		lupa = Game.spr_entities.getSprite(200, 205, 25, 25);
+		lupa = Game.spr_entities.getSprite(201, 206, 25, 25);
 		squares = new ArrayList<SquareTextLabel>();
 
 		this.searchBar = new TextLabel(getX()+getWidth()-170, getY()+30, 70, 19, 0, null, 
-				new Font("sitka banner", Font.BOLD, 21), new Color(0xFF000000), "", 0, true);
+				new Font("sitka banner", Font.BOLD, 21), new Color(0xFFE8EDEB), "", 0, true);
 		searchBar.canClick(true);
 		labels.add(searchBar);
 		
 		int w = 12;
-		roller = new Roller(getX()+getWidth()-w, getY(), w, 215, 3, null, true, getX()+getWidth()-w, 
+		roller = new Roller(getX()+getWidth()-w, getY(), w, 165, 4, null, true, getX()+getWidth()-w, 
 				getY(), w, getHeight());
 		firstYRoller = roller.getY();
 		labels.add(roller);
 		
 		TextLabel pericias = new TextLabel(getX()+290, getY()+30, 70, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
-				new Color(0xFFE8EDEB), "Perícias", 1, false);
+				new Color(0xFFE8EDEB), "PERÍCIAS", 1, false);
 		labels.add(pericias);
 		
 		SquareTextLabel antro = new SquareTextLabel(getX()+20, getY()+60, 110, 95, 0, null, 1, "Antropologia");
@@ -180,6 +180,45 @@ public class Skills extends Label{
 		
 		SquareTextLabel cienFa = new SquareTextLabel(getX()+510, getY()+1270, 110, 95, 0, null, 1, "Ciência Farmácia");
 		squares.add(cienFa);
+
+		SquareTextLabel acrobacia = new SquareTextLabel(getX()+20, getY()+1380, 110, 95, 0, null, 1, "Acrobacia");
+		squares.add(acrobacia);
+		
+		SquareTextLabel cavalgar = new SquareTextLabel(getX()+170, getY()+1380, 110, 95, 0, null, 1, "Cavalgar");
+		squares.add(cavalgar);
+		
+		SquareTextLabel cienBio = new SquareTextLabel(getX()+340, getY()+1380, 110, 95, 0, null, 1, "Ciência Biologia");
+		squares.add(cienBio);
+		
+		SquareTextLabel demolicao = new SquareTextLabel(getX()+510, getY()+1380, 110, 95, 0, null, 1, "Demolição");
+		squares.add(demolicao);
+		
+		SquareTextLabel hipnose = new SquareTextLabel(getX()+20, getY()+1490, 110, 95, 0, null, 1, "Hipnose");
+		squares.add(hipnose);
+		
+		SquareTextLabel letLab = new SquareTextLabel(getX()+170, getY()+1490, 110, 95, 0, null, 1, "Leitura Lábial");
+		squares.add(letLab);
+		
+		SquareTextLabel lingNat = new SquareTextLabel(getX()+340, getY()+1490, 110, 95, 0, null, 1, "Língua Nativa");
+		squares.add(lingNat);
+		
+		SquareTextLabel mergulho = new SquareTextLabel(getX()+510, getY()+1490, 110, 95, 0, null, 1, "Mergulho");
+		squares.add(mergulho);
+		
+		SquareTextLabel pilAer = new SquareTextLabel(getX()+20, getY()+1600, 110, 95, 0, null, 1, "Pilotar (Aeronave)");
+		squares.add(pilAer);
+		
+		SquareTextLabel pilBar = new SquareTextLabel(getX()+170, getY()+1600, 110, 95, 0, null, 1, "Pilotar (Barcos)");
+		squares.add(pilBar);
+		
+		SquareTextLabel treiAni = new SquareTextLabel(getX()+340, getY()+1600, 110, 95, 0, null, 1, "Treinar Animais");
+		squares.add(treiAni);
+		
+		SquareTextLabel mat = new SquareTextLabel(getX()+510, getY()+1600, 110, 95, 0, null, 1, "Matemática");
+		squares.add(mat);
+		
+		SquareTextLabel zoo = new SquareTextLabel(getX()+20, getY()+1710, 110, 95, 0, null, 1, "Zoologia");
+		squares.add(zoo);
 		
 		currents = (ArrayList<SquareTextLabel>) squares.clone();
 		
@@ -234,11 +273,11 @@ public class Skills extends Label{
 				}
 			}
 			
-			int[] newX = {getX()+inLocal+20, getX()+inLocal+170, getX()+inLocal+340, getX()+inLocal+510};
+			int[] newX = {getX()+20, getX()+170, getX()+340, getX()+510};
 			int current = 0;
 			for(int i = 0; i < currents.size(); i++) {
 				SquareTextLabel l = currents.get(i);
-				l.setX(newX[current] - l.inLocal);
+				l.setX(newX[current]);
 				current++;
 				if(current>=4) {
 					current=0;
@@ -251,7 +290,7 @@ public class Skills extends Label{
 	public void render(Graphics g){
 		super.render(g);
 		g.setColor(new Color(0xFFE8EDEB));
-		g.fillRect(getX()+getWidth()-180-inLocal, getY()+10+inLocal-Game.roller.getY()*Game.roller.step, 160, 29);
+		//g.fillRect(getX()+getWidth()-180-inLocal, getY()+10+inLocal-Game.roller.getY()*Game.roller.step, 160, 29);
 		g.setColor(Color.DARK_GRAY);
 		g.drawRect(getX()+getWidth()-180-inLocal, getY()+10+inLocal-Game.roller.getY()*Game.roller.step, 160, 29);
 		g.drawImage(lupa, getX()+getWidth()-215-inLocal, 
@@ -259,7 +298,6 @@ public class Skills extends Label{
 		g.setColor(new Color(0xFF424242));
 		g.drawLine(getX()+inLocal+15, getY()+inLocal-Game.roller.getY()*Game.roller.step+50, 
 				getX()+getWidth()-inLocal-15, getY()+inLocal+50-Game.roller.getY()*Game.roller.step);
-		
 		for(int i = 0; i < currents.size(); i++) {
 			SquareTextLabel l = currents.get(i);
 			if(l.getY()+l.getHeight() < getY()+getHeight() && l.getY()+l.inLocal+inLocal>getY()+49+inLocal*2) {

@@ -244,6 +244,7 @@ public class Dice extends Entity{
 		if(((TextLabel)labels.get(0)).width > 0) {
 			this.stat = updateArrayList(0);
 		}
+		
 		boolean hasPlus = false;
 		if(((TextLabel)labels.get(1)).width > 0) {
 			String ss = updateArrayListD(1);

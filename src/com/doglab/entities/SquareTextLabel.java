@@ -41,6 +41,19 @@ public class SquareTextLabel extends Label{
 	public void tick() {
 		super.tick();
 		if(tick) {
+			
+			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
+					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
+							Game.mouseController.currentY < this.getY()-Game.roller.getY()*Game.roller.step+this.getHeight())) {
+				if(!current) {
+					current = true;
+				}
+			}else {
+				if(current) {
+					current = false;
+				}
+			}
+			
 			if(current) {
 				color = new Color(0xFF121212);
 			}else {
@@ -82,20 +95,15 @@ public class SquareTextLabel extends Label{
 				dice.setY(plusY+13);
 				dice.masky = plusY+13;
 			}
-
 			for(int i = 0; i < labels.size(); i++) {
 				Entity l = labels.get(i);
 				if(l instanceof TextLabel) {
-					if(i==0) {
-						l.setX(getX()+getWidth()/2-7);
-					}else {
-						l.setX((getX()+getWidth()/2)-((TextLabel) l).text.length()*4);
-					}
-				}else if(l instanceof Dice){
-					l.setX(getX()-20);
+					l.setX(getX()+getWidth()/2 - l.getWidth()/2);
+					((TextLabel) l).initX = l.getX();
 				}
 			}
-			
+			dice.setX(getX()-20);
+			dice.maskx = dice.getX();
 		}
 	}
 	

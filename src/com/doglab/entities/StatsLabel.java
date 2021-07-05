@@ -11,7 +11,8 @@ public class StatsLabel extends Label{
 
 	private BufferedImage barL, barS, barO;
 	private TextLabel life, sani, ocul, extrada, corpo, expPar, lifePlayer, maxLie, sanityPlayer,
-	maxSanityPlayer, ocultismoPlayer, maxOcultismoPlayer, body, extraDamage,paranormalExp;
+	maxSanityPlayer, ocultismoPlayer, maxOcultismoPlayer, body, extraDamage,paranormalExp, arm,
+	armadura;
 	private Dice dice;
 	private Color lifeColor = new Color(0xFF500101),
 			sanityColor = new Color(0xFF001752), 
@@ -67,22 +68,27 @@ public class StatsLabel extends Label{
 		maxOcultismoPlayer = new TextLabel(getX()+160, getY()+203, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 0, true);
 		
-		extrada = new TextLabel(getX()+30, getY()+225, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		extrada = new TextLabel(getX(), getY()+225, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Dano Extra", 1, false);
-		corpo = new TextLabel(getX()+150, getY()+225, 40, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		corpo = new TextLabel(getX()+100, getY()+225, 40, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Corpo", 1, false);
-		expPar = new TextLabel(getX()+240, getY()+225, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+		expPar = new TextLabel(getX()+165, getY()+225, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Exp. Par.", 1, false);
+		armadura = new TextLabel(getX()+240, getY()+225, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
+				new Color(0xFFE8EDEB), "Armadura", 1, false);
 		
-		extraDamage = new TextLabel(getX()+60, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
+		extraDamage = new TextLabel(getX()+30, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1, true);
-		body = new TextLabel(getX()+160, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
+		body = new TextLabel(getX()+110, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1, true);
-		paranormalExp = new TextLabel(getX()+260, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
+		paranormalExp = new TextLabel(getX()+185, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
+				new Color(0xFFE8EDEB), "1", 1, true);
+		arm = new TextLabel(getX()+260, getY()+270, 20, 39, 0, null, new Font("sitka banner", Font.BOLD, 41), 
 				new Color(0xFFE8EDEB), "1", 1, true);
 		extraDamage.canClick(true);
 		body.canClick(true);
 		paranormalExp.canClick(true);
+		arm.canClick(true);
 		
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0, true);
 		TextLabel dLados = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "100", 0, true);
@@ -105,6 +111,8 @@ public class StatsLabel extends Label{
 		labels.add(extrada);
 		labels.add(corpo);
 		labels.add(expPar);
+		labels.add(arm);
+		labels.add(armadura);
 	}
 
 	public void tick() {
@@ -236,9 +244,10 @@ public class StatsLabel extends Label{
 		g.drawString("/", getX()+inLocal+150, getY()+inLocal+198-Game.roller.getY()*Game.roller.step);
 		g.drawString("/", getX()+inLocal+125, getY()+inLocal+118-Game.roller.getY()*Game.roller.step);	
 		g.setColor(new Color(0xFF424242));
-		g.drawLine(getX()+inLocal+30, getY()+inLocal+280-Game.roller.getY()*Game.roller.step, getX()+inLocal+100, getY()+inLocal+280-Game.roller.getY()*Game.roller.step);
-		g.drawLine(getX()+inLocal+130, getY()+inLocal+280-Game.roller.getY()*Game.roller.step, getX()+inLocal+200, getY()+inLocal+280-Game.roller.getY()*Game.roller.step);
-		g.drawLine(getX()+inLocal+230, getY()+inLocal+280-Game.roller.getY()*Game.roller.step, getX()+inLocal+300, getY()+inLocal+280-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+10, getY()+inLocal+280-Game.roller.getY()*Game.roller.step, getX()+70, getY()+inLocal+280-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+90, getY()+inLocal+280-Game.roller.getY()*Game.roller.step, getX()+150, getY()+inLocal+280-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+165, getY()+inLocal+280-Game.roller.getY()*Game.roller.step, getX()+inLocal+225, getY()+inLocal+280-Game.roller.getY()*Game.roller.step);
+		g.drawLine(getX()+240, getY()+inLocal+280-Game.roller.getY()*Game.roller.step, getX()+inLocal+300, getY()+inLocal+280-Game.roller.getY()*Game.roller.step);
 		for(int i = 0; i < labels.size(); i++) {
 			Entity e = labels.get(i);
 			e.render(g);

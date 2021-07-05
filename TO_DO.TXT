@@ -1,0 +1,7 @@
+1.3
+
+- Armadura
+- Historico de dados
+- Descrição nas armas
+- Tamanho maior de cada label de arma
+- Possibildade de por 1d5 + 1d3 + 3 etc nos danos.

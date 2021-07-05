@@ -53,19 +53,18 @@ public class Files{
 					this.cm.remove(cm);
 					Label.tick = true;
 				}else { // Fichas
-					
 					CreationMenu cm = new CreationMenu(0, 0, 0, 0);
 					Game.files.cm.add(cm);
-					cm.fileName = name;
+					cm.fileName = name.replace(".txt", "");
 					cm.selection = "Ficha";
 					cm.addB.actionPerformed();
 					Game.files.cm.remove(cm);
 					Label.tick = true;
-					
 				}
 			}
 			firstTime = false;
 		}
+		
 		for(int i = 0; i < insideFolders.size(); i++) {
 			insideFolders.get(i).tick();
 		}

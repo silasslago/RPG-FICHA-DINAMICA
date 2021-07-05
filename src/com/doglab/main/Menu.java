@@ -17,7 +17,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import com.doglab.entities.AbilitysLabel;
+import com.doglab.entities.AnotationsLabel;
 import com.doglab.entities.AtributosLabel;
+import com.doglab.entities.BackgroundLabel;
 import com.doglab.entities.CharacterIcon;
 import com.doglab.entities.CharacterLabel;
 import com.doglab.entities.CheckBox;
@@ -39,7 +42,6 @@ import com.doglab.entities.Skills;
 import com.doglab.entities.SquareTextLabel;
 import com.doglab.entities.StatsLabel;
 import com.doglab.entities.TextLabel;
-import com.doglab.menu.HomeButton;
 
 public class Menu {
 
@@ -87,6 +89,12 @@ public class Menu {
 		Game.entities.add(skills);
 		InventoryLabel inventory = new InventoryLabel(10, 1890+down, Game.WIDTH*Game.SCALE-30, 300, 0, null);
 		Game.entities.add(inventory);
+		AbilitysLabel abilities = new AbilitysLabel(10, 2210+down, Game.WIDTH*Game.SCALE-30, 300, 0, null);
+		Game.entities.add(abilities);
+		BackgroundLabel background = new BackgroundLabel(10, 2530+down, Game.WIDTH*Game.SCALE-30, 1300, 0, null);
+		Game.entities.add(background);
+		AnotationsLabel anotations = new AnotationsLabel(10, 3850+down, Game.WIDTH*Game.SCALE-30, 300, 0, null);
+		Game.entities.add(anotations);
 		OptionsLabel optionsLabel = new OptionsLabel(0, 0-45, Game.WIDTH, 45, 0, Game.spr_entities.getSprite(26, 231, 25, 25));
 		Game.entities.add(optionsLabel);
 		try {
@@ -94,8 +102,6 @@ public class Menu {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		loadSave(loadGame());
 		if(showReadme) {
 			ReadmeLabel rL = new ReadmeLabel(getX()+30, getY()+30, Game.WIDTH*Game.SCALE-70, Game.HEIGHT*Game.SCALE-40, 0, null);
 			Game.entities.add(rL);
@@ -109,7 +115,7 @@ public class Menu {
 	public void render(Graphics g) {
 		g.setColor(bg);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.drawImage(icon, 230, 2610-Game.roller.getY()*Game.roller.step, null);
+		g.drawImage(icon, 230, 4570-Game.roller.getY()*Game.roller.step, null);
 	}	
 	
 	public static void saveGame(String line) {
@@ -354,13 +360,36 @@ public class Menu {
 					finalDet+=bigger;
 					finalDet+=itens;
 					finalDet+=bigger;
+				}else if(e instanceof AbilitysLabel) {
+					String habilities = "Habilidades"+medium;
+					for(Entity l : ((AbilitysLabel) e).labels) {
+						habilities += ((TextLabel) l).text;
+						habilities+=medium;
+					}
+					finalDet+=habilities;
+					finalDet+=bigger;
+				}else if(e instanceof BackgroundLabel) {
+					String back = "Antecedentes"+medium;
+					for(Entity l : ((BackgroundLabel) e).labels) {
+						back += ((TextLabel) l).text;
+						back+=medium;
+					}
+					finalDet+=back;
+					finalDet+=bigger;
+				}else if(e instanceof AnotationsLabel) {
+					String anot = "Anotacoes"+medium;
+					for(Entity l : ((AnotationsLabel) e).labels) {
+						anot += ((TextLabel) l).text;
+						anot+=medium;
+					}
+					finalDet+=anot;
+					finalDet+=bigger;
 				}
 			}
 			saveGame(finalDet);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
-		
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof OptionsLabel) {
@@ -397,6 +426,9 @@ public class Menu {
 					for(Entity e : Game.entities) {
 						if(e instanceof DetailsLabel) {
 							for(int ii = 0; ii < ((DetailsLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1) {
+									break;
+								}
 								((TextLabel) ((DetailsLabel) e).labels.get(ii)).text = infos[ii+1];
 							}
 							break details;
@@ -408,6 +440,9 @@ public class Menu {
 						details:
 						if(e instanceof DetailsLabel) {
 							for(int ii = 0; ii < ((DetailsLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1) {
+									break;
+								}
 								((TextLabel) ((DetailsLabel) e).labels.get(ii)).setX(Integer.parseInt(infos[ii+1]));
 							}
 							break details;
@@ -420,6 +455,9 @@ public class Menu {
 						if(e instanceof StatsLabel) {
 							int dices = 0;
 							for(int ii = 0; ii < ((StatsLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-dices) {
+									break;
+								}
 								if(((StatsLabel) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((StatsLabel) e).labels.get(ii)).text = infos[ii+1-dices];
 								}else if(((StatsLabel) e).labels.get(ii) instanceof CheckBox) {
@@ -440,6 +478,9 @@ public class Menu {
 						if(e instanceof StatsLabel) {
 							int dices = 0;
 							for(int ii = 0; ii < ((StatsLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-dices) {
+									break;
+								}
 								if(((StatsLabel) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((StatsLabel) e).labels.get(ii)).setX(Integer.parseInt(infos[ii+1-dices]));
 								}else if(((StatsLabel) e).labels.get(ii) instanceof Dice) {
@@ -456,6 +497,9 @@ public class Menu {
 							if(e instanceof AtributosLabel) {
 								int dices = 0;
 								for(int ii = 0; ii < ((AtributosLabel) e).labels.size(); ii++) {
+									if(infos.length <= ii+1-dices) {
+										break;
+									}
 									if(((AtributosLabel) e).labels.get(ii) instanceof TextLabel) {
 										((TextLabel) ((AtributosLabel) e).labels.get(ii)).text = infos[ii+1-dices];
 									}else {
@@ -472,6 +516,9 @@ public class Menu {
 						if(e instanceof AtributosLabel) {
 							int dices = 0;
 							for(int ii = 0; ii < ((AtributosLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-dices) {
+									break;
+								}
 								if(((AtributosLabel) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((AtributosLabel) e).labels.get(ii)).setX(Integer.parseInt(infos[ii+1-dices]));
 								}else if(((AtributosLabel) e).labels.get(ii) instanceof Dice) {
@@ -494,6 +541,9 @@ public class Menu {
 						if(e instanceof FastSkillsLabel) {
 							int buttons = 0;
 							for(int ii = 0; ii < ((FastSkillsLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-buttons) {
+									break;
+								}
 								if(((FastSkillsLabel) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((FastSkillsLabel) e).labels.get(ii)).text = infos[ii+1-buttons];
 								}else {
@@ -506,8 +556,11 @@ public class Menu {
 				case "FastSkillsLabelX":
 					for(Entity e : Game.entities) {
 						if(e instanceof FastSkillsLabel) {
+							int buttons = 0;
 							for(int ii = 0; ii < ((FastSkillsLabel) e).labels.size(); ii++) {
-								int buttons = 0;
+								if(infos.length <= ii+1-buttons) {
+									break;
+								}
 								if(((FastSkillsLabel) e).labels.get(ii) instanceof TextLabel) {
 									((FastSkillsLabel) e).labels.get(ii).setX(Integer.parseInt(infos[ii+1-buttons]));
 								}else {
@@ -520,7 +573,11 @@ public class Menu {
 				case "FastSkills":
 					for(Entity e : Game.entities) {
 						if(e instanceof FastSkillsLabel) {
+							((FastSkillsLabel) e).getSkillArrayList().clear();
 							for(int ii = 1; ii < infos.length; ii++) {
+								if(infos.length <= ii) {
+									break;
+								}
 								((FastSkillsLabel) e).createLabel(Integer.parseInt(infos[ii]));
 							}
 						}
@@ -540,7 +597,11 @@ public class Menu {
 				case "Guns":
 					for(Entity e : Game.entities) {
 						if(e instanceof CombatLabel) {
+							((CombatLabel) e).getGunArrayList().clear();
 							for(int ii = 0; ii < Integer.parseInt(infos[1]); ii++) {
+								if(infos.length <= ii) {
+									break;
+								}
 								((CombatLabel) e).addB.actionPerformed();
 								int minus = 0;
 								for(int iii = ii*10; iii < 10*(ii+1)+minus; iii++) {
@@ -559,6 +620,9 @@ public class Menu {
 						if(e instanceof CombatLabel) {
 							int minus = 0;
 							for(int ii = 0; ii < ((CombatLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-minus) {
+									break;
+								}
 								if(((CombatLabel) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((CombatLabel) e).labels.get(ii)).text = infos[ii+1-minus];
 								}else {
@@ -573,6 +637,9 @@ public class Menu {
 						if(e instanceof CombatLabel) {
 							int minus = 0;
 							for(int ii = 0; ii < ((CombatLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-minus) {
+									break;
+								}
 								if(((CombatLabel) e).labels.get(ii) instanceof TextLabel) {
 									((CombatLabel) e).labels.get(ii).setX(Integer.parseInt(infos[ii+1-minus]));
 								}else {
@@ -587,6 +654,9 @@ public class Menu {
 						if(e instanceof Rituals) {
 							int minus = 0;
 							for(int ii = 0; ii < ((Rituals) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-minus) {
+									break;
+								}
 								if(((Rituals) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((Rituals) e).labels.get(ii)).text = infos[ii+1-minus];
 								}else {
@@ -601,6 +671,9 @@ public class Menu {
 						if(e instanceof Rituals) {
 							int minus = 0;
 							for(int ii = 0; ii < ((Rituals) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-minus) {
+									break;
+								}
 								if(((Rituals) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((Rituals) e).labels.get(ii)).setX(Integer.parseInt(infos[ii+1-minus]));
 								}else {
@@ -613,7 +686,11 @@ public class Menu {
 				case "Rituals":
 					for(Entity e : Game.entities) {					
 						if(e instanceof Rituals) {
+							((Rituals) e).getRituals().clear();
 							for(int ii = 0; ii < Integer.parseInt(infos[1]); ii++) {
+								if(infos.length <= ii) {
+									break;
+								}
 								((Rituals) e).addB.actionPerformed();
 								int minus = 0;
 								for(int iii = ii*11; iii < 11*(ii+1)+minus; iii++) {
@@ -636,6 +713,9 @@ public class Menu {
 						if(e instanceof Skills) {
 							int minus = 0;
 							for(int ii = 1; ii < ((Skills) e).labels.size(); ii++) {
+								if(infos.length <= ii-minus) {
+									break;
+								}
 								if(((Skills) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((Skills) e).labels.get(ii)).text = infos[ii-minus];
 								}else {
@@ -649,6 +729,9 @@ public class Menu {
 					for(Entity e : Game.entities) {
 						if(e instanceof Skills) {
 							for(int ii = 0; ii < ((Skills) e).getSkills().size(); ii++) {
+								if(infos.length <= ii+1) {
+									break;
+								}
 								String[] skill = infos[ii+1].split("<>");
 								((TextLabel) ((Skills) e).getSkills().get(ii).labels.get(0)).text = skill[0];
 								((TextLabel) ((Skills) e).getSkills().get(ii).labels.get(1)).text = skill[1];
@@ -661,6 +744,9 @@ public class Menu {
 						if(e instanceof InventoryLabel) {
 							int minus = 0;
 							for(int ii = 0; ii < ((InventoryLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1-minus) {
+									break;
+								}
 								if(((InventoryLabel) e).labels.get(ii) instanceof TextLabel) {
 									((TextLabel) ((InventoryLabel) e).labels.get(ii)).text = infos[ii+1-minus];
 								}else {
@@ -673,7 +759,11 @@ public class Menu {
 				case "Itens":
 					for(Entity e : Game.entities) {					
 						if(e instanceof InventoryLabel) {
+							((InventoryLabel) e).getItemArrayList().clear();
 							for(int ii = 1; ii < infos.length; ii++) {
+								if(infos.length <= ii) {
+									break;
+								}
 								((InventoryLabel) e).addB.actionPerformed();
 								String[] itemInf = infos[ii].split("<>");
 								int minus = 0;
@@ -685,6 +775,48 @@ public class Menu {
 									}
 								}
 							}
+						}
+					}
+					break;
+				case "Habilidades":
+					hab:
+					for(Entity e : Game.entities) {
+						if(e instanceof AbilitysLabel) {
+							for(int ii = 0; ii < ((AbilitysLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1) {
+									break;
+								}
+								((TextLabel) ((AbilitysLabel) e).labels.get(ii)).text = infos[ii+1];
+							}
+							break hab;
+						}
+					}
+					break;
+				case "Antecedentes":
+					back:
+					for(Entity e : Game.entities) {
+						if(e instanceof BackgroundLabel) {
+							for(int ii = 0; ii < ((BackgroundLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1) {
+									break;
+								}
+								((TextLabel) ((BackgroundLabel) e).labels.get(ii)).text = infos[ii+1];
+							}
+							break back;
+						}
+					}
+					break;
+				case "Anotacoes":
+					anot:
+					for(Entity e : Game.entities) {
+						if(e instanceof AnotationsLabel) {
+							for(int ii = 0; ii < ((AnotationsLabel) e).labels.size(); ii++) {
+								if(infos.length <= ii+1) {
+									break;
+								}
+								((TextLabel) ((AnotationsLabel) e).labels.get(ii)).text = infos[ii+1];
+							}
+							break anot;
 						}
 					}
 					break;

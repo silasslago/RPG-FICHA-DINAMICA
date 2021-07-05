@@ -49,7 +49,7 @@ public class InventoryLabel extends Label{
 		super(x, y, width, height, speed, sprite);
 		itemLabels = new ArrayList<ItemLabel>();
 		TextLabel inventario = new TextLabel(getX()+270, getY()+30, 90, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
-				new Color(0xFFE8EDEB), "Inventário", 1, false);
+				new Color(0xFFE8EDEB), "INVENTÁRIO", 1, false);
 		labels.add(inventario);
 		
 		TextLabel peso = new TextLabel(getX()+275, getY()+49, 57, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 

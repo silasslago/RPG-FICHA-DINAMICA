@@ -65,12 +65,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static int maxLanguage = english;
 
 	public Game() {
-		
 		File filesFolder = new File("files");
 		if(!filesFolder.exists()) {
 			filesFolder.mkdir();
 		}
-	
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseWheelListener(this);
@@ -87,7 +85,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu(0, 0);
 		int width = 10;
-		roller = new Roller(Game.WIDTH-width, 0, width, 170, 4, null, false,
+		roller = new Roller(Game.WIDTH-width, 0, width, 115, 7, null, false,
 				Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
@@ -304,11 +302,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(mouseController.currentTextLabel.throwPhrase) {
-			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-				mouseController.currentTextLabel.resetPhrase();
-				return;
-			}
-			mouseController.currentTextLabel.buildPhrase(e.getKeyChar());	
+			mouseController.currentTextLabel.buildPhrase(e.getKeyChar());
 		}
 		
 	}

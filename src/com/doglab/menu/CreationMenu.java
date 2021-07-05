@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import com.doglab.entities.AddButton;
+import com.doglab.entities.CloseButton;
 import com.doglab.entities.Entity;
 import com.doglab.entities.Label;
 import com.doglab.entities.TextLabel;
@@ -19,6 +20,7 @@ public class CreationMenu extends Label{
 	public static boolean remove;
 	
 	public String selection, fileName;
+	private CloseButton close;
 	
 	public AddButton addB = new AddButton(0, 0, 0, 0, 0, null, 0, 0, 0, 0) {
 		
@@ -95,7 +97,7 @@ public class CreationMenu extends Label{
 	public CreationMenu(double x, double y, int width, int height) {
 		super(x, y, width, height, 0, null);
 		TextLabel archive = new TextLabel(getX()+30, getY()+75, 50, 20, 0, null,
-				new Font("Arial", Font.BOLD, 23), Color.black, "Novo arquivo", 0, false);
+				new Font("Arial", Font.BOLD, 23), new Color(0xFFE8EDEB), "Novo arquivo", 0, false);
 		archive.canClick(true);
 		this.labels.add(archive);
 		remove = false;
@@ -122,6 +124,11 @@ public class CreationMenu extends Label{
 		Selector slct = new Selector(getX()+40, getY()+getHeight()-50, op);
 		labels.add(slct);
 		
+		int widthB = 25;
+		int heightB = 25;
+		close = new CloseButton(getX()+getWidth()-(int)(widthB*1.5), getY()+(int)(heightB/2), widthB, heightB, 
+				0, Game.spr_entities.getSprite(76, 181, 25, 25), this);
+		
 		this.changeTickers();
 	}
 	
@@ -134,6 +141,7 @@ public class CreationMenu extends Label{
 		}
 		this.selection = ((Selector) this.labels.get(2)).getSelection();
 		this.fileName = ((TextLabel) this.labels.get(0)).text;
+		close.tick();
 	}
 	
 	public void render(Graphics g) {
@@ -143,12 +151,12 @@ public class CreationMenu extends Label{
 		g.setColor(Color.WHITE);
 		g.setFont(Menu.specialElite.deriveFont(14.0f));
 		g.drawString("Nome do arquivo: ", getX()+25, getY()+45);
-		g.fillRect(getX()+25, getY()+50, 300, 30);
-		g.setColor(new Color(0xFFE8EDEB));
+		g.setColor(Color.DARK_GRAY);
 		g.drawRect(getX()+25, getY()+50, 300, 30);
 		for(Entity l : this.labels) {
 			l.render(g);
 		}
+		close.render(g);
 	}
 
 }

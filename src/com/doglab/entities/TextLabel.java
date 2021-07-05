@@ -25,7 +25,7 @@ public class TextLabel extends Label{
 	public String phrase = "";
 	public boolean throwPhrase = false;
 	
-	private double initX, initW;
+	public double initX, initW;
 	
 	public static boolean showSpace = true;
 	public EditTextLabel eTL;
@@ -59,9 +59,7 @@ public class TextLabel extends Label{
 		if(Game.mouseController.isPressed) {
 			this.resetPhrase();
 		}
-		
 		this.showText = this.text;
-		
 		if(tick) {
 			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
 					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
@@ -76,6 +74,7 @@ public class TextLabel extends Label{
 					current = false;
 				}
 			}
+			
 			if(eTL != null) {
 				if(eTL.selected) {
 					edit();
@@ -84,7 +83,6 @@ public class TextLabel extends Label{
 				eTL = null;
 			}
 			changeLabel();
-
 			if(writing) {
 				timer++;
 				if(timer > this.maxTimer) {
@@ -92,7 +90,6 @@ public class TextLabel extends Label{
 					show = !show;
 				}
 			}
-			
 			if(goDown) {
 				String formatedString = "";
 				int cc = 0;
@@ -108,13 +105,20 @@ public class TextLabel extends Label{
 					cc++;
 				}
 				showText = formatedString;
-				
 				if(width>this.maxW) {
 					width = maxW;
 				}
 			}
-			
 		}
+		
+		if(this.typeText == 0) {
+			this.setX((int)initX);
+		}else if(this.typeText == 1) {
+			this.setX((int)(initX+initW/2-this.getWidth()/2));
+		}else if(this.typeText == 2) {
+			this.setX((int)(initX-this.getWidth()));
+		}
+		
 	}
 	
 	public void render(Graphics g) {
@@ -126,41 +130,46 @@ public class TextLabel extends Label{
 		}
 		if(!goDown) {
 			g.drawString(showText, getX(), imaginaryY - Game.roller.getY()*Game.roller.step);
-			
 			if((!writing) && text.equals("")){
 				this.width = 150;
 			}else {
 				this.width = g.getFontMetrics().stringWidth(showText);
 			}
-			
 		}else {
 			drawString(g, showText, getX(), imaginaryY 
 					- g.getFontMetrics().getHeight()
 					-Game.roller.getY()*Game.roller.step);
 		}
 		
-		if(writing && show) {
+		if(writing && show && !goDown) {
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
 		}
 		if(size == font.getSize() && text.equals("")) {
 			g.drawRect((int)initX, getY()-Game.roller.getY()*Game.roller.step, (int)initW, getHeight());
-		}
-		if(this.typeText == 0) {
-			this.setX((int)initX);
-		}else if(this.typeText == 1) {
-			this.setX((int)(initX+initW/2-this.getWidth()/2));
-		}else if(this.typeText == 2) {
-			this.setX((int)(initX-this.getWidth()));
-		}
-		
+		}	
 	}
 	
 	private void drawString(Graphics g, String text, int x, int y) {
 		this.height = 0;
+		int i = 0;
+		int maxLines = maxChars/maxLine;
 		for (String line : text.split("==")) {
-			show = false;
+			i++;
+			if(i > maxLines) {
+				return;
+			}else if(i==1) {
+				if((!writing) && text.equals("")){
+					this.width = 150;
+				}else {
+					this.width = g.getFontMetrics().stringWidth(line);
+				}
+			}
 			g.drawString(line, x, y += g.getFontMetrics().getHeight());
+			if(writing && show && (i+1 > text.split("==").length)) {
+				g.setColor(Color.white);
+				g.drawLine(x + g.getFontMetrics().stringWidth(line), y, x + g.getFontMetrics().stringWidth(line), y - g.getFontMetrics().getHeight());
+			}
 			height+=g.getFontMetrics().getHeight();
 		}
 	}
@@ -178,6 +187,7 @@ public class TextLabel extends Label{
 			Game.mouseController.resetPosition();
 			if(canClick){
 				edit();
+				return;
 			}
 			if(eTL == null && text != "") {
 				int wLabel = 350;
@@ -201,7 +211,7 @@ public class TextLabel extends Label{
 			}
 		}
 		Game.mouseController.currentTextLabel = this;
-		phrase = "";
+		phrase = text;
 		this.beginToWrite();
 		throwPhrase = true;
 	}
@@ -211,7 +221,6 @@ public class TextLabel extends Label{
 		if(text.equals("")) {
 			return;
 		}
-		text = "";
 		if(typeText == 0) {
 			setX((int)initX);
 		}else if(typeText == 1){
@@ -219,7 +228,7 @@ public class TextLabel extends Label{
 		}else if(typeText == 2) {
 			setX((int)initX+this.getWidth());
 		}
-		width = 10;
+		//width = 10;
 	}
 	
 	public void setImaginaryY(int realY) {
@@ -235,6 +244,13 @@ public class TextLabel extends Label{
 				newString+=phrase.charAt(i);
 			}
 			delete(newString);
+			return;
+		}
+		if(e == KeyEvent.VK_ENTER) {
+			if(this.goDown) {
+				phrase+="==";
+				throwText();
+			}
 			return;
 		}
 		letter+=e;
@@ -284,7 +300,6 @@ public class TextLabel extends Label{
 			this.setX((int)(initX-this.getWidth()));
 		}
 		if(Game.gameState == "FICHA") {
-			System.out.println(this.text);
 			Menu.save();
 		}
 	}

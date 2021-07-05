@@ -48,7 +48,7 @@ public class Rituals extends Label{
 		super(x, y, width, height, speed, sprite);
 		rituals = new ArrayList<RitualsLabel>();
 		TextLabel rituals = new TextLabel(getX()+285, getY()+30, 75, 19, 0, null, new Font("sitka banner", Font.BOLD, 26), 
-				new Color(0xFFE8EDEB), "Rituais", 1, false);
+				new Color(0xFFE8EDEB), "RITUAIS", 1, false);
 		labels.add(rituals);
 		
 		initY = getY()+60;

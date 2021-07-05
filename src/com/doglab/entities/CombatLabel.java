@@ -41,8 +41,8 @@ public class CombatLabel extends Label{
 	public CombatLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
 		gunLabels = new ArrayList<GunLabel>();
-		TextLabel combate = new TextLabel(getX()+270, getY()+30, 75, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
-				new Color(0xFFE8EDEB), "Combate", 1, false);
+		TextLabel combate = new TextLabel(getX()+290, getY()+30, 75, 19, 0, null, new Font("sitka banner", Font.BOLD, 21), 
+				new Color(0xFFE8EDEB), "COMBATE", 1, false);
 		TextLabel nome = new TextLabel(getX()+35, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
 				new Color(0xFFE8EDEB), "Nome", 0, false);
 		TextLabel tipo = new TextLabel(getX()+140, getY()+65, 30, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
