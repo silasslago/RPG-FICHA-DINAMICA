@@ -60,7 +60,7 @@ public class TextLabel extends Label{
 			this.resetPhrase();
 		}
 		this.showText = this.text;
-		if(tick) {
+		if(tick && (!Game.actor.equals("Mestre"))) {
 			if((Game.mouseController.currentX > this.getX() && Game.mouseController.currentY > this.getY()-Game.roller.getY()*Game.roller.step) &&
 					(Game.mouseController.currentX < this.getX()+this.getWidth() && 
 							Game.mouseController.currentY < this.getY()-Game.roller.getY()*Game.roller.step+this.getHeight())) {

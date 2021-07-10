@@ -28,7 +28,9 @@ public class Addition extends Label{
 			int xLabel = ((Game.WIDTH*Game.SCALE)/2)-wLabel/2;
 			int yLabel = ((Game.HEIGHT*Game.SCALE)/2)-hLabel/2;
 			CreationMenu cm = new CreationMenu(xLabel, yLabel, wLabel, hLabel);
+			Game.files.cm.clear();
 			Game.files.cm.add(cm);
+			System.out.println(Game.files.cm.size());
 		}
 	}
 	

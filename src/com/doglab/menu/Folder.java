@@ -40,23 +40,7 @@ public class Folder extends Label{
 					getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 
 					25, 25, 0, null);
 			if(this.isColliding(Game.mouseController, exc)) {
-				Menu.current = Game.files.getCurPath()+fileName;
-				File f = new File(Menu.current);
-				Menu.current = Game.files.getCurPath().replace(fileName, "");
-				
-				String[]entries = f.list();
-				for(String s: entries){
-				    File currentFile = new File(f.getPath(), s);
-				    if(!currentFile.isDirectory()) {
-				    	currentFile.delete();
-				    }else {
-				    	String[] both = ArrayUtils.addAll(entries, currentFile.list());
-				    	entries = both;
-				    }
-				}
-				
-				f.delete();
-				reload();
+				deleteFiles();
 				return;
 			}
 			
@@ -64,57 +48,56 @@ public class Folder extends Label{
 					Game.mouseController.getY() + Game.files.roller.getY()*Game.files.roller.step
 					, 5, 5, 0, null);
 			if(this.isColliding(this, e)) {
-				Game.mouseController.resetPosition();
-				Addition adt = (Addition) files.get(0);
-				files.clear();
-				files.add(adt);
-				Game.files.setLabels(files);
-				int size = files.size();
-				Game.files.labelsAmount = size;
-				int cont = 1;
-				Game.files.labelIAmount = 0;
-				Game.files.labelPAmount = 0;
-				Game.files.labelMAmount = 0;
-				for(int i = 0; i < size; i++) {
-					if(cont == 1) {
-						cont++;
-						Game.files.labelIAmount++;
-					}else if(cont == 2) {
-						cont++;
-						Game.files.labelPAmount++;
-					}else if(cont == 3) {
-						cont = 1;
-						Game.files.labelMAmount++;
-					}
-				}
-				Game.files.setCurPath(Game.files.getCurPath()+this.fileName+"/");
-				
-				File cur = new File(Game.files.getCurPath());
-				for(File f : cur.listFiles()) {
-					String name = f.getName();
-					if(name.indexOf(".txt") == -1) { // Folders
-						
-						CreationMenu cm = new CreationMenu(0, 0, 0, 0);
-						Game.files.cm.add(cm);
-						cm.fileName = name;
-						
-						cm.selection = "Pasta";
-						cm.addB.actionPerformed();
-						Game.files.cm.remove(cm);
-						Label.tick = true;
-						
-					}else { // Fichas
-						
-						CreationMenu cm = new CreationMenu(0, 0, 0, 0);
-						Game.files.cm.add(cm);
-						cm.fileName = name.replace(".txt", "");
-						cm.selection = "Ficha";
-						cm.addB.actionPerformed();
-						Game.files.cm.remove(cm);
-						Label.tick = true;
-					}
-				}
-				
+				open();
+			}
+		}
+	}
+	
+	public void open() {
+		Game.mouseController.resetPosition();
+		Addition adt = (Addition) files.get(0);
+		files.clear();
+		files.add(adt);
+		Game.files.setLabels(files);
+		int size = files.size();
+		Game.files.labelsAmount = size;
+		int cont = 1;
+		Game.files.labelIAmount = 0;
+		Game.files.labelPAmount = 0;
+		Game.files.labelMAmount = 0;
+		for(int i = 0; i < size; i++) {
+			if(cont == 1) {
+				cont++;
+				Game.files.labelIAmount++;
+			}else if(cont == 2) {
+				cont++;
+				Game.files.labelPAmount++;
+			}else if(cont == 3) {
+				cont = 1;
+				Game.files.labelMAmount++;
+			}
+		}
+		Game.files.setCurPath(Game.files.getCurPath()+this.fileName+"/");
+		
+		File cur = new File(Game.files.getCurPath());
+		for(File f : cur.listFiles()) {
+			String name = f.getName();
+			if(name.indexOf(".txt") == -1) { // Folder
+				CreationMenu cm = new CreationMenu(0, 0, 0, 0);
+				Game.files.cm.add(cm);
+				cm.fileName = name;
+				cm.selection = "Pasta";
+				cm.addB.actionPerformed();
+				Game.files.cm.remove(cm);
+				Label.tick = true;
+			}else { // Fichas
+				CreationMenu cm = new CreationMenu(0, 0, 0, 0);
+				Game.files.cm.add(cm);
+				cm.fileName = name.replace(".txt", "");
+				cm.selection = "Ficha";
+				cm.addB.actionPerformed();
+				Game.files.cm.remove(cm);
+				Label.tick = true;
 			}
 		}
 	}
@@ -169,6 +152,25 @@ public class Folder extends Label{
 				Label.tick = true;
 			}
 		}
+	}
+	
+	public void deleteFiles() {
+		Menu.current = Game.files.getCurPath()+fileName;
+		File f = new File(Menu.current);
+		Menu.current = Game.files.getCurPath().replace(fileName, "");
+		
+		String[]entries = f.list();
+		for(String s: entries){
+		    File currentFile = new File(f.getPath(), s);
+		    if(!currentFile.isDirectory()) {
+		    	currentFile.delete();
+		    }else {
+		    	String[] both = ArrayUtils.addAll(entries, currentFile.list());
+		    	entries = both;
+		    }
+		}
+		f.delete();
+		reload();
 	}
 	
 	public void render(Graphics g) {

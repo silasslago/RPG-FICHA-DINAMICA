@@ -150,6 +150,9 @@ public class Menu {
 	}
 	
 	public static void save() {
+		if(Game.actor.equals("Mestre")) {
+			return;
+		}
 		try {
 			// Aparecer na tela do topo que o jogo está sendo salvo.
 			for(int i = 0; i < Game.entities.size(); i++) {
@@ -463,7 +466,8 @@ public class Menu {
 								}else if(((StatsLabel) e).labels.get(ii) instanceof CheckBox) {
 									String[] check = infos[ii+1-dices].split("<>");
 									((CheckBox) ((StatsLabel) e).labels.get(ii)).getArrayList().get(0).text = check[0];
-									((CheckBox) ((StatsLabel) e).labels.get(ii)).setChecked(Boolean.parseBoolean(check[1]));
+									System.out.println(check[0]);
+									((CheckBox) ((StatsLabel) e).labels.get(ii)).setChecked(Boolean.parseBoolean(check[0]));
 								}else {
 									dices++;
 								}
@@ -824,6 +828,20 @@ public class Menu {
 		}
 	}
 
+	public static String returnName(String save) {
+		String retorno = "";
+		String[] global = save.split("/");
+		for(int i = 0; i < global.length; i++) {
+			String[] infos = global[i].split("%");
+			switch(infos[0]) {
+				case "Details":
+					retorno = infos[9];
+					break;
+			}
+		}
+		return retorno;
+	}
+					
 	public static String returnLife(String save) {
 		String retorno = "";
 		String[] global = save.split("/");

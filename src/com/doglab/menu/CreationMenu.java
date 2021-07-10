@@ -33,9 +33,13 @@ public class CreationMenu extends Label{
 			labelsF = Game.files.getLabels();
 			Game.files.labelsAmount++;
 			Label l = null;
-			option = ((CreationMenu) Game.files.cm.get(0)).selection;
-			file = ((CreationMenu) Game.files.cm.get(0)).fileName;
-			
+			for(Label c : Game.files.cm) {
+				if(c instanceof CreationMenu) {
+					option = ((CreationMenu) c).selection;
+					file = ((CreationMenu) c).fileName;
+					break;
+				}
+			}
 			for(int i = 0; i < Game.files.getLabels().size(); i++) {
 				Label file = Game.files.getLabels().get(i);
 				if(file instanceof Folder) {

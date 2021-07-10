@@ -23,8 +23,8 @@ public class Files{
 	public int labelIAmount = 1, labelPAmount = 0, labelMAmount = 0;
 	public int labelsAmount = 1;
 	
-	private boolean firstTime = false;
-	private HomeButton btn;
+	public boolean firstTime = false, connect = false;
+	public HomeButton btn;
 	
 	public Files() {
 		labels = new ArrayList<Label>();
@@ -37,10 +37,23 @@ public class Files{
 		insideFolders = labels;
 		btn = new HomeButton(90, 100, 26, 25);
 		firstTime = true;
+		
+		File online = new File("files/Online");
+		if(online.exists()) {
+			
+		}
+		
 	}
 
 	public void tick() {
+		// Cria as labels de pastas e personagens assim que o app for iniciado
 		if(firstTime) {
+			labelIAmount = 1;
+			labelPAmount = 0;
+			labelMAmount = 0;
+			Addition adt = new Addition(50, 130, 180, 250);
+			insideFolders.clear();
+			insideFolders.add(adt);
 			File cur = new File("files");
 			for(File f : cur.listFiles()) {
 				String name = f.getName();
@@ -71,12 +84,25 @@ public class Files{
 		roller.tick();
 		
 		if(!Label.tick){
-			if(!CreationMenu.remove) {
+			if(!CreationMenu.remove || this.connect) {
 				this.cm.get(0).tick();
-			}else {
+			}else{
 				this.cm.get(0).changeTickers();
-				this.cm.remove(0);
+				this.cm.clear();
+				this.connect = false;
 			}
+		}
+		Entity e = new Entity(126, 100 - roller.getY()*roller.step, 26, 26, 0, null);
+		if(e.isColliding(e, Game.mouseController)) {
+			Game.mouseController.resetPosition();
+			this.connect = true;
+			int wLabel = 350;
+			int hLabel = 350;
+			int xLabel = ((Game.WIDTH*Game.SCALE)/2)-wLabel/2;
+			int yLabel = ((Game.HEIGHT*Game.SCALE)/2)-hLabel/2;
+			ConnectLabel conet = new ConnectLabel(xLabel, yLabel, wLabel, hLabel);
+			cm.clear();
+			cm.add(conet);
 		}
 		btn.tick();
 	}
@@ -89,10 +115,11 @@ public class Files{
 		for(int i = 0; i < insideFolders.size(); i++) {
 			insideFolders.get(i).render(g);
 		}
+		btn.render(g);
+		g.drawImage(Game.spr_entities.getSprite(200, 130, 26, 26), 126, 100-Game.files.roller.getY()*Game.files.roller.step, 26, 25, null);
 		if(!Label.tick) {
 			cm.get(0).render(g);
 		}
-		btn.render(g);
 	}
 
 	public ArrayList<Label> getLabels() {

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.doglab.api.Online;
 import com.doglab.entities.*;
 import com.doglab.graficos.Spritesheet;
 import com.doglab.menu.CreationMenu;
@@ -48,6 +49,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private Thread thread;
 	public static BufferedImage image;
 	public static String gameState = "BOOTSPLASH";
+	public static Online on;
 	
 	public static Menu menu;
 	public static Player player;
@@ -64,6 +66,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static int language = portugues;
 	public static int maxLanguage = english;
 
+	public static String roomCode = "null", actor = "null";
+	public static boolean online = false;
+	
 	public Game() {
 		File filesFolder = new File("files");
 		if(!filesFolder.exists()) {
@@ -90,6 +95,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		entities.add(roller);
 		entities.add(player);
 		files = new Files();
+		on = new Online();
 	}
 	
 	public void initFrame() {
@@ -236,7 +242,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		// Background
 		g.setColor(new Color(0xFF000000));
 		g.fillRect(0, 0, getThisWidth(), getThisHeight());
-		
 
 		// Renderização do jogo
 		if(gameState == "NORMAL" || gameState == "PAUSE" || gameState == "TUTORIAL") {
@@ -260,6 +265,19 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				}
 			}
 		}
+		
+		if(online && (gameState == "MENU" || gameState == "FICHA")) {
+			g.setColor(new Color(0, 255, 0, 180));
+			int size = 140;
+			g.fillRect(Game.WIDTH-size, 20, size, 70);
+			g.setColor(new Color(255, 255, 255));
+			g.setFont(Menu.specialElite.deriveFont(16.0f));
+			g.drawLine(Game.WIDTH-size+10, 25, Game.WIDTH-size+10, 85);
+			g.drawString("Sala: ", Game.WIDTH-size+20, 60);
+			g.drawString(Game.roomCode, Game.WIDTH-size+20, 80);
+			g.drawString(Game.actor.toUpperCase(), Game.WIDTH-size+20, 40);
+		}
+		
 		g.dispose();
 		g = bs.getDrawGraphics();
 		if(fullscreen) {

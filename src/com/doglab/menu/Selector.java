@@ -45,14 +45,14 @@ public class Selector extends Label{
 		if(!show) {
 			super.render(g);
 			g.setColor(Color.white);
-			g.drawString(options[current], getX()+getWidth()/2 - g.getFontMetrics().stringWidth(options[current])/2, getY() + g.getFontMetrics().stringWidth(options[current])/2);
+			g.drawString(options[current], getX()+getWidth()/2 - g.getFontMetrics().stringWidth(options[current])/2, getY() + 25);
 		}else {
 			for(int i = 0; i < options.length+1; i++) {
 				if(i>0) {
 					g.setColor(new Color(0xFF000000));
 					g.fillRect(getX(), getY()+(getHeight()*i), getWidth(), getHeight());
 					g.setColor(Color.white);
-					g.drawString(options[i-1], getX()+getWidth()/2 - g.getFontMetrics().stringWidth(options[i-1])/2, getY() + (getHeight()*i) + g.getFontMetrics().stringWidth(options[i-1])/2);
+					g.drawString(options[i-1], getX()+getWidth()/2 - g.getFontMetrics().stringWidth(options[i-1])/2, getY() + (getHeight()*i) + 25);
 				}else {
 					g.setColor(new Color(0xFF101010));
 					g.fillRect(getX(), getY()+(getHeight()*i), getWidth(), getHeight());
@@ -61,7 +61,7 @@ public class Selector extends Label{
 				g.drawRect(getX(), getY()+(getHeight()*i), getWidth(), getHeight());
 			}
 			g.setColor(Color.white);
-			g.drawString(options[current], getX()+getWidth()/2 - g.getFontMetrics().stringWidth(options[current])/2, getY() + g.getFontMetrics().stringWidth(options[current])/2);
+			g.drawString(options[current], getX()+getWidth()/2 - g.getFontMetrics().stringWidth(options[current])/2, getY() + 25);
 		}
 	}
 	
