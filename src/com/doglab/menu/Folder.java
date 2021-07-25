@@ -36,12 +36,14 @@ public class Folder extends Label{
 
 	public void tick() {
 		if(tick) {
-			Entity exc = new Entity(getX()+getWidth()/2-25/2, 
-					getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 
-					25, 25, 0, null);
-			if(this.isColliding(Game.mouseController, exc)) {
-				deleteFiles();
-				return;
+			if(!Game.online) {
+				Entity exc = new Entity(getX()+getWidth()/2-25/2, 
+						getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 
+						25, 25, 0, null);
+				if(this.isColliding(Game.mouseController, exc)) {
+					deleteFiles();
+					return;
+				}
 			}
 			
 			Entity e = new Entity(Game.mouseController.getX(), 
@@ -187,7 +189,9 @@ public class Folder extends Label{
 		g.drawImage(folder, getX()+getWidth()/2 - folder.getWidth()*2/2, getY()+getHeight()/2 - folder.getHeight()*2 -Game.files.roller.getY()*Game.files.roller.step, 114, 72, null);
 		g.setFont(Menu.specialElite.deriveFont(25.0f));
 		g.drawString(fileName, getX()+getWidth()/2 - g.getFontMetrics().stringWidth(fileName)/2, getY()+getHeight()-80 -Game.files.roller.getY()*Game.files.roller.step);
-		g.drawImage(del, getX()+getWidth()/2-25/2, getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 25, 25, null);
+		if(!Game.online) {
+			g.drawImage(del, getX()+getWidth()/2-25/2, getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 25, 25, null);
+		}
 	}
 
 	public String getName() {

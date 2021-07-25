@@ -3,7 +3,6 @@ package com.doglab.menu;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.io.File;
 
 import javax.swing.JOptionPane;
 

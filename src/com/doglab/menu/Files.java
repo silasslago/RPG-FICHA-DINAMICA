@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.doglab.entities.Entity;
 import com.doglab.entities.Label;
 import com.doglab.entities.Roller;
@@ -40,7 +42,21 @@ public class Files{
 		
 		File online = new File("files/Online");
 		if(online.exists()) {
+			Menu.current = "files/Online";
+			File f = new File(Menu.current);
+			Menu.current = "files/";
 			
+			String[]entries = f.list();
+			for(String s: entries){
+			    File currentFile = new File(f.getPath(), s);
+			    if(!currentFile.isDirectory()) {
+			    	currentFile.delete();
+			    }else {
+			    	String[] both = ArrayUtils.addAll(entries, currentFile.list());
+			    	entries = both;
+			    }
+			}
+			f.delete();
 		}
 		
 	}

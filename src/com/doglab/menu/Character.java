@@ -94,20 +94,23 @@ public class Character extends Label{
 	
 	public void tick() {
 		if(tick) {
-			Entity exc = new Entity(getX()+getWidth()/2-25/2, 
-					getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 
-					25, 25, 0, null);
-			if(this.isColliding(Game.mouseController, exc)) {
-				Menu.current = Game.files.getCurPath()+fileName+".txt";
-				File f = new File(Menu.current);
-				Menu.current = Game.files.getCurPath().replace(fileName+".txt", "");
-				System.gc();
-				if(f.exists()) {
-					f.delete();
+			if(!Game.online) {
+				Entity exc = new Entity(getX()+getWidth()/2-25/2, 
+						getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 
+						25, 25, 0, null);
+				if(this.isColliding(Game.mouseController, exc)) {
+					Menu.current = Game.files.getCurPath()+fileName+".txt";
+					File f = new File(Menu.current);
+					Menu.current = Game.files.getCurPath().replace(fileName+".txt", "");
+					System.gc();
+					if(f.exists()) {
+						f.delete();
+					}
+					reload();
+					return;
 				}
-				reload();
-				return;
 			}
+			
 			
 			Entity e = new Entity(Game.mouseController.getX(), 
 					Game.mouseController.getY() + Game.files.roller.getY()*Game.files.roller.step
@@ -117,19 +120,6 @@ public class Character extends Label{
 				Game.gameState = "FICHA";
 				Menu.current = Game.files.getCurPath()+fileName+".txt";
 				Menu.loadSave(Menu.loadGame());
-			
-				/* Salva a ficha, lê a pagina, e aplica no save aqui!
-				String saves;
-				try {
-					API.updatePage("39ad5357f3", Menu.loadGame());
-					saves = API.readPage("39ad5357f3");
-					JSONObject jsonObject = new JSONObject(saves.replace("<p>", "").replace("</p>", ""));
-					String data = (String) jsonObject.get("Slot 1");
-					Menu.loadSave(data);
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				}
-				*/
 			}
 		}
 	}
@@ -206,7 +196,9 @@ public class Character extends Label{
 		g.drawImage(camera, getX()+70, getY()+60-Game.files.roller.getY()*Game.files.roller.step, null);
 		g.drawImage(icon, getX()+15, getY()-Game.files.roller.getY()*Game.files.roller.step, 150, 140, null);
 		g.drawImage(barrier, getX(), getY()-Game.files.roller.getY()*Game.files.roller.step, 196-16, 156-12, null);
-		g.drawImage(del, getX()+getWidth()/2-25/2, getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 25, 25, null);
+		if(!Game.online) {
+			g.drawImage(del, getX()+getWidth()/2-25/2, getY()+getHeight()-25-5-Game.files.roller.getY()*Game.files.roller.step, 25, 25, null);
+		}
 	}
 	
 	public String getName() {

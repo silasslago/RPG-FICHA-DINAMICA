@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import com.doglab.main.Game;
 import com.doglab.main.Menu;
-import com.doglab.menu.Character;
 
 public class Online implements Runnable{
 
