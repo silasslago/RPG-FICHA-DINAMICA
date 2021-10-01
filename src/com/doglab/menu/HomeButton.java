@@ -21,6 +21,7 @@ public class HomeButton extends Button{
 	}
 	
 	public void actionPerformed() {
+		Game.roller.setY(0);
 		Game.gameState = "MENU";
 		Game.files.setLabels(Game.files.labels);
 		int size = Game.files.labels.size();

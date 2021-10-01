@@ -22,9 +22,11 @@ public class Dice extends Entity{
 	private boolean show;
 	private boolean typeRoll;
 	private boolean hasMEL;
+	private String dicePlayed;
 
 	public Dice(double x, double y, int width, int height, double speed, BufferedImage sprite, 
-			TextLabel dValue, TextLabel stat, TextLabel timesRoll, boolean show, boolean type) {
+			TextLabel dValue, TextLabel stat, TextLabel timesRoll, boolean show, boolean type,
+			TextLabel dicePlayed) {
 		super(x, y, width, height, speed, sprite);
 		labels = new ArrayList<Label>();
 		typeRoll = type;
@@ -119,6 +121,7 @@ public class Dice extends Entity{
 		labels.add(stat);
 		labels.add(dValue);
 		labels.add(timesRoll);
+		labels.add(dicePlayed);
 		this.setMask((int)x+10, (int)y+10, width-20, height-20);
 	}
 	
@@ -243,6 +246,10 @@ public class Dice extends Entity{
 		
 		if(((TextLabel)labels.get(0)).width > 0) {
 			this.stat = updateArrayList(0);
+		}
+		
+		if(((TextLabel)labels.get(3)).width > 0) {
+			this.dicePlayed = ((TextLabel) labels.get(3)).text;
 		}
 		
 		boolean hasPlus = false;
@@ -386,9 +393,8 @@ public class Dice extends Entity{
 				}else {
 					currentState = null;
 				}
-				
 				DiceLabel diceLabel = new DiceLabel(xLabel, yLabel, wLabel, hLabel, 0, this.getSprite(), 
-						value, currentState, plus);
+						value, currentState, plus, dicePlayed);
 				Game.entities.add(diceLabel);	
 			}
 		//}

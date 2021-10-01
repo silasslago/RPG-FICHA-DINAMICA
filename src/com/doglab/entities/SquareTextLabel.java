@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.doglab.main.Game;
+import com.doglab.main.Menu;
 
 public class SquareTextLabel extends Label{
 
@@ -35,7 +36,8 @@ public class SquareTextLabel extends Label{
 		TextLabel rollTimes = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "1", 0, true);
 		TextLabel dValue = new TextLabel(0,0,0,0,0,null,new Font("sitka banner", Font.BOLD, 17), null, "20", 0, true);
 		dice = new Dice(getX()-20, getY(), getWidth()+35, getHeight()-20, 0, 
-				Game.spr_entities.getSprite(0, 156, 76, 71), dValue, valueL, rollTimes, true, true);
+				Game.spr_entities.getSprite(0, 156, 76, 71), dValue, valueL, rollTimes, 
+				true, true, textL);
 	}
 
 	public void tick() {
@@ -111,7 +113,7 @@ public class SquareTextLabel extends Label{
 		if(current) {
 			g.setColor(new Color(0xFFE0E0E0));
 		}else {
-			g.setColor(new Color(0xFF000000));
+			g.setColor(Color.BLACK);
 		}
 		g.fillRect(getX()+inLocal, getY()+inLocal+20-Game.roller.getY()*Game.roller.step, getWidth()-inLocal*2, getHeight()-inLocal*2-20);
 		g.setColor(new Color(0xFF424242));

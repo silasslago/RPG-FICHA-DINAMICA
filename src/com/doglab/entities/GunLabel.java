@@ -36,7 +36,7 @@ public class GunLabel extends Label{
 		gunDamage.canClick(true);
 		
 		Dice dice = new Dice(getX()+225-5, getY(), 25, 25, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				gunDamage, gunDamage, diceAmount, false, true);
+				gunDamage, gunDamage, diceAmount, false, true, gunName);
 		labels.add(dice);
 		labels.add(gunDamage);
 		labels.add(diceAmount);

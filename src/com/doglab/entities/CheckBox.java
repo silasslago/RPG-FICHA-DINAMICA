@@ -22,7 +22,7 @@ public class CheckBox extends Entity{
 		this.emptyBox = sprite;
 		texts = new ArrayList<TextLabel>();
 		TextLabel tLabel = new TextLabel(getX()+width+5, getY()+height, (height*text.length())/2, height, speed, null, 
-				new Font("sitka banner", Font.BOLD, height), new Color(0xFFE8EDEB), text, 0, false);
+				new Font("sitka banner", Font.BOLD, 15), new Color(0xFFE8EDEB), text, 0, false);
 		texts.add(tLabel);
 	}
 	

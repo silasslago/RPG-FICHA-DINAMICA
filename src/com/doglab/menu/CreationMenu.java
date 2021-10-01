@@ -22,6 +22,8 @@ public class CreationMenu extends Label{
 	public String selection, fileName;
 	private CloseButton close;
 	
+	protected boolean changeColor;
+	
 	public AddButton addB = new AddButton(0, 0, 0, 0, 0, null, 0, 0, 0, 0) {
 		
 		private ArrayList<Label> labelsF = new ArrayList<Label>();
@@ -44,12 +46,18 @@ public class CreationMenu extends Label{
 				Label file = Game.files.getLabels().get(i);
 				if(file instanceof Folder) {
 					if(((Folder) file).getName().equals(this.file)) {
-						CreationMenu.remove = true;
+						CreationMenu.remove = false;
+						((TextLabel) CreationMenu.this.labels.get(0)).text = "NOME DUPLICADO!";
+						((TextLabel) CreationMenu.this.labels.get(0)).setColor(Color.red);
+						changeColor = true;
 						return;
 					}
 				}else if(file instanceof Character) {
 					if(((Character) file).getName().equals(this.file)) {
-						CreationMenu.remove = true;
+						CreationMenu.remove = false;
+						((TextLabel) CreationMenu.this.labels.get(0)).text = "NOME DUPLICADO!";
+						((TextLabel) CreationMenu.this.labels.get(0)).setColor(Color.red);
+						changeColor = true;
 						return;
 					}
 				}
@@ -60,34 +68,34 @@ public class CreationMenu extends Label{
 			if(option.equals("Pasta")) { // Folder
 				if((Game.files.labelIAmount != Game.files.labelPAmount) && 
 						(Game.files.labelIAmount != Game.files.labelMAmount)) {
-					l = new Folder(labelX+((this.labelW+number)), 
+					l = new Folder(labelX+((this.labelW+number))+Menu.margin, 
 							labelY+((this.labelH+number)*(Game.files.labelPAmount)), file);
 					Game.files.labelPAmount++;
 				}else if((Game.files.labelIAmount == Game.files.labelPAmount) && 
 						(Game.files.labelIAmount != Game.files.labelMAmount)) {
-					l = new Folder(labelX+((this.labelW*2+number*2)), 
+					l = new Folder(labelX+((this.labelW*2+number*2))+Menu.margin, 
 							labelY+((this.labelH+number)*(Game.files.labelMAmount)), file);
 					Game.files.labelMAmount++;
 				}else if((Game.files.labelIAmount == Game.files.labelPAmount) && 
 						(Game.files.labelIAmount == Game.files.labelMAmount)){
-					l = new Folder(labelX, 
+					l = new Folder(labelX+Menu.margin, 
 							labelY+((this.labelH+number)*(Game.files.labelIAmount)), file);
 					Game.files.labelIAmount++;
 				}
 			}else if(option.equals("Ficha")) { // Character
 				if((Game.files.labelIAmount != Game.files.labelPAmount) && 
 						(Game.files.labelIAmount != Game.files.labelMAmount)) {
-					l = new Character(labelX+((this.labelW+number)), 
+					l = new Character(labelX+((this.labelW+number))+Menu.margin, 
 							labelY+((this.labelH+number)*(Game.files.labelPAmount)), file);
 					Game.files.labelPAmount++;
 				}else if((Game.files.labelIAmount == Game.files.labelPAmount) && 
 						(Game.files.labelIAmount != Game.files.labelMAmount)) {
-					l = new Character(labelX+((this.labelW*2+number*2)), 
+					l = new Character(labelX+((this.labelW*2+number*2))+Menu.margin, 
 							labelY+((this.labelH+number)*(Game.files.labelMAmount)), file);
 					Game.files.labelMAmount++;
 				}else if((Game.files.labelIAmount == Game.files.labelPAmount) && 
 						(Game.files.labelIAmount == Game.files.labelMAmount)){
-					l = new Character(labelX, 
+					l = new Character(labelX+Menu.margin, 
 							labelY+((this.labelH+number)*(Game.files.labelIAmount)), file);
 					Game.files.labelIAmount++;
 				}
@@ -143,6 +151,12 @@ public class CreationMenu extends Label{
 			e.tick();
 			Label.tick = false;
 		}
+		if(changeColor) {
+			if(((TextLabel) labels.get(0)).text != "NOME DUPLICADO!") {
+				changeColor = false;
+				((TextLabel) labels.get(0)).setColor(Color.white);
+			}
+		}
 		this.selection = ((Selector) this.labels.get(2)).getSelection();
 		this.fileName = ((TextLabel) this.labels.get(0)).text;
 		close.tick();
@@ -151,9 +165,19 @@ public class CreationMenu extends Label{
 	public void render(Graphics g) {
 		g.setColor(new Color(0, 0, 0, 150));
 		g.fillRect(0, 0, Game.WIDTH*Game.SCALE, Game.HEIGHT*Game.SCALE);
-		super.render(g);
+
+		g.setColor(Color.BLACK);
+		g.fillRect(getX(), getY(), getWidth(), getHeight());
+		g.setColor(new Color(0xFF424242));
+		g.drawRect(getX(), getY(), getWidth(), getHeight());
+		g.drawRect(getX()+1, getY()+1, getWidth()-2, getHeight()-2);
+		for(int i = 0; i < labels.size(); i++) {
+			Entity e = labels.get(i);
+			e.render(g);
+		}
+		
 		g.setColor(Color.WHITE);
-		g.setFont(Menu.specialElite.deriveFont(14.0f));
+		g.setFont(Menu.curFont.deriveFont(14.0f));
 		g.drawString("Nome do arquivo: ", getX()+25, getY()+45);
 		g.setColor(Color.DARK_GRAY);
 		g.drawRect(getX()+25, getY()+50, 300, 30);

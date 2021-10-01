@@ -20,6 +20,7 @@ public class AtributosLabel extends Label{
 		
 		TextLabel dValue = new TextLabel(0, 0, 0, 0, 0, null, new Font("sitka banner", 
 				Font.BOLD, 13), null, "20", 0, true);
+		
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0, true);
 		
 		TextLabel aparencia = new TextLabel(getX()+30, getY()+100, 60, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
@@ -27,7 +28,7 @@ public class AtributosLabel extends Label{
 		TextLabel apar = new TextLabel(getX()+55, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice aparDice = new Dice(getX()+33, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, apar, dAmount, true, true);
+				dValue, apar, dAmount, true, true, aparencia);
 		labels.add(aparDice);
 		labels.add(aparencia);
 		labels.add(apar); 
@@ -37,7 +38,7 @@ public class AtributosLabel extends Label{
 		cons = new TextLabel(getX()+149, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice consDice = new Dice(getX()+128, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, cons, dAmount, true, true);
+				dValue, cons, dAmount, true, true, constituicao);
 		labels.add(consDice);
 		labels.add(constituicao);
 		labels.add(cons); 
@@ -47,7 +48,7 @@ public class AtributosLabel extends Label{
 		dest = new TextLabel(getX()+243, getY()+125, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice destDice = new Dice(getX()+221, getY()+40, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, dest, dAmount, true, true);
+				dValue, dest, dAmount, true, true, destreza);
 		labels.add(destDice);
 		labels.add(destreza);
 		labels.add(dest); 
@@ -57,7 +58,7 @@ public class AtributosLabel extends Label{
 		TextLabel educ = new TextLabel(getX()+55, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice educDice = new Dice(getX()+33, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, educ, dAmount, true, true);
+				dValue, educ, dAmount, true, true, educacao);
 		labels.add(educDice);
 		labels.add(educacao);
 		labels.add(educ); 
@@ -67,7 +68,7 @@ public class AtributosLabel extends Label{
 		forc = new TextLabel(getX()+149, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice forcDice = new Dice(getX()+128, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, forc, dAmount, true, true);
+				dValue, forc, dAmount, true, true, forca);
 		labels.add(forcDice);
 		labels.add(forca);
 		labels.add(forc); 
@@ -77,7 +78,7 @@ public class AtributosLabel extends Label{
 		TextLabel inte = new TextLabel(getX()+243, getY()+225, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice inteDice = new Dice(getX()+221, getY()+140, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, inte, dAmount, true, true);
+				dValue, inte, dAmount, true, true, inteligencia);
 		labels.add(inteDice);
 		labels.add(inteligencia);
 		labels.add(inte); 
@@ -87,7 +88,7 @@ public class AtributosLabel extends Label{
 		pode = new TextLabel(getX()+55, getY()+325, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice podeDice = new Dice(getX()+33, getY()+240, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, pode, dAmount, true, true);
+				dValue, pode, dAmount, true, true, poder);
 		labels.add(podeDice);
 		labels.add(poder);
 		labels.add(pode); 
@@ -97,7 +98,7 @@ public class AtributosLabel extends Label{
 		TextLabel sort = new TextLabel(getX()+149, getY()+325, 13, 29, 0, null, 
 				new Font("sitka banner", Font.BOLD, 31), new Color(0xFFE8EDEB), "1", 1, true);
 		Dice sortDice = new Dice(getX()+128, getY()+240, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dValue, sort, dAmount, true, true);
+				dValue, sort, dAmount, true, true, sorte);
 		labels.add(sortDice);
 		labels.add(sorte);
 		labels.add(sort); 

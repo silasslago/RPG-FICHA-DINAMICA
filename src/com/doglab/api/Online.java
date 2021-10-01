@@ -3,6 +3,7 @@ package com.doglab.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.doglab.entities.HistoryLabel;
 import com.doglab.main.Game;
 import com.doglab.main.Menu;
 
@@ -14,15 +15,6 @@ public class Online implements Runnable{
 		Game.online = true;
 		thread = new Thread(this);
 		thread.start();
-	}
-	
-	public synchronized void stop() {
-		Game.online = false;
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Override
@@ -39,7 +31,10 @@ public class Online implements Runnable{
 			if(delta >= 1) {
 				if(Game.actor.equals("Mestre")) {
 					try {
-						String page = API.readPage(Game.roomCode);
+						// JSON e o Mesa de Dados
+						String[] both = API.readPageWithTitle(Game.roomCode).split("###");
+						String page = both[0];
+						HistoryLabel.historic = API.readPage(both[1]).replace("<p>", "").replace("</p>", "");
 						JSONObject jsonObject = new JSONObject(page.replace("<p>", "").replace("</p>", ""));
 						for(int i = 1; i < 7; i++) {
 							String player = (String) jsonObject.get("Slot "+i);
@@ -55,15 +50,24 @@ public class Online implements Runnable{
 							}
 						}
 						
-					} catch (JSONException e) { e.printStackTrace(); }
-					
+					} catch (JSONException e) {
+						disconnect();
+					}
 				}else if(Game.actor.equals("Jogador")) {
 					API.slot = "Slot "+ API.current;
+					try { // Descobrindo onde está a mesa!
+						String[] both = API.readPageWithTitle(Game.roomCode).split("###");
+						HistoryLabel.diceTable = both[1].replace("<p>", "").replace("</p>","");
+					} catch (JSONException e1) {
+						disconnect();
+					}
 					try {
 						if(Game.gameState == "FICHA") {
 							API.updatePage(Game.roomCode, Menu.loadGame());
 						}
-					} catch (JSONException e) { e.printStackTrace(); }
+					} catch (JSONException e) { 
+						disconnect();
+					}
 				}
 				delta--;
 			}
@@ -71,7 +75,17 @@ public class Online implements Runnable{
 				timer = System.currentTimeMillis();
 			}
 		}
-		stop();
+		disconnect();
 	}
 
+	public static void disconnect() {
+		Game.online = false;
+		Game.actor = "null";
+		Game.roomCode = "null";
+		HistoryLabel.historic = "";
+		try {
+			API.updatePage(Game.roomCode, "Vazio");
+		} catch (JSONException eee) { eee.printStackTrace(); }
+	}
+	
 }

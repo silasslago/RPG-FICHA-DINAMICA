@@ -13,6 +13,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -30,6 +33,7 @@ import com.doglab.entities.Dice;
 import com.doglab.entities.Entity;
 import com.doglab.entities.FastSkillsLabel;
 import com.doglab.entities.GunLabel;
+import com.doglab.entities.HistoryLabel;
 import com.doglab.entities.IconLabel;
 import com.doglab.entities.InventoryLabel;
 import com.doglab.entities.ItemLabel;
@@ -47,54 +51,59 @@ public class Menu {
 
 	public static String current = "info.txt";
 	
-	private final Color BLACK = new Color(0xFF000000);
-	private Color bg = BLACK;
-	public static Font specialElite;
+	private String curTime;
+	public static final Color BLACK = new Color(0xFF000000);
+	public static Color bg = BLACK;
+	public static Font curFont;
 	private BufferedImage icon;
+	public static int margin = 0;
 	
 	public static boolean showReadme = true;
 	private int x, y;
 	
 	public Menu(int x, int y) {
 		try {
-			specialElite = Font.createFont(Font.TRUETYPE_FONT, new File("res/SpecialElite-Regular.ttf"));
+			curFont = Font.createFont(Font.TRUETYPE_FONT, new File("res/OldNewspaperTypes.ttf"));
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/SpecialElite-Regular.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/OldNewspaperTypes.ttf")));
 		} catch (FontFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		DetailsLabel detailsLabel = new DetailsLabel(30, 100, Game.WIDTH/2-50, 370, 0, null);
+		
+		DetailsLabel detailsLabel = new DetailsLabel(30+margin, 100, 290, 370, 0, null);
 		Game.entities.add(detailsLabel);
-		IconLabel iconLabel = new IconLabel(346, 80, 285, 160, 0, null);
+		IconLabel iconLabel = new IconLabel(346+margin, 80, 285, 160, 0, null);
 		Game.entities.add(iconLabel);
-		StatsLabel statsLabel = new StatsLabel(340, 250,(int)(Game.WIDTH/2.18), 440, 0, null);
+		StatsLabel statsLabel = new StatsLabel(340+margin, 250,(int)(Game.WIDTH/2.18), 440, 0, null);
 		Game.entities.add(statsLabel);
-		TextLabel title = new TextLabel(240, 60, 200, 29, 0, null, specialElite.deriveFont(29.0f), 
+		TextLabel title = new TextLabel(240+margin, 60, 200, 29, 0, null, curFont.deriveFont(29.0f), 
 				new Color(0xFFE8EDEB), "Perfil do Jogador", 1, false);
 		Game.entities.add(title);
-		AtributosLabel atrLabel = new AtributosLabel(25, 550, 300, 480, 0, null);
+		AtributosLabel atrLabel = new AtributosLabel(25+margin, 550, 300, 480, 0, null);
 		Game.entities.add(atrLabel);
-		FastSkillsLabel fastSLabel = new FastSkillsLabel(340, 550, 320, 100, 0, null);
+		FastSkillsLabel fastSLabel = new FastSkillsLabel(340+margin, 550, 320, 100, 0, null);
 		Game.entities.add(fastSLabel);
-		CharacterLabel characterLabel = new CharacterLabel(340, 820, 320, 210, 0, null);
+		CharacterLabel characterLabel = new CharacterLabel(340+margin, 820, 320, 210, 0, null);
 		Game.entities.add(characterLabel);
-		CombatLabel combatLabel = new CombatLabel(10, 1050, Game.WIDTH*Game.SCALE-30, 200, 0, null);
+		CombatLabel combatLabel = new CombatLabel(10+margin, 1050, 670, 200, 0, null);
 		Game.entities.add(combatLabel);
-		Rituals rituals = new Rituals(10, 1265, Game.WIDTH*Game.SCALE-30, 400, 0, null);
+		Rituals rituals = new Rituals(10+margin, 1265, 670, 400, 0, null);
 		Game.entities.add(rituals);
 		int down = 410;
-		Skills skills = new Skills(10, 1270+down, Game.WIDTH*Game.SCALE-30, 600, 0, null);
+		Skills skills = new Skills(10+margin, 1270+down, 670, 600, 0, null);
 		Game.entities.add(skills);
-		InventoryLabel inventory = new InventoryLabel(10, 1890+down, Game.WIDTH*Game.SCALE-30, 300, 0, null);
+		InventoryLabel inventory = new InventoryLabel(10+margin, 1890+down, 670, 300, 0, null);
 		Game.entities.add(inventory);
-		AbilitysLabel abilities = new AbilitysLabel(10, 2210+down, Game.WIDTH*Game.SCALE-30, 300, 0, null);
+		AbilitysLabel abilities = new AbilitysLabel(10+margin, 2210+down, 670, 300, 0, null);
 		Game.entities.add(abilities);
-		BackgroundLabel background = new BackgroundLabel(10, 2530+down, Game.WIDTH*Game.SCALE-30, 1300, 0, null);
+		BackgroundLabel background = new BackgroundLabel(10+margin, 2530+down, 670, 1300, 0, null);
 		Game.entities.add(background);
-		AnotationsLabel anotations = new AnotationsLabel(10, 3850+down, Game.WIDTH*Game.SCALE-30, 300, 0, null);
+		AnotationsLabel anotations = new AnotationsLabel(10+margin, 3850+down, 670, 300, 0, null);
 		Game.entities.add(anotations);
+		HistoryLabel historic = new HistoryLabel(10, 10, Game.WIDTH/4-10, Game.HEIGHT-20);
+		Game.entities.add(historic);
 		OptionsLabel optionsLabel = new OptionsLabel(0, 0-45, Game.WIDTH, 45, 0, Game.spr_entities.getSprite(26, 231, 25, 25));
 		Game.entities.add(optionsLabel);
 		try {
@@ -103,20 +112,68 @@ public class Menu {
 			e.printStackTrace();
 		}
 		if(showReadme) {
-			ReadmeLabel rL = new ReadmeLabel(getX()+30, getY()+30, Game.WIDTH*Game.SCALE-70, Game.HEIGHT*Game.SCALE-40, 0, null);
+			ReadmeLabel rL = new ReadmeLabel(getX()+30+margin, getY()+30, 630, Game.HEIGHT*Game.SCALE-40, 0, null);
 			Game.entities.add(rL);
 		}
+		curTime = "";
+		readColors(loadColors());
 	}
 
 	public void tick() {
-		
+		Date d = new Date();
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(d);
+		curTime = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+		curTime += ":";
+		curTime += Integer.toString(calendar.get(Calendar.MINUTE));
+		curTime += ":";
+		curTime += Integer.toString(calendar.get(Calendar.SECOND));
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(bg);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.drawImage(icon, 230, 4570-Game.roller.getY()*Game.roller.step, null);
+		g.drawImage(icon, 230+margin, 4570-Game.roller.getY()*Game.roller.step, null);
+		g.setColor(Color.white);
+		g.setFont(curFont.deriveFont(30.0f));
+		g.drawString(curTime, Game.WIDTH - 230, 50);
+		g.setColor(new Color(0xFF424242));
+		g.drawLine(Game.WIDTH - 240, 60, Game.WIDTH - 100, 60);
 	}	
+	
+	public static void readColors(String line) {
+		String[] colors = line.split("<>");
+		if(colors.length<2) {
+			return;
+		}
+		System.out.println(colors.length);
+		for(int i = 0; i < colors.length; i++) {
+			String[] current = colors[i].split(":");
+			String color = current[1].replace("(", "").replace(")", "");
+			String[] rgb = color.split(",");
+			Color currentColor = new Color(Integer.parseInt(rgb[0]),
+					Integer.parseInt(rgb[1]),
+					Integer.parseInt(rgb[2]));
+			switch(current[0]) {
+				case "Background":
+					Menu.bg = currentColor;
+					Game.BG_COLOR = currentColor;
+					break;
+				case "Text":
+					TextLabel.text_color = currentColor;
+					break;
+				case "Life":
+					StatsLabel.life_color = currentColor;
+					break;
+				case "Sanity":
+					StatsLabel.sanity_color = currentColor;
+					break;
+				case "Magic":
+					StatsLabel.magic_color = currentColor;
+					break;
+			}
+		}
+	}
 	
 	public static void saveGame(String line) {
 		File file = new File(current);
@@ -137,6 +194,42 @@ public class Menu {
 		}
 		try {
 			write.write(line);
+			write.newLine();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		try {
+			write.flush();
+			write.close();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveColors() {
+		File file = new File("colors.txt");
+		if(file.exists()) {
+			file.delete();
+		}
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		BufferedWriter write = null;
+		try {
+			write = new BufferedWriter(new FileWriter("colors.txt"));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			String bg = "("+Menu.bg.getRed()+","+Menu.bg.getGreen()+","+Menu.bg.getBlue()+")";
+			String tt = "("+TextLabel.text_color.getRed()+","+TextLabel.text_color.getGreen()+","+TextLabel.text_color.getBlue()+")";
+			String vd = "("+StatsLabel.life_color.getRed()+","+StatsLabel.life_color.getGreen()+","+StatsLabel.life_color.getBlue()+")";;
+			String st = "("+StatsLabel.sanity_color.getRed()+","+StatsLabel.sanity_color.getGreen()+","+StatsLabel.sanity_color.getBlue()+")";;
+			String mg = "("+StatsLabel.magic_color.getRed()+","+StatsLabel.magic_color.getGreen()+","+StatsLabel.magic_color.getBlue()+")";;
+			write.write("Background:"+bg+"<>"+"Text:"+tt+"<>"+"Life:"+vd+"<>"+"Sanity:"+st+"<>"+"Magic:"+mg);
 			write.newLine();
 		}catch(IOException e){
 			e.printStackTrace();
@@ -419,6 +512,23 @@ public class Menu {
 		return line;
 	}
 	
+	public static String loadColors() {
+		String line = "";
+		File file = new File("colors.txt");
+		if(file.exists()) {
+			try {
+				String singleLine = null;
+				BufferedReader reader = new BufferedReader(new FileReader("colors.txt"));
+				try {
+					while((singleLine = reader.readLine()) != null) {
+						line+=singleLine;
+					}	
+				}catch(IOException e) {}
+			}catch(FileNotFoundException e) {}
+		}
+		return line;
+	}
+	
 	public static void loadSave(String save) {
 		String[] global = save.split("/");
 		for(int i = 0; i < global.length; i++) {
@@ -466,7 +576,6 @@ public class Menu {
 								}else if(((StatsLabel) e).labels.get(ii) instanceof CheckBox) {
 									String[] check = infos[ii+1-dices].split("<>");
 									((CheckBox) ((StatsLabel) e).labels.get(ii)).getArrayList().get(0).text = check[0];
-									System.out.println(check[0]);
 									((CheckBox) ((StatsLabel) e).labels.get(ii)).setChecked(Boolean.parseBoolean(check[0]));
 								}else {
 									dices++;

@@ -40,6 +40,8 @@ public class TextLabel extends Label{
 	private int size;
 	private boolean firstTime = false;
 	
+	public static Color text_color = Color.white;
+	
 	public TextLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, Font font, 
 			Color color, String text, int typeText, boolean limiter) {
 		super(x, y-font.getSize2D()/1.5, width, height, speed, sprite);
@@ -47,7 +49,7 @@ public class TextLabel extends Label{
 		initX = x;
 		size = 0;
 		initW = width;
-		this.font = Menu.specialElite.deriveFont(font.getSize2D()-2);
+		this.font = Menu.curFont.deriveFont(font.getSize2D()-2);
 		this.color = color;
 		this.text = text;
 		this.showText = text;
@@ -128,6 +130,7 @@ public class TextLabel extends Label{
 			this.initW = g.getFontMetrics().stringWidth(showText);
 			firstTime=true;
 		}
+		g.setColor(text_color);
 		if(!goDown) {
 			g.drawString(showText, getX(), imaginaryY - Game.roller.getY()*Game.roller.step);
 			if((!writing) && text.equals("")){
@@ -136,11 +139,10 @@ public class TextLabel extends Label{
 				this.width = g.getFontMetrics().stringWidth(showText);
 			}
 		}else {
-			drawString(g, showText, getX(), imaginaryY 
+			drawStringT(g, showText, getX(), imaginaryY 
 					- g.getFontMetrics().getHeight()
 					-Game.roller.getY()*Game.roller.step);
 		}
-		
 		if(writing && show && !goDown) {
 			g.setColor(Color.white);
 			g.drawLine(getX()+width, getY()-Game.roller.getY()*Game.roller.step, getX()+width, getY()+height-Game.roller.getY()*Game.roller.step);
@@ -150,7 +152,7 @@ public class TextLabel extends Label{
 		}	
 	}
 	
-	private void drawString(Graphics g, String text, int x, int y) {
+	private void drawStringT(Graphics g, String text, int x, int y) {
 		this.height = 0;
 		int i = 0;
 		int maxLines = maxChars/maxLine;
@@ -173,6 +175,11 @@ public class TextLabel extends Label{
 			height+=g.getFontMetrics().getHeight();
 		}
 	}
+	
+	public static void drawString(Graphics g, String text, int x, int y) {
+		 for (String line : text.split("\n"))
+            g.drawString(line, x, y += g.getFontMetrics().getHeight());
+	 }
 	
 	public void textBox(boolean goDown, int maxLine, int maxChars, int maxW) {
 		this.maxLine = maxLine;

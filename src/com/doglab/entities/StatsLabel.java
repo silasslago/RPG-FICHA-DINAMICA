@@ -9,14 +9,13 @@ import com.doglab.main.Game;
 
 public class StatsLabel extends Label{
 
+	public static Color life_color = Color.RED, sanity_color = Color.BLUE, magic_color = Color.WHITE;
+	
 	private BufferedImage barL, barS, barO;
 	private TextLabel life, sani, ocul, extrada, corpo, expPar, lifePlayer, maxLie, sanityPlayer,
 	maxSanityPlayer, ocultismoPlayer, maxOcultismoPlayer, body, extraDamage,paranormalExp, arm,
 	armadura;
 	private Dice dice;
-	private Color lifeColor = new Color(0xFF500101),
-			sanityColor = new Color(0xFF001752), 
-			oculColor = new Color(0xFF2F014F);
 	private int inLocal = 0;
 
 	public StatsLabel(double x, double y, int width, int height, double speed, BufferedImage sprite) {
@@ -61,7 +60,7 @@ public class StatsLabel extends Label{
 		labels.add(cb5);
 		
 		ocul = new TextLabel(getX(), getY()+175, 70, 13, 0, null, new Font("sitka banner", Font.BOLD, 15), 
-				new Color(0xFFE8EDEB), "Ocultismo", 0, false);
+				new Color(0xFFE8EDEB), "Pontos de Magia", 0, false);
 		ocultismoPlayer = new TextLabel(getX()+150, getY()+203, 15, 29, 0, null, new Font("sitka banner", Font.BOLD, 31), 
 				new Color(0xFFE8EDEB), "1", 2, true);
 		ocultismoPlayer.canClick(true);
@@ -93,8 +92,8 @@ public class StatsLabel extends Label{
 		TextLabel dAmount = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "1", 0, true);
 		TextLabel dLados = new TextLabel(0, 0, 0, 0, 0, null, new Font("arial", Font.BOLD, 1), null, "100", 0, true);
 		dice = new Dice(getX()+270, getY()+90, 54, 48, 0, Game.spr_entities.getSprite(0, 156, 76, 71), 
-				dLados, paranormalExp, dAmount, true, false);
-
+				dLados, paranormalExp, dAmount, true, false, sani);
+		
 		labels.add(dice);
 		labels.add(maxLie);
 		labels.add(lifePlayer);
@@ -220,17 +219,29 @@ public class StatsLabel extends Label{
 			e.render(g);
 		}
 		try{
-			g.drawImage(barL,getX()+inLocal, getY()+inLocal+20-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 25, null);
+			if(Integer.parseInt(this.maxLie.text) != 0) {
+				g.drawImage(barO,getX()+inLocal, getY()+inLocal+20-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 25, null);
+				g.setColor(new Color(life_color.getRed() ,life_color.getGreen(), life_color.getBlue(), 210));
+				g.fillRect(getX()+inLocal, getY()+inLocal+20-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.lifePlayer.text))/Integer.parseInt(this.maxLie.text), 25);
+			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try{
-			g.drawImage(barS, getX()+inLocal, getY()+inLocal+100-Game.roller.getY()*Game.roller.step, (260*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 25, null);
+			if(Integer.parseInt(this.maxSanityPlayer.text) != 0) {
+				g.drawImage(barO, getX()+inLocal, getY()+inLocal+100-Game.roller.getY()*Game.roller.step, (260*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 25, null);
+				g.setColor(new Color(sanity_color.getRed() ,sanity_color.getGreen(), sanity_color.getBlue(), 210));
+				g.fillRect(getX()+inLocal, getY()+inLocal+100-Game.roller.getY()*Game.roller.step, (260*Integer.parseInt(this.sanityPlayer.text))/Integer.parseInt(this.maxSanityPlayer.text), 25);
+			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try{
-			g.drawImage(barO, getX()+inLocal, getY()+inLocal+180-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 25,null);
+			if(Integer.parseInt(this.maxOcultismoPlayer.text) != 0) {
+				g.drawImage(barO, getX()+inLocal, getY()+inLocal+180-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 25,null);
+				g.setColor(new Color(magic_color.getRed() ,magic_color.getGreen(), magic_color.getBlue(), 210));
+				g.fillRect(getX()+inLocal, getY()+inLocal+180-Game.roller.getY()*Game.roller.step, (320*Integer.parseInt(this.ocultismoPlayer.text))/Integer.parseInt(this.maxOcultismoPlayer.text), 25);
+			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}

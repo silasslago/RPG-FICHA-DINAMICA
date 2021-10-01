@@ -124,12 +124,10 @@ public class ReadmeLabel extends Label{
 		Game.setCursor(icon);
 	}
 	
-	 private void drawString(Graphics g, String text, int x, int y) {
-		 for (String line : text.split("\n"))
-	            g.drawString(line, x, y += g.getFontMetrics().getHeight());
-	 }
-	
 	public void render(Graphics g) {
+		Graphics2D g2D = (Graphics2D) g;
+		g.setColor(new Color(0, 0, 0, 200));
+		g.fillRect(0, 0, Game.WIDTH*Game.SCALE, Game.HEIGHT*Game.SCALE);
 		super.render(g);
 		g.setColor(new Color(0xFFE8EDEB));
 		g.setFont(new Font("sitka banner", Font.BOLD, 51));
@@ -161,10 +159,9 @@ public class ReadmeLabel extends Label{
 				+ "https://dogoso.github.io/doglab/index.html \n"
 				+ "\n"
 				+ "Agradecemos desde já por sua atenção :) - Sigam-nos no twitter! @Dogoso4";
-		drawString(g, s, getX()+30, getY()+80);
+		TextLabel.drawString(g, s, getX()+30, getY()+80);
 		g.setColor(new Color(0xFF424242));
 		g.drawString("(clique aqui para fechar!)", getX()+210, getY()+getHeight()-10);
-		Graphics2D g2D = (Graphics2D)g;
 		String s2 = "@Dogoso4";
 		String s3 = "@jvdutrag";
 		String s4 = "https://dogoso.github.io/doglab/index.html";

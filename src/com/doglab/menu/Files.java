@@ -30,14 +30,14 @@ public class Files{
 	
 	public Files() {
 		labels = new ArrayList<Label>();
-		Addition adt = new Addition(50, 130, 180, 250);
+		Addition adt = new Addition(50+Menu.margin, 130, 180, 250);
 		labels.add(adt);
 		int width = 10;
 		roller = new Roller(Game.WIDTH-width, 0, width, 170, 4, null, false,
 				Game.WIDTH-width, 0, width, Game.HEIGHT);
 		cm = new ArrayList<Label>();
 		insideFolders = labels;
-		btn = new HomeButton(90, 100, 26, 25);
+		btn = new HomeButton(90+Menu.margin, 100, 26, 25);
 		firstTime = true;
 		
 		File online = new File("files/Online");
@@ -67,7 +67,7 @@ public class Files{
 			labelIAmount = 1;
 			labelPAmount = 0;
 			labelMAmount = 0;
-			Addition adt = new Addition(50, 130, 180, 250);
+			Addition adt = new Addition(50+Menu.margin, 130, 180, 250);
 			insideFolders.clear();
 			insideFolders.add(adt);
 			File cur = new File("files");
@@ -108,7 +108,7 @@ public class Files{
 				this.connect = false;
 			}
 		}
-		Entity e = new Entity(126, 100 - roller.getY()*roller.step, 26, 26, 0, null);
+		Entity e = new Entity(126+Menu.margin, 100 - roller.getY()*roller.step, 26, 26, 0, null);
 		if(e.isColliding(e, Game.mouseController)) {
 			Game.mouseController.resetPosition();
 			this.connect = true;
@@ -124,7 +124,7 @@ public class Files{
 	}
 	
 	public void render(Graphics g) {
-		g.setFont(Menu.specialElite.deriveFont(80.0f));
+		g.setFont(Menu.curFont.deriveFont(80.0f));
 		g.setColor(new Color(0xFFE8EDEB));
 		g.drawString("FICHAS", Game.WIDTH*Game.SCALE/2 - g.getFontMetrics().stringWidth("FICHAS") / 2, 90-Game.files.roller.getY()*Game.files.roller.step);
 		roller.render(g);
@@ -132,7 +132,7 @@ public class Files{
 			insideFolders.get(i).render(g);
 		}
 		btn.render(g);
-		g.drawImage(Game.spr_entities.getSprite(200, 130, 26, 26), 126, 100-Game.files.roller.getY()*Game.files.roller.step, 26, 25, null);
+		g.drawImage(Game.spr_entities.getSprite(200, 130, 26, 26), 126+Menu.margin, 100-Game.files.roller.getY()*Game.files.roller.step, 26, 25, null);
 		if(!Label.tick) {
 			cm.get(0).render(g);
 		}

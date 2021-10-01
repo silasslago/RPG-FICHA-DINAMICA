@@ -7,10 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.doglab.api.API;
 import com.doglab.entities.Entity;
 import com.doglab.entities.Label;
 import com.doglab.main.Game;
@@ -188,7 +184,7 @@ public class Character extends Label{
 		// ------
 		g.drawImage(bar, getX()+15, getY()+185-Game.files.roller.getY()*Game.files.roller.step, 150, 20, null);
 		g.setColor(new Color(0xFFE8EDEB));
-		g.setFont(Menu.specialElite.deriveFont(25.0f));
+		g.setFont(Menu.curFont.deriveFont(25.0f));
 		g.drawString(fileName.replace(".txt", ""), getX()+getWidth()/2 - g.getFontMetrics().stringWidth(fileName.replace(".txt", ""))/2, getY()+getHeight()-75 -Game.files.roller.getY()*Game.files.roller.step);
 		g.setColor(Color.WHITE);
 		

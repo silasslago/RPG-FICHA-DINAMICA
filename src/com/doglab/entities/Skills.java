@@ -234,6 +234,7 @@ public class Skills extends Label{
 			searchBar.setWidth(140);
 		
 			if(!searchBar.text.equals("")) {
+				roller.setY(getY());
 				String bar = searchBar.text;
 				currents.clear();
 				for(SquareTextLabel sTL : squares) {
@@ -286,7 +287,7 @@ public class Skills extends Label{
 			
 		}
 	}
-	
+
 	public void render(Graphics g){
 		super.render(g);
 		g.setColor(new Color(0xFFE8EDEB));

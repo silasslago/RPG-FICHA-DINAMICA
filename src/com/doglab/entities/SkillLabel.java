@@ -69,7 +69,9 @@ public class SkillLabel extends Label{
 				Font.BOLD, 16), new Color(0xFFE8EDEB) ,skillName, 1, false);
 		labels.add(tNome);
 		dice = new Dice(getX(), getY(), getWidth(), getHeight(), 0, 
-				Game.spr_entities.getSprite(0, 156, 76, 71), (TextLabel)sTL.dice.labels.get(1), (TextLabel)sTL.dice.labels.get(0), (TextLabel)sTL.dice.labels.get(2), true, true);
+				Game.spr_entities.getSprite(0, 156, 76, 71), (TextLabel)sTL.dice.labels.get(1), 
+				(TextLabel)sTL.dice.labels.get(0), (TextLabel)sTL.dice.labels.get(2), 
+				true, true, tNome);
 	
 		deleteB.setX(getX()+getWidth()-21);
 		deleteB.setY(getY()+5);

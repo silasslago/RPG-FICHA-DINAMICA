@@ -4,7 +4,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -40,8 +39,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Spritesheet spr_entities, bars;
 	private Bootsplash bootsplash;
 	public static List<Entity> entities;
-	public static int WIDTH = 680;
-	public static int HEIGHT = 698;
+	public static int WIDTH = 0;
+	public static int HEIGHT = 0;
 	private static JFrame frame;
 	public static JFileChooser fileChooser;
 	private boolean isRunning;
@@ -59,8 +58,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Files files;
 	public static boolean tick = true;
 
-	private boolean setF = false;
-	private boolean fullscreen = true;
+	private boolean setF = true;
+	private boolean fullscreen = false;
 
 	public static int portugues = 0, english = 1;
 	public static int language = portugues;
@@ -69,7 +68,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static String roomCode = "null", actor = "null";
 	public static boolean online = false;
 	
+	public static Color BG_COLOR = new Color(0xFF000000);
+	
 	public Game() {
+		WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		Menu.margin = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/4;
 		File filesFolder = new File("files");
 		if(!filesFolder.exists()) {
 			filesFolder.mkdir();
@@ -90,7 +94,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0,0,0,0,0, null);
 		menu = new Menu(0, 0);
 		int width = 10;
-		roller = new Roller(Game.WIDTH-width, 0, width, 115, 7, null, false,
+		roller = new Roller(Game.WIDTH-width, 0, width, 195, 7, null, false,
 				Game.WIDTH-width, 0, width, Game.HEIGHT);
 		entities.add(roller);
 		entities.add(player);
@@ -113,7 +117,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			e.printStackTrace();
 		}
 		frame.setIconImage(icon);
-		frame.setVisible(true);
 	}
 	
 	public static void setCursor(Image icon) {
@@ -240,7 +243,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 		Graphics g = getBI().getGraphics();
 		// Background
-		g.setColor(new Color(0xFF000000));
+		g.setColor(BG_COLOR);
 		g.fillRect(0, 0, getThisWidth(), getThisHeight());
 
 		// Renderização do jogo
@@ -271,7 +274,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			int size = 140;
 			g.fillRect(Game.WIDTH-size, 20, size, 70);
 			g.setColor(new Color(255, 255, 255));
-			g.setFont(Menu.specialElite.deriveFont(16.0f));
+			g.setFont(Menu.curFont.deriveFont(16.0f));
 			g.drawLine(Game.WIDTH-size+10, 25, Game.WIDTH-size+10, 85);
 			g.drawString("Sala: ", Game.WIDTH-size+20, 60);
 			g.drawString(Game.roomCode, Game.WIDTH-size+20, 80);
@@ -280,12 +283,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 		g.dispose();
 		g = bs.getDrawGraphics();
-		if(fullscreen) {
-			g.drawImage(getBI(), 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
-		}else {
-			g.drawImage(getBI(), 0, 0, (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(), 
-					(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight(), null);
-		}
+		g.drawImage(getBI(), 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		bs.show();
 	}
 	
@@ -298,7 +296,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		int frames = 0;
 		double timer = System.currentTimeMillis();
 		while(isRunning) {
-			requestFocus();
 			long now = System.nanoTime();
 			delta+= (now - lastTime) / ns;
 			lastTime = now;
@@ -319,10 +316,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(mouseController.currentTextLabel.throwPhrase) {
-			mouseController.currentTextLabel.buildPhrase(e.getKeyChar());
+		if(mouseController.currentTextLabel != null) {
+			if(mouseController.currentTextLabel.throwPhrase) {
+				mouseController.currentTextLabel.buildPhrase(e.getKeyChar());
+			}
 		}
-		
 	}
 
 	@Override
@@ -377,7 +375,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public BufferedImage getBI() {
 		return image;
 	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent m) {
 		

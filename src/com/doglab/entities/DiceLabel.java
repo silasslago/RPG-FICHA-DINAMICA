@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.doglab.main.Game;
 import com.doglab.main.Menu;
@@ -26,10 +29,12 @@ public class DiceLabel extends Label{
 	
 	private CloseButton close;
 	private String[] plus;
+	private String dicePlayed;
 	
 	public DiceLabel(double x, double y, int width, int height, double speed, BufferedImage sprite, int[] random,
-			String state, String[] plus) {
+			String state, String[] plus, String dicePlayed) {
 		super(x, y, width, height, speed, sprite);
+		this.dicePlayed = dicePlayed;
 		this.plus = plus;
 		diceH = sprite.getHeight();
 		diceW = sprite.getWidth();
@@ -41,6 +46,20 @@ public class DiceLabel extends Label{
 		int heightB = 25;
 		close = new CloseButton(getX()+getWidth()-(int)(widthB*1.5), getY()+(int)(heightB/2), widthB, heightB, 
 				0, Game.spr_entities.getSprite(76, 181, 25, 25), this);
+		
+		String valores = "";
+		for(int i = 0; i < random.length; i++) {
+			valores+=Integer.toString(random[i]);
+			if(!(i+1==random.length)) {
+				valores+="+";
+			}
+		}
+		for(Entity e : Game.entities) {
+			if(e instanceof DetailsLabel) {
+				HistoryLabel.newLog(state, dicePlayed, valores, ((TextLabel) ((DetailsLabel) e).labels.get(8)).text);
+				break;
+			}
+		}
 		changeTickers();
 	}
 	
@@ -79,7 +98,7 @@ public class DiceLabel extends Label{
 			int go = 0;
 			String values = "";
 			for(int i = 0; i < roll.length; i++) {
-				g.setFont(Menu.specialElite.deriveFont(48.0f));
+				g.setFont(Menu.curFont.deriveFont(48.0f));
 				String rollPlus = Integer.toString(roll[i]);
 				values+=rollPlus;
 				if(i+2<=roll.length) {
@@ -95,11 +114,11 @@ public class DiceLabel extends Label{
 			}
 			g.drawString(values, getX()+getWidth()/2 - g.getFontMetrics().stringWidth(values)/2, diceY+30);
 			if(roll.length>1 && go<roll.length-1) {
-				g.setFont(Menu.specialElite.deriveFont(23.0f));
+				g.setFont(Menu.curFont.deriveFont(23.0f));
 				g.drawString("+", plusA+(r*go), diceY+25);
 			}
 			if(roll.length==1) {
-				g.setFont(Menu.specialElite.deriveFont(18.0f));
+				g.setFont(Menu.curFont.deriveFont(18.0f));
 				if(state != null) {
 					g.drawString(state, getX()+getWidth()/2 - g.getFontMetrics().stringWidth(state)/2, diceY+60);
 				}
@@ -108,13 +127,13 @@ public class DiceLabel extends Label{
 				for(int i = 0; i < roll.length; i++) {
 					result+=roll[i];
 				}
-				g.setFont(Menu.specialElite.deriveFont(18.0f));
+				g.setFont(Menu.curFont.deriveFont(18.0f));
 				String resultPlus = "= "+result;
 				g.drawString(resultPlus, getX()+getWidth()/2 - g.getFontMetrics().stringWidth(resultPlus)/2, diceY+60);
 			}
 			
 		}
-		g.setFont(Menu.specialElite.deriveFont(18.0f));
+		g.setFont(Menu.curFont.deriveFont(18.0f));
 		g.drawString("Roll", getX()+getWidth()/2 - g.getFontMetrics().stringWidth("Roll")/2, getY()+20);
 		g.setColor(new Color(0xFFE8EDEB));
 		g.drawLine(getX(), getY()+30, getX()+getWidth(), getY()+30);

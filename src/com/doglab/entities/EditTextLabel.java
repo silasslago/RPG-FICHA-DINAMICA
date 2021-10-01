@@ -38,7 +38,7 @@ public class EditTextLabel extends Label{
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(Color.WHITE);
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
-		g.setFont(Menu.specialElite.deriveFont(18.0f));
+		g.setFont(Menu.curFont.deriveFont(18.0f));
 		g.drawString("Editar", getX()+150, getY()+20);
 		g.drawString("Deseja alterar o texto selecionado?", getX()+12, getY()+70);
 		g.drawString("Sim", getX()+80, getY()+125);

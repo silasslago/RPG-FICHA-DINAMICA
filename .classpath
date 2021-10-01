@@ -7,9 +7,9 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
-	<classpathentry kind="lib" path="C:/Users/GAMERS 2.0/Documents/La pastita/apache/commons-lang3-3.12.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/GAMERS 2.0/eclipse-workspace/RPG-FICHA-DINAMICA/res/java-json.jar"/>
-	<classpathentry kind="lib" path="C:/Users/GAMERS 2.0/eclipse-workspace/RPG-FICHA-DINAMICA/res/commons-lang3-3.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/GAMERS 2.0/eclipse-workspace/RPG-FICHA-DINAMICA/res/commons-text-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/juanf/eclipse-workspace/RPG-FICHA-DINAMICA/res/commons-lang3-3.12.0.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Archives/eclipse-workspace/RPG-FICHA-DINAMICA/res/java-json.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Archives/eclipse-workspace/RPG-FICHA-DINAMICA/res/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Archives/eclipse-workspace/RPG-FICHA-DINAMICA/res/commons-text-1.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

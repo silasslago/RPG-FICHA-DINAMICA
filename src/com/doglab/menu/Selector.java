@@ -11,8 +11,8 @@ import com.doglab.main.Menu;
 public class Selector extends Label{
 
 	private String[] options;
-	private int current = 0;
-	private boolean show = false;
+	protected int current = 0;
+	protected boolean show = false;
 	
 	public Selector(double x, double y, String[] options) {
 		super(x, y, 100, 30, 0, null);
@@ -40,7 +40,7 @@ public class Selector extends Label{
 	}
 	
 	public void render(Graphics g) {
-		g.setFont(Menu.specialElite.deriveFont(20.0f));
+		g.setFont(Menu.curFont.deriveFont(20.0f));
 		g.setColor(new Color(0xFFE8EDEB));
 		if(!show) {
 			super.render(g);

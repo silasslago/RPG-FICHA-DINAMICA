@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.doglab.api.API;
 import com.doglab.entities.CloseButton;
 import com.doglab.entities.Entity;
+import com.doglab.entities.HistoryLabel;
 import com.doglab.entities.Label;
 import com.doglab.entities.TextLabel;
 import com.doglab.main.Game;
@@ -58,18 +59,19 @@ public class ConnectLabel extends Label{
 		String[] op = new String[2];
 		op[0] = "Mestre";
 		op[1] = "Jogador";
-		Selector slct = new Selector(getX()+getWidth()/2 - 100/2, getY()+getHeight()/2+70, op);
+		Selector slct = new Selector(getX()+getWidth()/2 - 100/2, getY()+getHeight()-100, op);
 		labels.add(slct);
 		
 		TextLabel room = new TextLabel(getX()+30, getY()+228, 50, 20, 0, null,
 				new Font("Arial", Font.BOLD, 23), new Color(0xFFE8EDEB), "0123456789", 0, false);
 		room.canClick(true);
+		
 		this.labels.add(room);
-		//39ad5357f3
 		this.changeTickers();
 	}
 	
 	public void tick() {
+		
 		if(!Game.online) {
 			// Se não estiver conectando, os ticks são chamados
 			if(!isRunning) {
@@ -85,6 +87,27 @@ public class ConnectLabel extends Label{
 			if(this.isColliding(Game.mouseController, connect)) {
 				Game.mouseController.resetPosition();
 				isRunning = true;
+				httpConnect = new Thread() {
+					 public void run(){
+						 long lastTime = System.nanoTime();
+						double amountOfTicks = 60.0; // FPS
+						double ns = 1000000000 / amountOfTicks;
+						double delta = 0;
+						double timer = System.currentTimeMillis();
+						while(isRunning) {
+							long now = System.nanoTime();
+							delta+= (now - lastTime) / ns;
+							lastTime = now;
+							if(delta >= 1) { // Executar
+								goToRoom();
+								delta--;
+							}
+							if(System.currentTimeMillis() - timer >= 1000) { // Monstrar o FPS no console
+								timer = System.currentTimeMillis();
+							}
+						}
+					 }
+				};
 				this.httpConnect.start();
 			}
 			
@@ -94,6 +117,27 @@ public class ConnectLabel extends Label{
 				Game.mouseController.resetPosition();
 				createFirst = true;
 				isRunning = true;
+				httpConnect = new Thread() {
+					 public void run(){
+						 long lastTime = System.nanoTime();
+						double amountOfTicks = 60.0; // FPS
+						double ns = 1000000000 / amountOfTicks;
+						double delta = 0;
+						double timer = System.currentTimeMillis();
+						while(isRunning) {
+							long now = System.nanoTime();
+							delta+= (now - lastTime) / ns;
+							lastTime = now;
+							if(delta >= 1) { // Executar
+								goToRoom();
+								delta--;
+							}
+							if(System.currentTimeMillis() - timer >= 1000) { // Monstrar o FPS no console
+								timer = System.currentTimeMillis();
+							}
+						}
+					 }
+				};
 				this.httpConnect.start();
 			}
 			
@@ -116,7 +160,6 @@ public class ConnectLabel extends Label{
 			Entity dc = new Entity(getX()+110, getY()+100, 140, 35, 0, null);
 			if(this.isColliding(Game.mouseController, dc)) {
 				Game.mouseController.resetPosition();
-				
 				Game.files.btn.actionPerformed();
 				// Abre a pasta
 				if(Game.actor.equals("Mestre")) {
@@ -140,6 +183,8 @@ public class ConnectLabel extends Label{
 				Game.online = false;
 				Game.actor = "null";
 				Game.roomCode = "null";
+				HistoryLabel.historic = "";
+				HistoryLabel.diceTable = "";
 			}
 		}
 		close.tick();
@@ -149,28 +194,30 @@ public class ConnectLabel extends Label{
 		g.setColor(new Color(0, 0, 0, 150));
 		g.fillRect(0, 0, Game.WIDTH*Game.SCALE, Game.HEIGHT*Game.SCALE);
 		g.setColor(new Color(0xFF000000));
-		g.fillRect(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight());
+		g.fillRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(new Color(0xFF424242));
-		g.drawRect(getX(), getY()-Game.roller.getY()*Game.roller.step, getWidth(), getHeight());
+		g.drawRect(getX(), getY(), getWidth(), getHeight());
 		// Se não estiver conectando, tudo é renderizado
 		if(!Game.online) {
 			if(!isRunning) {
 				g.setColor(Color.WHITE);
-				g.setFont(Menu.specialElite.deriveFont(44.0f));
+				g.setFont(Menu.curFont.deriveFont(44.0f));
 				g.drawString("SALAS", 
 						(getX()+getWidth()/2)-g.getFontMetrics().stringWidth("SALAS")/2,
 						getY()+g.getFontMetrics().getHeight()+30);
-				g.setFont(Menu.specialElite.deriveFont(20.0f));
+				g.setFont(Menu.curFont.deriveFont(34.0f));
+				g.setFont(Menu.curFont.deriveFont(20.0f));
 				g.drawString("Código da sala:", getX()+25, getY()+200);
 				g.setColor(Color.GRAY);
 				g.fillRect(getX()+115, getY()+290, 120, 35);
 				g.fillRect(getX()+115, getY()+100, 120, 35);
 				g.setColor(Color.black);
-				g.drawString("Conectar", getX()+130, getY()+315);
-				g.drawString("Criar Sala", getX()+120, getY()+125);
+				g.drawString("Conectar", getX()+132, getY()+315);
+				g.drawString("Criar Sala", getX()+126, getY()+125);
 				g.setColor(Color.DARK_GRAY);
 				g.drawLine(getX()+20, getY()+160, getX()+getWidth()-20, getY()+160);
 				g.drawRect(getX()+25, getY()+205, 300, 30);
+				
 				for(Entity l : this.labels) {
 					l.render(g);
 				}
@@ -178,7 +225,7 @@ public class ConnectLabel extends Label{
 				g.setColor(Color.WHITE);
 				int size = 20;
 				g.fillOval(getX()+(getWidth()/2)-size/2, getY()-65+current, size, size);
-				g.setFont(Menu.specialElite.deriveFont(20.0f));
+				g.setFont(Menu.curFont.deriveFont(20.0f));
 				g.drawString(this.con, getX()+(getWidth()/2) - g.getFontMetrics().stringWidth(con)/2 , getY()+200);
 				if(con.indexOf("...") != -1) {
 					con = "Conectando";
@@ -188,7 +235,7 @@ public class ConnectLabel extends Label{
 			}
 		}else {
 			g.setColor(Color.WHITE);
-			g.setFont(Menu.specialElite.deriveFont(20.0f));
+			g.setFont(Menu.curFont.deriveFont(20.0f));
 			g.drawString("Conectado!", getX()+(getWidth()/2) - g.getFontMetrics().stringWidth("Conectado!")/2 , getY()+200);
 			g.setColor(Color.GRAY);
 			g.fillRect(getX()+110, getY()+100, 140, 35);
@@ -199,7 +246,6 @@ public class ConnectLabel extends Label{
 	}
 
 	public void goToRoom() {
-		
 		if(createFirst) {
 			try {
 				((TextLabel) labels.get(1)).text = API.generateNewPage();
@@ -215,11 +261,12 @@ public class ConnectLabel extends Label{
 				JOptionPane.showMessageDialog(null, "Error [001]! Sala não encontrada.");
 				Game.roomCode = "null";
 				Game.actor = "null";
+				Game.online = false;
 			}else {
+				HistoryLabel.historic = "";
 				Game.online = true;
 				JSONObject jsonObject = new JSONObject(page.replace("<p>", "").replace("</p>", ""));
 				if(Game.actor.equals("Mestre")) {
-					
 					Game.files.btn.actionPerformed();
 					//Cria a pasta com todos os players
 					CreationMenu cm = new CreationMenu(0, 0, 0, 0);
@@ -275,13 +322,12 @@ public class ConnectLabel extends Label{
 						}
 					}
 				}
+				Game.on.start();
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		isRunning = false;
-		Game.on.start();
-		this.httpConnect.stop();
 	}
 	
 }

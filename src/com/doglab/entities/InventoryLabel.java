@@ -52,24 +52,24 @@ public class InventoryLabel extends Label{
 				new Color(0xFFE8EDEB), "INVENTÁRIO", 1, false);
 		labels.add(inventario);
 		
-		TextLabel peso = new TextLabel(getX()+275, getY()+49, 57, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		TextLabel peso = new TextLabel(getX()+275, getY()+49, 57, 11, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Peso Total: ", 1, false);
-		pesoAmount = new TextLabel(getX()+340, getY()+49, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		pesoAmount = new TextLabel(getX()+350, getY()+49, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "0.0", 0, true);
 		labels.add(peso);
 		labels.add(pesoAmount);
 		
-		TextLabel dinheiro = new TextLabel(getX()+15, getY()+75, 50, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		TextLabel dinheiro = new TextLabel(getX()+15, getY()+75, 50, 11, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Dinheiro: ", 0, false);
-		TextLabel dinheiroAmount = new TextLabel(getX()+83, getY()+75, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		TextLabel dinheiroAmount = new TextLabel(getX()+83, getY()+75, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "0", 0, false);
 		dinheiroAmount.canClick(true);
 		labels.add(dinheiro);
 		labels.add(dinheiroAmount);
 		
-		TextLabel patrimonio = new TextLabel(getX()+15, getY()+90, 62, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		TextLabel patrimonio = new TextLabel(getX()+15, getY()+90, 62, 11, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "Patrimonio: ", 0, false);
-		TextLabel patrimonioAmount = new TextLabel(getX()+100, getY()+90, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 13), 
+		TextLabel patrimonioAmount = new TextLabel(getX()+100, getY()+90, 10, 11, 0, null, new Font("sitka banner", Font.BOLD, 15), 
 				new Color(0xFFE8EDEB), "0", 0, false);
 		patrimonioAmount.canClick(true);
 		labels.add(patrimonio);
