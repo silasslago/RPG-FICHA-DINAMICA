@@ -396,8 +396,10 @@ public class Menu {
 								rit+=medium;
 							}
 							if(!(ii+1<r.labels.size())) {
-								String quote = Matcher.quoteReplacement("\\");
-								rit+=r.path.replaceAll(quote, "@");
+								if(r.path!=null) {
+									String quote = Matcher.quoteReplacement("\\");
+									rit+=r.path.replaceAll(quote, "@");
+								}
 								rit+=medium;
 							}
 						}
