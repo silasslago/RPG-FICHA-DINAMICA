@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -177,6 +178,9 @@ public class Menu {
 	
 	public static void saveGame(String line) {
 		File file = new File(current);
+		if(current.equals("")) {
+			return;
+		}
 		if(file.exists()) {
 			file.delete();
 		}
@@ -311,7 +315,8 @@ public class Menu {
 					finalDet+=bigger;
 				}else if(e instanceof IconLabel) {
 					finalDet+="Icon"+medium;
-					finalDet+=((CharacterIcon) ((IconLabel) e).labels.get(0)).path;
+					String quote = Matcher.quoteReplacement("\\");
+					finalDet+=((CharacterIcon) ((IconLabel) e).labels.get(0)).path.replaceAll(quote, "@");
 					finalDet+=bigger;
 				}else if(e instanceof FastSkillsLabel){
 					String fstSK = "FastSkillsLabel"+medium;
@@ -391,7 +396,8 @@ public class Menu {
 								rit+=medium;
 							}
 							if(!(ii+1<r.labels.size())) {
-								rit+=r.path;
+								String quote = Matcher.quoteReplacement("\\");
+								rit+=r.path.replaceAll(quote, "@");
 								rit+=medium;
 							}
 						}
@@ -511,6 +517,7 @@ public class Menu {
 		}
 		return line;
 	}
+	
 	
 	public static String loadColors() {
 		String line = "";
@@ -643,9 +650,12 @@ public class Menu {
 					}
 					break;
 				case "Icon":
-					for(Entity e : Game.entities) {
-						if(e instanceof IconLabel) {
-							((CharacterIcon) ((IconLabel) e).labels.get(0)).setIcon2(infos[1]);
+					if(!Game.online) {
+						for(Entity e : Game.entities) {
+							if(e instanceof IconLabel) {
+								String quote = Matcher.quoteReplacement("\\");
+								((CharacterIcon) ((IconLabel) e).labels.get(0)).setIcon2(infos[1].replaceAll("@", quote));
+							}
 						}
 					}
 					break;
@@ -808,7 +818,10 @@ public class Menu {
 								int minus = 0;
 								for(int iii = ii*11; iii < 11*(ii+1)+minus; iii++) {
 									if(!(iii+1 < 11*(ii+1)+minus)) {
-										((Rituals) e).getRituals().get(ii).setIcon2(infos[iii+2-minus]);
+										if(!Game.online) {
+											String quote = Matcher.quoteReplacement("\\");
+											((Rituals) e).getRituals().get(ii).setIcon2(infos[iii+2-minus].replace("@", quote));
+										}
 										continue;
 									}
 									if(((Rituals) e).getRituals().get(ii).labels.get(iii-ii*11) instanceof TextLabel) {
@@ -999,7 +1012,6 @@ public class Menu {
 		return retorno;
 	}
 
-	
 	public int getX() {
 		return x;
 	}

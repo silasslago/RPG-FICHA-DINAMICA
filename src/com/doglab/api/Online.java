@@ -1,5 +1,8 @@
 package com.doglab.api;
 
+import java.io.File;
+import java.util.Arrays;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,6 +39,7 @@ public class Online implements Runnable{
 						String page = both[0];
 						HistoryLabel.historic = API.readPage(both[1]).replace("<p>", "").replace("</p>", "");
 						JSONObject jsonObject = new JSONObject(page.replace("<p>", "").replace("</p>", ""));
+						deleteUnknowCharacters(jsonObject);
 						for(int i = 1; i < 7; i++) {
 							String player = (String) jsonObject.get("Slot "+i);
 							if(!player.equals("Vazio")) {
@@ -52,6 +56,7 @@ public class Online implements Runnable{
 						
 					} catch (JSONException e) {
 						disconnect();
+						e.printStackTrace();
 					}
 				}else if(Game.actor.equals("Jogador")) {
 					API.slot = "Slot "+ API.current;
@@ -60,6 +65,7 @@ public class Online implements Runnable{
 						HistoryLabel.diceTable = both[1].replace("<p>", "").replace("</p>","");
 					} catch (JSONException e1) {
 						disconnect();
+						e1.printStackTrace();
 					}
 					try {
 						if(Game.gameState == "FICHA") {
@@ -67,6 +73,7 @@ public class Online implements Runnable{
 						}
 					} catch (JSONException e) { 
 						disconnect();
+						e.printStackTrace();
 					}
 				}
 				delta--;
@@ -78,14 +85,52 @@ public class Online implements Runnable{
 		disconnect();
 	}
 
+	public void deleteUnknowCharacters(JSONObject characters) {
+		
+		File onlineFolder = new File("files/Online");
+		String[] fileNames = onlineFolder.list();
+		boolean[] deletes = new boolean[fileNames.length];
+		Arrays.fill(deletes, true);
+		for(int i = 1; i < 20; i++) {
+			String g = "";
+			try {
+				g = (String) characters.get("Slot "+i);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			String charName = Menu.returnName(g);
+
+			filesNames:
+			for(int ii = 0; ii < fileNames.length; ii++) {
+				String curFile = fileNames[ii].replace(".txt", "");
+				if(charName.equals(curFile)) {
+					deletes[ii] = false;
+					break filesNames;
+				}
+			}
+		}
+		
+		for(int i = 0; i < deletes.length; i++) {
+			if(deletes[i]) {
+				File file = new File("files/Online/"+fileNames[i]);
+				file.delete();
+				Game.files.btn.actionPerformed();
+			}
+		}
+		
+	}
+	
 	public static void disconnect() {
+		try {
+			API.updatePage(Game.roomCode, "Vazio");
+		} catch (JSONException e) { 
+			e.printStackTrace(); 
+		}
 		Game.online = false;
 		Game.actor = "null";
 		Game.roomCode = "null";
 		HistoryLabel.historic = "";
-		try {
-			API.updatePage(Game.roomCode, "Vazio");
-		} catch (JSONException eee) { eee.printStackTrace(); }
 	}
 	
 }

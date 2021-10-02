@@ -39,7 +39,6 @@ public class Addition extends Label{
 		g.setColor(new Color(0xFF151515));
 		g.fillRect(getX(), getY()-Game.files.roller.getY()*Game.files.roller.step, getWidth(), getHeight());
 		g.setColor(new Color(0xFFFF4246));
-		//g.drawRect(getX(), getY()-Game.files.roller.getY()*Game.files.roller.step, getWidth(), getHeight());
 		for(int i = 0; i < labels.size(); i++) {
 			Entity e = labels.get(i);
 			e.render(g);

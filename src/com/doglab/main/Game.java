@@ -330,7 +330,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-	
 	}
 	
 	// SETTERS

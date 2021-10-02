@@ -57,8 +57,8 @@ public class ConnectLabel extends Label{
 				0, Game.spr_entities.getSprite(76, 181, 25, 25), this);
 		
 		String[] op = new String[2];
-		op[0] = "Mestre";
-		op[1] = "Jogador";
+		op[0] = "Jogador";
+		op[1] = "Mestre";
 		Selector slct = new Selector(getX()+getWidth()/2 - 100/2, getY()+getHeight()-100, op);
 		labels.add(slct);
 		
@@ -249,12 +249,15 @@ public class ConnectLabel extends Label{
 		if(createFirst) {
 			try {
 				((TextLabel) labels.get(1)).text = API.generateNewPage();
+				Game.actor = "Mestre";
+				Game.roomCode = ((TextLabel) labels.get(1)).text;
 			} catch (JSONException e) { e.printStackTrace(); }
 			createFirst = false;
+		}else {
+			Game.roomCode = ((TextLabel) labels.get(1)).text;
+			Game.actor = ((Selector) labels.get(0)).getSelection();
 		}
-		
-		Game.roomCode = ((TextLabel) labels.get(1)).text;
-		Game.actor = ((Selector) labels.get(0)).getSelection();
+
 		try {
 			String page = API.readPage(Game.roomCode);
 			if(page == null) {

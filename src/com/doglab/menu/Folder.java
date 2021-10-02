@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.event.MenuDragMouseEvent;
+
 import com.doglab.entities.Entity;
 import com.doglab.entities.Label;
 import com.doglab.main.Game;
@@ -29,7 +31,7 @@ public class Folder extends Label{
 		folder = Game.spr_entities.getSprite(196, 0, 57, 36);
 		File folder = new File(Game.files.getCurPath()+fileName+"/");
 		folder.mkdirs();
-		Addition adt = new Addition(50, 130, 180, 250);
+		Addition adt = new Addition(50+Menu.margin, 130, 180, 250);
 		files.add(adt);
 		del = Game.spr_entities.getSprite(76, 181, 25, 25);
 	}

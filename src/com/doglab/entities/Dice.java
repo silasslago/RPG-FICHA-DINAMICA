@@ -371,7 +371,9 @@ public class Dice extends Entity{
 				}
 				
 				if(this.show) {
+					
 					if(typeRoll) { // maior
+						/*
 						if(value[0] > d-(stat/5)) {
 							currentState = state5;
 						}else if(value[0] > d-(stat/2)) {
@@ -382,6 +384,18 @@ public class Dice extends Entity{
 							currentState = state1;
 						}else if(value[0] <= d-stat) {
 							currentState = state2;
+						}
+						*/
+						if(value[0]==1) {
+							currentState = state1;
+						}else if(value[0]==2 || value[0]==3) {
+							currentState = state2;
+						}if(value[0] > d-(stat/5)) {
+							currentState = state5;
+						}else if(value[0] > d-(stat/2)) {
+							currentState = state4;
+						}else {
+							currentState = state3;
 						}
 					}else { // menor
 						if(value[0] <= stat) {
